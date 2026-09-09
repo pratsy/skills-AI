@@ -1,74 +1,78 @@
-# Skills AI
+# B2B Agent Skills for Sales, Marketing, and GTM
 
-This workspace contains the starting structure for a personal GitHub portfolio of B2B AI revenue skill libraries.
+Curated AI skill libraries for B2B sales, marketing, revenue operations, and go-to-market teams.
 
-## Public-facing repo strategy
+This project contains structured playbooks for AI agents that support real revenue work across the funnel: prospecting, discovery, qualification, pipeline health, ICP refinement, campaign optimization, messaging clarity, account prioritization, and competitor intelligence.
 
-The public GitHub repos should look like a curated, research-informed operating library for B2B revenue teams.
+## Why this exists
 
-They should not expose:
+Most AI tools are generic. B2B revenue teams need operational, repeatable playbooks for real work.
 
-- internal writing drafts
-- brainstorming notes
-- raw experimentation logs
-- daily publishing plans
-- unstable prompt iterations
-- low-quality or speculative material
+This library focuses on the motions that matter most in modern GTM execution:
 
-They should instead present:
+- lead prioritization
+- sales discovery and qualification
+- deal risk analysis
+- forecast quality and pipeline health
+- ICP and positioning refinement
+- campaign performance diagnosis
+- ABM targeting and prioritization
+- market and competitor intelligence
 
-- clear skill taxonomy
-- practical B2B use cases
-- structured playbooks
-- prompt templates
-- example outputs
-- evaluation rubrics
-- cited source references
-- practitioner-informed synthesis
+## What is included
 
-## Public repo split
+This repo includes a collection of public-facing skill packs organized by domain:
 
-### Public repos
+- `b2b-agent-skills` — flagship library and shared taxonomy
+- `b2b-agent-skills-sales` — sales execution and qualification skills
+- `b2b-agent-skills-marketing` — marketing, messaging, and demand gen skills
+- `b2b-agent-skills-revops` — pipeline, forecasting, and operational quality skills
+- `b2b-agent-skills-gtm` — strategic GTM and market intelligence skills
 
-- `b2b-agent-skills` — flagship library
-- `b2b-agent-skills-sales` — sales playbooks
-- `b2b-agent-skills-marketing` — marketing playbooks
-- `b2b-agent-skills-revops` — RevOps and pipeline operations
-- `b2b-agent-skills-gtm` — GTM intelligence and strategy
+Each skill contains:
 
-### Private working layer
-
-Use local notes, Notion, Obsidian, or a private repo for:
-
-- daily planning
-- rough drafts
-- experiments
-- unpolished prompts
-- internal brainstorming
-- release planning
-
-## Standards for all public content
-
-Each public skill should include:
-
-- business problem
-- use case
-- inputs
-- outputs
-- workflow
+- business problem and use case
+- inputs and outputs
+- workflow guidance
 - prompt template
-- sample output
-- rubric
-- references and sources
+- example output
+- evaluation rubric
+- source references
 
-The framing should sound like a curated operating library, not a raw AI notebook.
+## Source-backed and practitioner-informed
 
-## Initial starter skills
+This library is informed by public B2B sales, marketing, RevOps, and GTM frameworks from Salesforce, HubSpot, Gong, McKinsey, Gartner, Forrester, Demandbase, 6sense, Bombora, and related public industry resources.
 
-- lead-prioritization-agent
-- discovery-question-generator
-- icp-refinement-agent
+## How to use it
 
-## Next step
+Browse by function and start with the skill pack relevant to your motion. Each repo is organized around a common operating pattern:
 
-Continue building more skills under each repo, keep the taxonomy consistent, and maintain a polished public-facing library that implies research-backed operational value rather than daily experimentation noise.
+1. identify the GTM problem
+2. define the input signals
+3. run the skill or workflow
+4. evaluate the output against business criteria
+5. iterate for operational fit
+
+## Repo map
+
+- `b2b-agent-skills` — shared overview, taxonomy, and curated playbook library
+- `b2b-agent-skills-sales` — sales, qualification, negotiation, and pipeline skills
+- `b2b-agent-skills-marketing` — messaging, campaign, lifecycle, and ABM skills
+- `b2b-agent-skills-revops` — forecasting, pipeline quality, reporting, and process health
+- `b2b-agent-skills-gtm` — competitor monitoring, market intelligence, and strategic prioritization
+
+## Current focus
+
+The project is intentionally organized around practical B2B revenue workflows rather than generic AI prompts.
+
+This makes it useful for:
+
+- GTM operators
+- sales leaders and reps
+- marketing teams and growth leaders
+- revenue operations teams
+- market and competitive intelligence workflows
+
+## Notes
+
+This is meant to be a curated operating library for B2B revenue teams, grounded in public industry practice and structured for real-world workflow use.
