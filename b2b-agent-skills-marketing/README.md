@@ -19,6 +19,9 @@ Open-source AI playbooks for B2B marketing strategy, messaging, campaign optimiz
 - campaign-performance-diagnostician
 - abm-account-priority-ranker
 - value-proposition-tester
+- brand-positioning-synthesizer
+- audience-segmentation-optimizer
+- nurture-sequence-architect
 
 ## Research basis
 
