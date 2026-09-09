@@ -29,7 +29,7 @@ This library focuses on the motions that matter most in modern GTM execution:
 
 ## What is included
 
-This repo includes a collection of public-facing skill packs organized by domain:
+This repo is organized as a single public hub with domain-specific skill libraries:
 
 - `b2b-agent-skills` — flagship library and shared taxonomy
 - `b2b-agent-skills-sales` — sales execution and qualification skills
@@ -83,4 +83,4 @@ This makes it useful for:
 
 ## Notes
 
-This is meant to be a curated operating library for B2B revenue teams, grounded in public industry practice and structured for real-world workflow use.
+This is a curated operating library for B2B revenue teams, grounded in public industry practice and structured for real-world workflow use.
