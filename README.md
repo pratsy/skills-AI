@@ -19,6 +19,14 @@ This library focuses on the motions that matter most in modern GTM execution:
 - ABM targeting and prioritization
 - market and competitor intelligence
 
+## Featured skill families
+
+- Sales execution: qualification, objections, pricing, negotiation, forecasting
+- Marketing systems: messaging, lifecycle, ABM, landing page conversion, content planning
+- RevOps and analytics: pipeline quality, attribution, CRM hygiene, handoff audits
+- GTM intelligence: market scanning, competitor monitoring, strategic account prioritization
+- Revenue operating workflows: deal reviews, account planning, executive briefings, pipeline health
+
 ## What is included
 
 This repo includes a collection of public-facing skill packs organized by domain:

@@ -1,33 +1,37 @@
 # B2B AI Skills for Sales, Marketing, and GTM
 
-Research-informed AI skill libraries for B2B sales, marketing, revenue operations, and go-to-market teams.
+Curated AI skill libraries for B2B sales, marketing, revenue operations, and go-to-market teams.
 
-## Focus
+## About
 
-This profile is built around a public, curated library of AI playbooks for modern revenue teams.
+I build and curate practical AI playbooks for modern revenue teams — focused on the workflows that actually drive pipeline, conversion, and GTM execution.
 
-### Repos
+## Core focus
 
-- `b2b-agent-skills` — flagship library
-- `b2b-agent-skills-sales` — sales skill packs
-- `b2b-agent-skills-marketing` — marketing skill packs
+- sales execution and qualification
+- marketing strategy and demand generation
+- revenue operations and forecasting quality
+- GTM intelligence and competitive insight
+- operational AI playbooks for B2B teams
+
+## Featured repos
+
+- `b2b-agent-skills` — flagship library and overarching taxonomy
+- `b2b-agent-skills-sales` — sales playbooks
+- `b2b-agent-skills-marketing` — marketing playbooks
 - `b2b-agent-skills-revops` — RevOps and forecasting playbooks
 - `b2b-agent-skills-gtm` — GTM intelligence and strategy packs
 
-## What this is
+## What this work includes
 
-A practical library of B2B revenue AI skills shaped around real operating motions:
+- structured skill definitions
+- workflow-driven prompts
+- business use cases
+- evaluation rubrics
+- example outputs
+- source-backed references
 
-- lead prioritization
-- sales discovery and qualification
-- deal risk assessment
-- pipeline health analysis
-- messaging and ICP refinement
-- campaign performance diagnosis
-- account prioritization
-- competitive and market intelligence
-
-## Public source base
+## Source base
 
 This work is informed by public B2B sales, marketing, RevOps, and GTM references from:
 
@@ -43,4 +47,4 @@ This work is informed by public B2B sales, marketing, RevOps, and GTM references
 
 ## Positioning
 
-Built as a research-informed, operationally grounded B2B GTM skill library rather than a raw prompt dump.
+Built as a practitioner-informed, operationally grounded B2B GTM skill library rather than a raw prompt dump.
