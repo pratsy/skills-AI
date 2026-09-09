@@ -1,0 +1,18 @@
+# Public source base and framework references
+
+## GTM reference base
+
+This repo is informed by public GTM strategy, market intelligence, competitor monitoring, and strategic planning methods used in B2B growth teams.
+
+### Main references
+
+- McKinsey Growth & Sales — https://www.mckinsey.com/capabilities/growth-marketing-and-sales
+- Gartner strategy resources — https://www.gartner.com/en
+- Forrester Research — https://www.forrester.com/
+- Salesforce Blog — https://www.salesforce.com/blog/
+- HubSpot Blog — https://blog.hubspot.com/
+- Demandbase and 6sense public educational content on ABM and buyer intelligence
+
+### How these inform this repo
+
+These references help structure account prioritization, competitive intelligence, market trend synthesis, and strategic GTM operating insight in a practical B2B setting.
