@@ -25,18 +25,18 @@ Please do not add:
 
 ## Suggested contribution format
 
-When adding a skill or improving an existing one, include:
+Every skill in this repo follows the same structure — use a pack's `skills/skill-template.md` (e.g. [`b2b-agent-skills-sales/skills/skill-template.md`](b2b-agent-skills-sales/skills/skill-template.md)) as the reference layout:
 
-- purpose
-- business use case
-- inputs
-- outputs
-- workflow
-- prompt template
-- example output
-- evaluation rubric
-- source references
+- when to use it, in concrete situations
+- the named, checkable methodology it operationalizes (not a vague "informed by industry practice" claim)
+- an explicit scoring model or decision rubric
+- an input schema and one fully worked example with real numbers
+- common failure patterns specific to that method
+- an output JSON schema
+- what the skill is grounded in, linking to the pack's `sources-and-frameworks.md`
+
+Before adding a new skill, check the pack's existing skills for overlap — if your idea is a variation on one that already exists, improve that skill instead of adding a near-duplicate.
 
 ## Review expectations
 
-Keep the work polished, operationally useful, and grounded in real GTM problems.
+Keep the work polished, operationally useful, and grounded in a real, named methodology — not a generic restatement of a business problem.
