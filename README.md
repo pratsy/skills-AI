@@ -22,6 +22,7 @@ Sales leaders, marketing and lifecycle teams, RevOps and forecasting teams, GTM 
 
 Supporting folders:
 
+- [`.claude/skills/`](.claude/skills/) — 15 of these skills packaged as real Claude Code Skills you can invoke directly, not just read
 - [`skills_ai/`](skills_ai/) — a small Python SDK that runs a subset of skills programmatically (template rendering, provider abstraction, output evaluation). Most skills in this repo are designed to be used as prompts directly; `skills_ai` currently wires up five of them end-to-end as a reference implementation for anyone who wants to run skills in code rather than copy-paste them. See [`skills_ai/README.md`](skills_ai/README.md).
 - [`docs/prompt-packs.md`](docs/prompt-packs.md) — copy-paste prompts by role, as a faster on-ramp than reading a full skill README
 - [`examples/`](examples/) — sample input fixtures and a webhook app example
@@ -40,13 +41,17 @@ For role-specific prompts you can copy-paste immediately, see [`docs/prompt-pack
 
 ## Every skill follows the same structure
 
-- **Why this skill exists** — the business problem, in plain language
-- **Business objective** — the single question the skill answers
-- **Expert memory layer** — the patterns an experienced operator would recognize
-- **Inputs / Decision logic / Common failure patterns**
-- **Outputs** and an **example result**
+- **When to use this** — concrete situations, not an abstract pitch
+- **Methodology** — the named, checkable framework it operationalizes (MEDDPICC, SPIN, the Value Proposition Canvas, TAM/SAM/SOM, and others — see each pack's `sources-and-frameworks.md`)
+- **Scoring model / decision logic** — an explicit formula or rubric, not a narrative
+- **Inputs**, a fully **worked example** with real numbers, and **common failure patterns** specific to that method
+- **Output schema** — so the skill can be wired into a pipeline, not just pasted as a prompt
 - **Recommended prompt** — ready to paste
-- **Source basis** — the practice area it's grounded in, linking to the pack's [sources-and-frameworks.md](b2b-agent-skills-sales/sources-and-frameworks.md) for the full reference list
+- **Grounded in** — what the skill is built on, linking to the pack's `sources-and-frameworks.md` for the full reference list
+
+## Use these directly in Claude Code
+
+15 of the strongest skills — spanning all four domains — are packaged as real [Claude Code Skills](https://code.claude.com/docs/en/skills) in [`.claude/skills/`](.claude/skills/), not just markdown to copy-paste. Clone this repo and open Claude Code anywhere inside it, and Claude can invoke `deal-risk-assessor`, `pipeline-health-monitor`, `market-sizing-modeler`, and 12 others directly against your own data. Copy any of those folders into your own project's `.claude/skills/` to use them there — no install step. See [`.claude/skills/README.md`](.claude/skills/README.md) for the full list and how to add more.
 
 ## Using skills in code
 
