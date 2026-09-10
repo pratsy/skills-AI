@@ -283,3 +283,46 @@ The value is immediate when a person sees a business problem they already have:
 - “We are reacting to market shifts too late.”
 
 This repo gives people a structured way to work through those problems.
+
+## Copy-paste business examples
+
+These are plain-English prompts anyone in a revenue team can understand and use immediately.
+
+### Sales priority prompt
+
+> Review the list of accounts below and rank them by strategic priority, buying urgency, fit, and likely commercial value. For each account, explain why it deserves attention now or later and suggest the next best sales action.
+
+### Marketing diagnosis prompt
+
+> Analyze the campaign, funnel, and audience data below. Identify the most likely bottlenecks in the customer journey, the content or message gaps creating friction, and the highest-priority opportunities to improve conversion.
+
+### Pipeline risk prompt
+
+> Review the current pipeline data and identify stage health issues, forecast risk, and likely sources of bias. Highlight which deals are likely overstated, which segments are underperforming, and what operational changes would improve forecast quality.
+
+### Market intelligence prompt
+
+> Review the market, competitor, and customer signal data below. Identify the strongest market shifts, the most important competitor themes, and the business implications for our GTM positioning and account strategy.
+
+### Founder alignment prompt
+
+> Summarize the recent sales, marketing, and market signal data and identify the top business issues, the highest-value opportunities, and the actions that should be prioritized in the next 30 days.
+
+## Why people should use this repo
+
+You should use this repo if your team has to make better decisions with less guesswork across the revenue engine.
+
+If your challenge is one of these, this is for you:
+- too much pipeline, not enough clarity
+- campaigns are active but conversion is weak
+- sales is working hard but not focusing on the right deals
+- messaging is inconsistent across the funnel
+- forecast accuracy is unreliable
+- competitor shifts are happening faster than the team can react
+
+This repo helps convert messy operational signals into clearer next steps.
+
+## Quick link
+
+- Business use cases: `docs/business-use-cases.md`
+- Skill usage guide: `docs/skill-usage.md`
