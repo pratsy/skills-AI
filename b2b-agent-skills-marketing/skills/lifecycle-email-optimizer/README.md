@@ -1,81 +1,75 @@
 # Lifecycle Email Optimizer
 
-## Why this skill exists
+Diagnose underperforming lifecycle email programs (welcome, activation, nurture, win-back) against stage-specific benchmarks, and isolate whether the problem is deliverability, subject/open, or content/click — instead of optimizing subject lines on a program that's actually failing at a different layer.
 
-Email journeys fail when they are optimized for volume instead of buyer readiness.
+## When to use this
 
-This skill helps teams improve lifecycle email strategy so each message matches a buyer stage, supports a real action, and reduces the risk of low-conversion or irrelevant communication.
+- Open rates look fine but the program isn't driving the intended lifecycle outcome (activation, reactivation, expansion).
+- You manage multiple lifecycle stages and need to know which one is actually underperforming, not just "email performance" in aggregate.
+- Deliverability may be degrading and it's showing up as an "engagement" problem instead.
 
-## Business objective
+## Methodology
 
-This skill helps the team answer:
+Every lifecycle email program sits in one of four stages, each with a different job and different benchmark ranges (use trailing internal medians once you have ≥90 days of your own data; use the ranges below as a starting point):
 
-> Which lifecycle messages are most relevant to the buyer journey, and how should the email flow improve engagement and progression?
+| Stage | Job | Typical open rate | Typical CTR | Primary success metric |
+|---|---|---|---|---|
+| **Welcome** (first 0-7 days) | Set expectations, drive first activation action | 50–60% | 8–12% | % completing first key action |
+| **Activation** (7-30 days) | Get the user to the product's core value moment | 35–45% | 5–8% | activation rate, time-to-value |
+| **Nurture/engagement** (ongoing) | Sustain usage, surface underused features | 20–30% | 2–4% | feature adoption, usage frequency |
+| **Win-back** (post-churn/dormancy) | Re-activate a lapsed user or account | 12–20% | 1–3% | reactivation rate |
 
-## Expert memory layer
+## Diagnostic sequence (layered — check in order)
 
-Strong lifecycle programs learn to align message and timing with buyer intent.
+A program can fail at any of three layers; fixing content when deliverability is broken wastes the effort:
 
-Patterns that matter include:
-
-- sequences that feel generic instead of context-aware
-- content that sends buyers backward instead of forward in the funnel
-- over-sending without a real reason or next step
-- failure to adapt email writing to buyer maturity or concern
-
-This skill structures those patterns into a more useful lifecycle plan.
+1. **Deliverability**: is the send actually reaching the inbox? Check bounce rate (should be <2%) and spam-complaint rate (should be <0.1%). If either is elevated, everything downstream is unreliable — fix this first.
+2. **Open** (subject/sender/timing): if deliverability is healthy but open rate is below the stage benchmark, the subject line, sender name, or send time is the issue — not the body content.
+3. **Click/action** (content/CTA): if open rate is at or above benchmark but CTR or the stage's success metric is below benchmark, the body content, offer, or CTA is the issue.
 
 ## Inputs
 
-- lifecycle stages and audience segments
-- current email sequence or nurture flow
-- buyer journey context and engagement behavior
-- common objections or questions by stage
-- conversion and engagement signals
+| Field | Type | Example |
+|---|---|---|
+| `lifecycle_stage` | enum | `welcome \| activation \| nurture \| winback` |
+| `send_metrics` | object | `{"sent": 5000, "bounced": 45, "spam_complaints": 3, "opened": 1400, "clicked": 210}` |
+| `stage_success_metric` | object | e.g. `{"metric": "activation_rate", "value": 0.18, "benchmark": 0.30}` |
+| `internal_benchmark_rates` | object (optional) | trailing internal medians per stage, if available |
 
-## Decision logic
+## Worked example
 
-A high-quality lifecycle email flow should:
+Activation-stage email: sent 5,000, bounced 45 (0.9%, healthy), spam complaints 3 (0.06%, healthy) → **deliverability layer passes**.
+Opened 1,400/4,955 delivered = 28.3% — below the 35–45% activation benchmark → **open layer fails**.
+Clicked 210/1,400 opens = 15% CTR — actually *above* the 5–8% benchmark for those who did open.
 
-1. match message to buyer stage and need
-2. reinforce the buyer’s current concern or question
-3. provide a useful next action rather than generic content
-4. support conversion or progression without friction
-5. adapt to the segment’s behavior and level of urgency
-
-The best email system is designed around attention and next-step logic.
+Diagnosis: the content that gets opened is working well (high CTR among openers); the problem is entirely at the open layer — subject line, sender name, or send timing — not the email body. Optimizing body copy here would not move the metric that's actually broken.
 
 ## Common failure patterns
 
-- sending the same email to all lifecycle stages
-- creating volume without stronger buyer relevance
-- ignoring the actual buyer question in each stage
-- using heavily promotional language without trust-building proof
-- over-optimizing for opens while ignoring real progression or conversion
+- Optimizing subject lines when deliverability is the real problem (elevated bounce/spam rates suppress opens regardless of subject quality, and can also suppress future deliverability via sender reputation).
+- Comparing a win-back program's metrics to a welcome-series benchmark — the same "28% open rate" is a red flag in welcome and a fine result in win-back.
+- Judging the program only on open/click rates instead of the stage's actual success metric (activation rate, reactivation rate) — high engagement with no lifecycle outcome is a content-relevance problem, not a win.
+- Re-testing subject lines repeatedly on a program where CTR-among-openers is already fine, missing that the real fix is elsewhere in the funnel.
 
-## Outputs
+## Output schema
 
-- lifecycle email recommendations
-- stage-by-stage messaging plan
-- email angle and CTA suggestions
-- gaps in the existing journey
-- optimization ideas for engagement and conversion
-
-## Example result
-
-### Lifecycle message recommendation
-- For early-stage buyers: focus on pain and relevance, with a small proof-based follow-up.
-- For mid-funnel buyers: emphasize business outcomes and comparison relevance.
-- For late-stage buyers: focus on proof, implementation confidence, and decision-support content.
+```json
+{
+  "lifecycle_stage": "activation",
+  "deliverability_layer": {"bounce_rate": 0.009, "spam_rate": 0.0006, "status": "pass"},
+  "open_layer": {"open_rate": 0.283, "benchmark_range": [0.35, 0.45], "status": "fail"},
+  "click_layer": {"ctr_among_opens": 0.15, "benchmark_range": [0.05, 0.08], "status": "pass"},
+  "diagnosis": "open-layer failure — subject/sender/timing issue, not content",
+  "recommended_action": "test subject line, sender name, and send-time changes; do not revise body content yet"
+}
+```
 
 ## Recommended prompt
 
-> You are a senior lifecycle marketing strategist. Review the audience, funnel stage, and current email flow and identify the highest-impact improvements in content, sequence logic, and message relevance.
+> You are a lifecycle email analyst. Given the lifecycle stage, send metrics, and stage success metric below, evaluate three layers in order: (1) deliverability — bounce rate should be under 2%, spam complaints under 0.1%; (2) open rate vs. the stage benchmark; (3) click-through rate among those who opened, vs. the stage benchmark. Identify the first layer (in that order) that fails, and state that as the diagnosis — do not recommend content changes if the failure is at the deliverability or open layer. Compare the stage success metric to its benchmark separately. Return JSON matching the schema above.
 
-## Source basis
+## Grounded in
 
-This skill is informed by public lifecycle marketing, email strategy, and customer journey optimization practices used in B2B growth programs.
+Standard lifecycle email segmentation (welcome / activation / nurture / win-back) used in B2B and PLG marketing automation, combined with a layered deliverability → open → click diagnostic sequence so the fix targets the actual broken layer instead of the most commonly-tweaked one (subject lines).
 
-## References
-
-See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the pack's general reference list.

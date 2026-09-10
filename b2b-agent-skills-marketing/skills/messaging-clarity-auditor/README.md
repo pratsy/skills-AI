@@ -1,80 +1,84 @@
 # Messaging Clarity Auditor
 
-## Why this skill exists
+Score a piece of messaging against a four-dimension clarity rubric — specificity, differentiation, proof, jargon load — instead of judging it on tone. Built to catch the most common B2B messaging failure: copy that is fluent, on-brand, and says nothing a competitor couldn't also claim.
 
-Strong messaging is not just clear writing. It is clear buying logic.
+## When to use this
 
-This skill helps teams evaluate whether the current positioning and messaging actually explain the value, urgency, and relevance to the buyer in a way they can understand quickly.
+- A page or deck "reads well" in review but reps say prospects don't remember it after the call.
+- You suspect messaging is generic (could apply to 3 competitors unchanged) but can't point to why.
+- You're auditing a large set of pages/assets for consistency before a rebrand or repositioning rollout.
 
-## Business objective
+## Methodology
 
-This skill helps the team answer:
+Four dimensions, each scored 1–5, applied sentence-by-sentence to the core claims (headline, subhead, and top 3 supporting points — not full body copy):
 
-> Is the message clear, specific, and persuasive enough to support buyer action?
+| Dimension | Test question | 1 (fails) | 5 (passes) |
+|---|---|---|---|
+| **Specificity** | Could this sentence describe a real, distinct thing, or does it use abstract nouns? | "We help you drive growth" | "We cut deal-risk review time from 3 hours to 15 minutes" |
+| **Differentiation** | If you swapped in a competitor's name, would the sentence still sound true? | Sentence survives the swap unchanged | Sentence becomes false or absurd with a competitor's name |
+| **Proof** | Is there a number, named customer, or mechanism backing the claim, or just an assertion? | "Trusted by leading teams" | "Used by 40+ RevOps teams; average 22% forecast variance reduction" |
+| **Jargon load** | Would a buyer's peer (not an industry insider) understand this without translation? | "Unlock synergistic pipeline velocity" | "See which deals are actually going to close" |
 
-## Expert memory layer
+## Scoring model
 
-Experienced marketing teams know that buyer confusion often hides behind vague or overly broad language.
+```
+Clarity Score (per sentence) = Specificity + Differentiation + Proof + Jargon_clarity   (4-20)
 
-Patterns that matter include:
+Sentence-level bands:
+17-20  Strong — safe to lead with
+12-16  Needs one fix — usually Proof or Differentiation
+< 12   Rewrite — generic enough to belong to any competitor
 
-- positioning that sounds polished but does not explain the real business value
-- jargon-heavy messaging that confuses rather than clarifies
-- content that is clear to internal teams but not to buyers
-- inconsistency across channels or buyer stages
-
-This skill captures those patterns into a structured message review.
+Page/asset score = average of headline + subhead + top 3 supporting points
+```
 
 ## Inputs
 
-- value propositions and messaging framework
-- landing pages and campaign copy
-- customer language and objections
-- sales call notes and feedback
-- buyer persona context
+| Field | Type | Example |
+|---|---|---|
+| `asset_type` | string | `"homepage hero"`, `"one-pager"`, `"email subject+body"` |
+| `core_claims` | list[string] | headline, subhead, and top supporting points, as separate strings |
+| `known_competitors` | list[string] | used for the differentiation swap test |
+| `available_proof_points` | list[string] | real stats/customers the team could cite, for rewrite suggestions |
 
-## Decision logic
+## Worked example
 
-A strong clarity review should evaluate:
+Claim: *"Our platform empowers revenue teams to unlock their full potential."*
 
-1. message simplicity and buyer comprehension
-2. specificity of the business problem and outcome
-3. relevance to buyer stage and role
-4. differentiation from alternative solutions
-5. proof and reason-to-believe quality
+- Specificity: 1 — "empowers," "unlock," "full potential" are abstract; nothing concrete is claimed.
+- Differentiation: 1 — swap in any competitor's name, the sentence still reads as true.
+- Proof: 1 — no number, name, or mechanism.
+- Jargon: 2 — not technical jargon, but marketing-abstraction jargon, same failure mode.
+- **Score: 5/20 — rewrite.**
 
-The best messaging is easy to understand and hard to confuse with alternatives.
+Rewrite using available proof point (22% forecast variance reduction, 40+ customers): *"40+ RevOps teams use [Product] to cut forecast variance by 22% — by scoring every deal's risk from live CRM data, not gut feel."*
+- Specificity: 5, Differentiation: 4 (a generic tool couldn't claim this specific mechanism+number), Proof: 5, Jargon: 4 — **Score: 18/20 — strong.**
 
 ## Common failure patterns
 
-- messaging that is broad but not specific
-- overly internal language instead of buyer language
-- lack of proof or differentiation in the message
-- inconsistent value framing across the funnel
-- poor message fit for the persona or buying stage
+- Auditing full paragraphs instead of isolating the core claims — supporting detail can mask a weak headline.
+- Scoring differentiation by asking "is this true about us" instead of "would this survive a competitor-name swap" — many true statements are still non-differentiating.
+- Accepting a high proof score for social-proof claims with no number ("trusted by leading teams" is not proof; "40+ teams" is).
+- Fixing jargon by simplifying vocabulary without adding specificity — plain language that's still vague scores no better.
 
-## Outputs
+## Output schema
 
-- message clarity assessment
-- confusing or weak claims
-- recommended message changes
-- proof and differentiation suggestions
-- performance or buyer feedback implications
-
-## Example result
-
-### Message clarity issue
-- The value proposition states broad business benefit but does not explain the customer’s real pain or expected outcome.
-- Recommendation: anchor the message in the operational problem, business outcome, and specific proof tied to customer use cases.
+```json
+{
+  "claims_scored": [
+    {"claim": "Our platform empowers revenue teams to unlock their full potential.", "specificity": 1, "differentiation": 1, "proof": 1, "jargon_clarity": 2, "total": 5, "band": "rewrite", "suggested_rewrite": "40+ RevOps teams use [Product] to cut forecast variance by 22%..."}
+  ],
+  "asset_score": 5,
+  "priority_fixes": ["headline lacks any proof point despite having usable stats available"]
+}
+```
 
 ## Recommended prompt
 
-> You are a senior messaging strategist. Review the current copy and positioning and assess whether it is clear, buyer-relevant, and persuasive. Identify the biggest clarity issues, explain where the message fails, and recommend how to improve it.
+> You are a messaging strategist. Score each core claim below on four dimensions (1-5 each): Specificity (concrete vs. abstract), Differentiation (would it survive having a named competitor swapped in?), Proof (backed by a number/name/mechanism, or just asserted?), and Jargon clarity (would a buyer's peer understand it unaided?). Sum to a 4-20 total per claim. For any claim scoring below 12, rewrite it using the available proof points provided, and re-score the rewrite. Return JSON matching the schema above.
 
-## Source basis
+## Grounded in
 
-This skill is informed by public value proposition, messaging strategy, and buyer-language practices used in strong B2B marketing teams.
+A specificity/differentiation/proof clarity rubric, consistent with the "so what, who cares, prove it" test used in B2B messaging review and the plain-language principle behind frameworks like StoryBrand (Donald Miller) — built to make "this messaging feels generic" an auditable, sentence-level finding instead of a subjective impression.
 
-## References
-
-See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the pack's general reference list.

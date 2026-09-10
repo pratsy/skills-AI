@@ -1,123 +1,88 @@
 # Content Gap Analysis Agent
 
-## Why this skill exists
+Map existing content against a buyer-journey-stage × persona matrix and score coverage, instead of listing "content ideas." Identifies exactly which stage/persona cells are empty or weak, using the funnel-stage content model demand-gen teams standardize on (early/problem-aware, mid/solution-aware, late/vendor-aware).
 
-Most marketing teams do not have a content problem in the abstract. They have a conversion problem caused by audience, message, and funnel misalignment.
+## When to use this
 
-This skill helps diagnose exactly where buyer interest drops and why.
+- Traffic is healthy but conversion to opportunity is weak, and you suspect content isn't supporting the actual buying decision.
+- You're planning next quarter's content calendar and want gaps prioritized by funnel impact, not by topic brainstorming.
+- Sales says prospects keep asking questions your content doesn't answer.
 
-It is built to identify the difference between:
+## Methodology
 
-- content that exists
-- content that actually supports the buying decision
-- content that matches buyer questions at the right stage
-- content that is vague, repetitive, or disconnected from real buying objections
+Build a coverage matrix: rows = buyer journey stages, columns = personas (or segments). Each cell needs at least one asset that satisfies both the stage's *job* and the persona's *concern*.
 
-This is not a generic copywriting prompt. It is a structured diagnostic for GTM messaging and funnel quality.
+| Stage | Buyer's job at this stage | What content must do |
+|---|---|---|
+| **Problem-aware** (early) | Realizing a problem exists and costs something | Name the problem in the buyer's own language; no product mention needed |
+| **Solution-aware** (mid) | Evaluating approaches/categories to solve it | Compare approaches; establish evaluation criteria |
+| **Vendor-aware** (late) | Choosing between specific vendors | Proof, differentiation, objection-handling, implementation detail |
 
-## Expert memory layer
+## Scoring model
 
-Strong marketing teams build memory around patterns like:
+For each stage × persona cell, score coverage 0–3:
 
-- which buyer stages consistently lack proof or explanation
-- which competitor messages are crowding out the team’s own positioning
-- which content topics create traction and which just add volume
-- where the funnel breaks because message clarity is weak or proof is missing
+```
+0 = no asset exists
+1 = an asset exists but doesn't address this persona's specific concern (generic)
+2 = an asset exists and addresses the persona, but lacks proof/specificity for the stage
+3 = a strong asset: stage-appropriate job + persona-specific concern + adequate proof
 
-This skill encodes those patterns into a practical review: content coverage, buyer-stage gaps, risk areas, and the next content opportunity.
+Matrix Coverage % = (sum of cell scores) / (num_cells × 3) × 100
+```
 
-## Business objective
-
-This skill helps a marketing team answer:
-
-> Where are we missing the content, proof, or buyer narrative needed to move people from interest to action?
+Cells scoring 0–1 at **vendor-aware** stage are highest priority — that's closest to the buying decision and most directly tied to conversion.
 
 ## Inputs
 
-- ICP and buyer persona details
-- current landing pages, blog content, nurture sequences, and email assets
-- campaign analytics and conversion data
-- sales call themes and common objections
-- competitor messaging examples
-- lifecycle or funnel-stage context
+| Field | Type | Example |
+|---|---|---|
+| `personas` | list[string] | `["RevOps Manager", "VP Sales", "CFO"]` |
+| `existing_content` | list[{title, format, target_persona, stage_estimate}] | current content inventory |
+| `sales_objection_themes` | list[string] | recurring objections from call notes — used to sanity-check vendor-aware coverage |
+| `conversion_data_by_stage` | object (optional) | drop-off rates by funnel stage if available |
 
-## Decision logic
+## Worked example
 
-A good gap analysis should look at four things:
+Personas: RevOps Manager, VP Sales, CFO. 3 stages × 3 personas = 9 cells, 27 max points.
 
-1. Buyer coverage: Are we addressing the real concerns at each stage?
-2. Message clarity: Is the value proposition obvious and specific?
-3. Proof strength: Do we have evidence that supports the claim?
-4. Funnel fit: Does the offer align with the buyer's current stage and intent?
+| | RevOps Manager | VP Sales | CFO |
+|---|---|---|---|
+| Problem-aware | 3 (blog: "Why forecasts miss") | 2 (generic, not VP-specific) | 0 |
+| Solution-aware | 3 (buyer's guide) | 1 (one generic comparison page) | 0 |
+| Vendor-aware | 2 (case study, but no ROI numbers) | 0 | 0 |
 
-When these are weak, conversion and engagement usually suffer even when traffic is healthy.
+Coverage = (3+2+0+3+1+0+2+0+0)/27 = 11/27 = **41%**.
+
+Highest-priority gap: **CFO, all three stages = 0**, and **VP Sales, vendor-aware = 0** — both are buying-committee roles with zero content, and vendor-aware is the stage closest to the deal. Sales objection theme "CFO pushes back on ROI" directly confirms this gap is costing deals, not just a content-inventory nicety.
 
 ## Common failure patterns
 
-This skill should guard against weak reasoning such as:
+- Building the matrix by persona/topic without the stage dimension, which hides that "we have lots of content for VP Sales" is all early-stage and none of it helps at the point deals actually stall.
+- Scoring an asset a 3 because it's well-produced, when it doesn't actually address the persona's specific concern (production quality isn't the same as coverage quality).
+- Treating every 0-cell as equally urgent instead of weighting by proximity to the buying decision (vendor-aware) and by whether sales objection data confirms it's actually costing deals.
+- Auditing content inventory without cross-checking against real objections/drop-off data — a coverage gap that doesn't show up in sales friction may not be a priority yet.
 
-- optimizing for volume instead of buying clarity
-- assuming more content is the same as better content
-- missing the stage-specific question behind the drop-off
-- treating competitor language as a substitute for real positioning
-- ignoring sales objections that reveal the real messaging problem
+## Output schema
 
-## Outputs
-
-A useful output should include:
-
-- the biggest content and messaging gaps
-- missing proof points or objections coverage
-- buyer-stage-specific recommendations
-- high-leverage opportunities for content creation
-- suggested landing page, nurture, or sales enablement improvements
-
-## Example result
-
-### High-priority gap: mid-funnel ROI explanation is weak
-- The buyer journey lacks clear proof for operational efficiency and cost impact.
-- Current content is centered on features rather than business outcome.
-- Recommendation: create a benchmark-based case study, calculator page, and ROI framework.
-
-### High-priority gap: trust and risk objections are not handled
-- Buyers are losing confidence before demo conversion.
-- Security, implementation, and customer proof content are not visible early enough.
-- Recommendation: add customer proof, implementation FAQ, and security overview content to the key funnel pages.
-
-### Messaging gap: value proposition is too broad
-- The positioning is not specific enough to different buyer segments.
-- Recommendation: tighten the message by segment and show clearer buyer-specific outcomes.
+```json
+{
+  "coverage_matrix": [
+    {"stage": "vendor-aware", "persona": "CFO", "score": 0, "existing_assets": []}
+  ],
+  "overall_coverage_pct": 41,
+  "priority_gaps": [
+    {"stage": "vendor-aware", "persona": "CFO", "confirmed_by_sales_objections": true, "recommended_asset": "ROI/TCO calculator or CFO-specific case study with hard numbers"}
+  ]
+}
+```
 
 ## Recommended prompt
 
-Use a prompt like this:
+> You are a content strategist. Build a buyer-journey-stage (problem-aware / solution-aware / vendor-aware) × persona coverage matrix from the content inventory below. Score each cell 0-3: 0=no asset, 1=generic asset not persona-specific, 2=persona-specific but lacking stage-appropriate proof, 3=strong stage+persona+proof fit. Compute overall coverage %. Rank gaps by priority, weighting vendor-aware-stage gaps and any gap confirmed by the sales objection themes provided as highest priority. Return JSON matching the schema above.
 
-> You are a senior B2B marketing strategist and funnel analyst. Review the content, buyer journey, and funnel performance below. Identify the biggest content gaps, stage-level messaging issues, and missing proof points that likely reduce conversion or engagement. Prioritize the highest-impact opportunities and suggest the specific content pieces or message changes that would improve the funnel.
+## Grounded in
 
-## Source basis
+The problem-aware / solution-aware / vendor-aware buyer-journey content model standard in B2B demand generation, combined with a persona × stage coverage-matrix method for making "content gap" a scored, auditable finding rather than a brainstorm.
 
-This skill is informed by public B2B marketing, lifecycle strategy, and buyer-journey practices used in growth and SaaS organizations, including:
-
-- lifecycle and funnel analysis methods
-- positioning and value proposition clarity work
-- customer journey friction diagnostics
-- demand generation and ABM content strategy patterns
-- content testing and conversion analysis methods
-
-## References
-
-See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.
-
-## Why this is different from a generic prompt
-
-This skill is not just “give me content ideas.”
-
-It is built to analyze the relationship between:
-
-- the actual buyer journey
-- the message being delivered
-- the content already present
-- the objections buyers are raising
-- the likely drop-off that occurs before conversion
-
-That is the real expert memory behind a useful marketing diagnostic.
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the pack's general reference list.

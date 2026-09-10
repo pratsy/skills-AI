@@ -7,16 +7,20 @@ def run(input_data: Dict, provider) -> Dict[str, Any]:
     base = Path(__file__).resolve().parents[2]
     tpl_path = base / "templates" / "brand_positioning_synthesizer.j2"
     context = {
-        "customer_interviews": input_data.get("customer_interviews"),
-        "competitor_notes": input_data.get("competitor_notes"),
-        "product_value": input_data.get("product_value"),
-        "icp": input_data.get("icp"),
+        "competitive_alternatives": input_data.get("competitive_alternatives"),
+        "product_attributes": input_data.get("product_attributes"),
+        "win_loss_notes": input_data.get("win_loss_notes"),
+        "customer_segments": input_data.get("customer_segments"),
+        "category_candidates": input_data.get("category_candidates"),
     }
     if tpl_path.exists():
         tpl = load_template_from_file(str(tpl_path))
         prompt = render_template(tpl, context)
     else:
-        prompt = render_template("""You are a B2B marketing strategist. Synthesize inputs into positioning.""", context)
+        prompt = render_template(
+            """Synthesize competitive alternatives, unique attributes, and target market evidence into a positioning statement.""",
+            context,
+        )
 
     raw = provider.generate(prompt)
     if isinstance(raw, dict):

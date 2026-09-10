@@ -1,7 +1,16 @@
-You are a growth strategist. Segment the audience using firmographic, behavioral, and intent data.
+You are a RevOps analyst applying a firmographic/technographic/engagement/intent segmentation model.
 
-Buyer Data: {{ buyer_data | default('n/a') }}
-Campaign Performance: {{ campaign_performance | default('n/a') }}
-Intent Signals: {{ intent_signals | default('n/a') }}
+ICP Definition: {{ icp_definition | default('n/a') }}
+Accounts: {{ accounts | default('n/a') }}
 
-Return a compact JSON object with keys: prioritized_segments (list of objects with name, fit_score, urgency_score), channel_recommendations (list).
+For each account, compute:
+- firmographic_fit (0-100): 100 if industry, size band, and geography all match the ICP; subtract 30 per partial mismatch, 50 per hard mismatch.
+- technographic_fit (0-100): 100 if a required/compatible tool is present with no blocking competitor tool, 50 if neutral, 0 if a locked-in competitor tool is present.
+- engagement_intensity (0-100): recency points (40 if touch in last 7d, 25 if last 30d, 10 if last 90d, 0 otherwise) + frequency points (touches_in_90d x 3, capped at 30) + depth points (sum of per-touch weight: pricing/demo=10, product page=6, blog/resource=2, capped at 30).
+- intent_signal (0-100): 100 for a sustained 2+ week topic surge, 60 for a single-week spike, 20 for baseline, and mark intent_data_available=false (do not score as 0) if no intent data exists for the account, reweighting the composite across the remaining components.
+
+Composite segment_fit_score = 0.35 x firmographic_fit + 0.25 x technographic_fit + 0.25 x engagement_intensity + 0.15 x intent_signal (reweight the remaining components proportionally if intent_data_available is false).
+
+Assign tier: 80-100 Tier 1 (named-account ABM), 60-79 Tier 2 (scaled ABM), 40-59 Tier 3 (programmatic), below 40 deprioritize.
+
+Return compact JSON with keys: scored_accounts (list of objects with account_id, firmographic_fit, technographic_fit, engagement_intensity, intent_signal, intent_data_available, segment_fit_score, tier, recommended_motion, rationale), tier_summary (object with tier_1, tier_2, tier_3, deprioritized counts), data_quality_flags (list).

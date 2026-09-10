@@ -1,6 +1,13 @@
 {
-  "customer_interviews": "Several customers cite integration and speed as top priorities.",
-  "competitor_notes": "Competitor X focuses on low-cost but complex deployment.",
-  "product_value": "Faster time-to-insight with low engineering overhead.",
-  "icp": "Mid-market ops leaders in SaaS and FinTech"
+  "competitive_alternatives": ["Manual spreadsheet tracking", "Clari", "Status quo / no tool"],
+  "product_attributes": ["Real-time CRM sync", "Explainable AI risk scoring", "No-code rule builder", "15-minute setup"],
+  "win_loss_notes": [
+    "40% of reps ignored the previous black-box tool's score because they couldn't see the reasoning.",
+    "Mid-market teams without a dedicated RevOps function cited setup complexity as the top reason for choosing us over Clari."
+  ],
+  "customer_segments": [
+    {"segment": "mid-market sales orgs, 50-300 reps, no dedicated RevOps", "size": "large", "current_alternative": "spreadsheets"},
+    {"segment": "enterprise sales orgs, 300+ reps, dedicated RevOps team", "size": "medium", "current_alternative": "Clari"}
+  ],
+  "category_candidates": ["AI deal risk scoring", "Revenue intelligence"]
 }

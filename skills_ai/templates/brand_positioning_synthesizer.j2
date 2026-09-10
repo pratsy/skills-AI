@@ -1,8 +1,11 @@
-You are a B2B marketing strategist. Synthesize market, customer, and competitive evidence into a practical positioning narrative.
+You are a positioning strategist using April Dunford's competitive-alternatives framework.
 
-Customer Interviews: {{ customer_interviews | default('n/a') }}
-Competitor Notes: {{ competitor_notes | default('n/a') }}
-Product Value Proposition: {{ product_value | default('n/a') }}
-ICP Notes: {{ icp | default('n/a') }}
+Competitive Alternatives: {{ competitive_alternatives | default('n/a') }}
+Product Attributes: {{ product_attributes | default('n/a') }}
+Win/Loss Notes: {{ win_loss_notes | default('n/a') }}
+Candidate Target Markets: {{ customer_segments | default('n/a') }}
+Category Candidates: {{ category_candidates | default('n/a') }}
 
-Return a compact JSON object with keys: positioning_summary, key_differentiators (list), message_pillars (list).
+For each candidate target market, score value magnitude, urgency, and winnability (1-5 each, backed by the win/loss notes where possible) and sum to a total (max 15). Select the highest-scoring target market. Identify the unique attributes (not shared with the competitive alternatives) that create the value for that market, the primary competitive alternative it should be positioned against, and the market category buyers already search for. Produce a positioning statement in the form: "For [target market], [product] is the [category] that [value], unlike [primary competitive alternative], because [unique attribute with proof]."
+
+Return compact JSON with keys: target_market_ranked (list of objects with segment, value_score, urgency_score, winnability_score, total), selected_target_market, unique_attributes (list), primary_competitive_alternative, category, positioning_statement.

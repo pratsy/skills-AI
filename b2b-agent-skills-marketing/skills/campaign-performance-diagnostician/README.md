@@ -1,79 +1,81 @@
 # Campaign Performance Diagnostician
 
-## Why this skill exists
+Diagnose *why* a campaign underperformed by walking the MQL→SQL→Opportunity→Closed-Won funnel stage by stage against benchmark conversion rates, instead of reporting only top-line metrics like impressions or leads.
 
-Marketing teams often see weak performance and assume the issue is the channel or tactic alone.
+## When to use this
 
-This skill helps diagnose the real cause behind poor performance by looking at audience fit, message quality, funnel friction, and conversion path quality.
+- A campaign hit its lead-volume target but pipeline contribution was weak, and nobody can say which stage broke.
+- You're comparing two campaigns with similar spend and wildly different pipeline outcomes.
+- Leadership wants to know whether to kill, scale, or fix a campaign before next quarter's budget is set.
 
-## Business objective
+## Methodology
 
-This skill helps the team answer:
+Walk the standard B2B demand funnel and compute the conversion rate at each transition, then compare each to a benchmark range (use your own trailing-12-month median by channel if you have ≥20 campaigns of history; the ranges below are industry-typical starting points if you don't):
 
-> Why is this campaign underperforming, and which changes are most likely to improve the quality of the result?
-
-## Expert memory layer
-
-Strong performance teams know that weak campaign output often comes from predictable problems:
-
-- the wrong audience or poor fit for the offer
-- message mismatch between the ad and the landing experience
-- weak proof or relevance at the decision point
-- channel behavior that looks promising but is not building qualified intent
-
-This skill turns those patterns into a structured diagnosis.
-
-## Inputs
-
-- campaign data and engagement metrics
-- audience and segment context
-- conversion and funnel performance by stage
-- message and offer details
-- landing page or web experience quality
+| Stage transition | Typical benchmark range | What a below-range result usually means |
+|---|---|---|
+| Impression/Click → Lead (form fill) | 2–5% (paid), 1–3% (organic/content) | offer/landing page mismatch, not audience |
+| Lead → MQL (meets scoring threshold) | 25–50% | audience/targeting mismatch — wrong people are filling the form |
+| MQL → SQL (accepted by sales) | 30–50% | lead quality or scoring-threshold miscalibration |
+| SQL → Opportunity (qualified, in pipeline) | 40–60% | sales process or qualification-call quality |
+| Opportunity → Closed-Won | varies by motion (often 15–30% for mid-market) | deal-stage/competitive or pricing issue, not a campaign issue |
 
 ## Decision logic
 
-A strong campaign diagnosis should review:
+1. Compute each transition's conversion rate for the campaign under review.
+2. Compare each to the benchmark (or trailing internal median).
+3. Find the **first** stage from the top of the funnel where the rate falls meaningfully below benchmark (>25% relative gap) — that's the primary bottleneck. Stages below a broken stage are usually *symptoms*, not separate problems, because a broken early stage starves later stages of enough volume to read reliably.
+4. Only diagnose a downstream stage as an independent issue if the upstream stages are all within benchmark range.
 
-1. demand quality and audience fit
-2. message-to-offer alignment
-3. conversion friction and funnel drop-offs
-4. channel and segment performance differences
-5. likely root cause behind weak performance
+## Inputs
 
-The point is to find the decision driver behind the numbers, not just describe the numbers.
+| Field | Type | Example |
+|---|---|---|
+| `campaign_name` | string | `"Q3 RevOps LinkedIn ABM"` |
+| `funnel_counts` | object | `{"impressions": 82000, "clicks": 1400, "leads": 58, "mqls": 21, "sqls": 9, "opportunities": 5, "closed_won": 1}` |
+| `spend` | number | `18500` |
+| `channel` | string | `"paid social - LinkedIn"` |
+| `internal_benchmark_rates` | object (optional) | trailing-12-month median rates per transition, if available |
+
+## Worked example
+
+Campaign funnel: 1,400 clicks → 58 leads (4.1%, in range) → 21 MQLs (36%, in range) → 9 SQLs (43%, in range) → 5 opportunities (56%, in range) → 1 closed-won (20%, in typical range for the motion).
+
+All transitions are within benchmark — so a "campaign underperformed" complaint here is actually a **volume** problem, not a **conversion** problem: only 1,400 clicks were generated from 82,000 impressions (1.7% CTR, below the 2–3% typical for this channel/format). The fix is creative/targeting to lift CTR, not a funnel-stage fix — a common misdiagnosis when teams jump straight to "leads are bad quality" without checking whether the funnel is actually converting normally on too little top-of-funnel volume.
 
 ## Common failure patterns
 
-- blaming a channel without checking fit or message quality
-- treating all clicks as equal when some are low-intent or low-fit
-- ignoring landing page or offer mismatch
-- optimizing for early-stage engagement without conversion quality
-- missing the fact that the problem is often higher in the funnel than people think
+- Diagnosing MQL→SQL as the problem when the real issue is upstream (Lead→MQL) starving it of enough qualified volume to convert well.
+- Comparing a paid-social campaign's conversion rates to a content/organic benchmark — rates differ meaningfully by channel and intent level.
+- Judging a campaign on Closed-Won rate within the campaign's first 60–90 days when the sales cycle for the motion is 120+ days — most of its pipeline hasn't had time to close yet.
+- Treating small-sample stages (fewer than ~20 leads) as reliable conversion-rate signals rather than flagging them as low-confidence.
 
 ## Outputs
 
-- campaign diagnosis summary
-- performance bottleneck analysis
-- likely causes of weak performance
-- recommended adjustments by campaign lever
-- next optimization priorities
+- conversion rate at each funnel transition, vs. benchmark
+- the single primary bottleneck stage, with likely cause category
+- a volume-vs-conversion diagnosis (is the problem "not enough top-of-funnel" or "leaking at a specific stage")
+- recommended next action scoped to the actual bottleneck
 
-## Example result
+## Output schema
 
-### Campaign diagnosis
-- Audience fit is acceptable, but the offer-to-message alignment is weak.
-- Traffic quality is moderate, but conversion drops after click because the landing page is not matching the audience’s specific problem.
-- Recommendation: rebalance message framing and match the landing page to buyer intent and offer relevance.
+```json
+{
+  "funnel_conversion_rates": [
+    {"transition": "click_to_lead", "rate": 0.041, "benchmark_range": [0.02, 0.05], "status": "in range"}
+  ],
+  "primary_bottleneck": {"stage": "impression_to_click", "rate": 0.017, "benchmark_range": [0.02, 0.03], "likely_cause": "creative/targeting - low CTR", "confidence": "high"},
+  "diagnosis_type": "volume, not conversion",
+  "recommended_action": "revise ad creative/targeting to lift CTR; downstream funnel is converting normally"
+}
+```
 
 ## Recommended prompt
 
-> You are a senior growth marketing analyst. Review the campaign data and diagnose the main reasons for poor performance. Identify the most likely bottlenecks and suggest the specific adjustments in audience, offer, or landing-page strategy that would most improve performance.
+> You are a demand-gen analyst. Given the campaign funnel counts and channel below, compute the conversion rate at each stage transition (impression→click, click→lead, lead→MQL, MQL→SQL, SQL→opportunity, opportunity→closed-won) and compare each to the provided or typical benchmark range. Identify the first stage from the top of the funnel where the rate falls more than 25% below benchmark — treat that as the primary bottleneck, and downstream low stages as likely symptoms unless they're also independently out of range. Distinguish a volume problem (top-of-funnel too small) from a conversion problem (a specific stage leaking). Return JSON matching the schema above.
 
-## Source basis
+## Grounded in
 
-This skill is informed by public campaign optimization, performance marketing, and funnel diagnostics practice used in B2B growth teams.
+The standard B2B demand-generation funnel (impression → lead → MQL → SQL → opportunity → closed-won) and stage-conversion benchmarking practice used in revenue operations and demand-gen reporting; benchmark ranges are directional industry medians, not audited figures — replace with your own trailing-12-month data where you have it.
 
-## References
-
-See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the pack's general reference list.

@@ -1,79 +1,80 @@
 # Customer Journey Friction Audit
 
-## Why this skill exists
+Score friction at every touchpoint in the buyer journey using an effort/drop-off framework, and rank touchpoints by where fixing friction would recover the most pipeline — instead of a general "the journey feels clunky" narrative.
 
-Most funnel problems are not caused by one single issue. They are caused by friction across multiple touchpoints.
+## When to use this
 
-This skill helps diagnose where the customer journey slows down, becomes unclear, or loses confidence so the team can improve conversion quality and buyer progression.
+- Conversion drops at a specific point in the funnel (e.g., demo request → completed demo) and you need to know if it's a friction problem or a fit/interest problem.
+- You're redesigning a signup, trial, or demo-request flow and need to prioritize which steps to fix first.
+- Marketing and product disagree about where the journey actually breaks down.
 
-## Business objective
+## Methodology
 
-This skill helps the team answer:
+List every touchpoint the buyer passes through from first engagement to becoming a customer. For each, score two things independently — because a high-effort step that nobody drops off at isn't a priority, and a low-effort step with high drop-off is a fit problem, not a friction problem:
 
-> Where is the customer journey creating friction, and what specific points need to be improved to move buyers forward?
+- **Effort score (1–5)**: how much work/friction this step objectively requires (form length, number of clicks, wait time, information the buyer must gather).
+- **Drop-off rate**: % of buyers who enter this step but don't complete it, from actual funnel data.
 
-## Expert memory layer
+## Scoring model
 
-Strong marketing teams know that friction often appears in predictable patterns:
+```
+Friction Priority Score = Effort Score (1-5) × Drop-off Rate (0-1) × Downstream Value
 
-- unclear messaging at the wrong stage
-- too much effort required to understand the offer
-- no proof or reassurance when buyers are deciding whether to move forward
-- too many disconnected touchpoints with inconsistent positioning
+Downstream Value = (accounts that complete this step and go on to close) / (accounts that complete this step)
+— i.e., how much pipeline value is actually at stake at this step, not just volume lost.
+```
 
-This skill turns those patterns into a structured friction review.
+Rank touchpoints by Friction Priority Score descending. A step with high drop-off but low downstream value (the people who do get through rarely close anyway) is a lower priority than a step with moderate drop-off but high downstream value.
 
 ## Inputs
 
-- funnel data and conversion drop-offs
-- landing page and journey touchpoints
-- customer feedback and objections
-- campaign and lifecycle flow details
-- stage-specific content or messaging context
+| Field | Type | Example |
+|---|---|---|
+| `touchpoints` | list[{name, order, effort_score, entrants, completions}] | each step in the journey |
+| `downstream_outcomes` | object | close rate for accounts that completed each touchpoint |
+| `qualitative_notes` | list[string] | support tickets, sales call notes, session-recording themes tied to specific steps |
 
-## Decision logic
+## Worked example
 
-A good friction audit should look for:
-
-1. drop-offs by stage or touchpoint
-2. message mismatch between audience intent and content offered
-3. friction caused by unclear CTAs, value propositions, or proof
-4. unnecessary effort or complexity in the buying process
-5. patterns that suggest trust or confusion issues
-
-The goal is not just to find problems, but to identify the highest-impact friction points.
+Touchpoint "Demo request form": effort 4 (12 fields, requires company info buyer may not have handy), 2,000 entrants, 1,100 completions → drop-off 45%. Of those who complete it, 30% eventually close (downstream value 0.30).
+```
+Friction Priority Score = 4 × 0.45 × 0.30 = 0.54
+```
+Touchpoint "Pricing page → Contact sales": effort 2 (one click), 3,500 entrants, 3,200 completions → drop-off 8.6%. Of those who complete it, 52% eventually close.
+```
+Friction Priority Score = 2 × 0.086 × 0.52 = 0.089
+```
+The demo request form scores ~6x higher despite a much smaller volume of total drop-offs, because it combines high effort, meaningful drop-off, *and* the buyers who get through are disproportionately likely to close — cutting the form to 4 fields is the higher-leverage fix, not adding another CTA to the pricing page.
 
 ## Common failure patterns
 
-- diagnosing only top-of-funnel issues without stage-level context
-- assuming low engagement means lack of demand
-- failing to trace friction to specific buyer concerns or questions
-- treating content volume as a substitute for clarity
-- ignoring trust and proof issues at critical decision points
+- Ranking touchpoints by raw drop-off count instead of the combined effort × drop-off × downstream-value score, which over-indexes on high-traffic, low-value steps.
+- Treating every drop-off as a friction problem — a step with low effort and high drop-off is more likely a targeting/fit problem (the wrong buyers are reaching it) than a UX problem.
+- Auditing the online journey only and ignoring sales-process touchpoints (scheduling, contract redlines, security review) that carry real friction and real downstream value.
+- Fixing the highest-effort step without checking whether its downstream value is actually low — effort reduction on a step nobody who completes it ever buys from is wasted work.
 
 ## Outputs
 
-- friction map by journey stage
-- drop-off and bottleneck summary
-- likely root causes of buyer confusion or hesitation
-- recommended message or experience improvements
-- next content or UX actions
+- friction priority ranking across all touchpoints
+- for each high-priority touchpoint, the specific effort driver (field count, wait time, required info) to fix
+- a distinction between friction-driven drop-off and fit-driven drop-off per step
 
-## Example result
+## Output schema
 
-### High-friction area: mid-funnel conversion from awareness to demo intent
-- Buyers are arriving with interest, but the value proposition is not clear enough.
-- The content is too feature-heavy and lacks proof or business outcome framing.
-- Recommendation: simplify positioning, add clearer proof points, and improve transition messaging between education and evaluation.
+```json
+{
+  "touchpoints_ranked": [
+    {"name": "Demo request form", "effort_score": 4, "drop_off_rate": 0.45, "downstream_value": 0.30, "friction_priority_score": 0.54, "diagnosis": "friction", "recommended_fix": "reduce from 12 fields to 4; auto-fill company info from email domain"}
+  ]
+}
+```
 
 ## Recommended prompt
 
-> You are a senior marketing strategist and funnel analyst. Review the customer journey, conversion drop-offs, and buyer friction signals. Identify where the journey breaks down, what the likely cause is, and what message or experience changes would reduce friction and improve progression.
+> You are a conversion strategist. Given the buyer journey touchpoints below (each with an effort score 1-5, entrant/completion counts, and downstream close rate for those who complete it), compute Friction Priority Score = effort_score × drop_off_rate × downstream_value for each touchpoint. Rank touchpoints by this score. For the top 3, diagnose whether the drop-off looks friction-driven (high effort) or fit-driven (low effort, high drop-off — likely wrong audience reaching this step) and recommend a specific fix. Return JSON matching the schema above.
 
-## Source basis
+## Grounded in
 
-This skill is informed by public customer journey analysis, funnel diagnostics, and B2B conversion optimization practices used in growth and demand-generation teams.
+An effort/drop-off friction-scoring approach consistent with customer-journey-mapping practice in B2B CX and conversion optimization, weighted by downstream deal value so friction fixes are prioritized by pipeline impact rather than raw traffic volume.
 
-## References
-
-See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the pack's general reference list.

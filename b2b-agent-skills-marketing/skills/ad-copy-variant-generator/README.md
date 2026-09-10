@@ -1,82 +1,80 @@
 # Ad Copy Variant Generator
 
-## Why this skill exists
+Generate ad copy variants across distinct persuasion structures (PAS, AIDA, and a proof-led variant) rather than five stylistic rewrites of the same angle — and specify the test design (sample size, primary metric) needed to actually learn which angle wins.
 
-Most ad copy fails because teams optimize for volume instead of message clarity.
+## When to use this
 
-This skill helps generate ad variations that are more specific to the customer problem, buyer motion, and offer, so teams can test stronger hooks and improve campaign performance.
+- Existing ad variants all make the same argument in different words, so a "losing" test doesn't tell you anything about what angle would work better.
+- You're launching a new campaign and want variants that test genuinely different hypotheses about what will move this audience.
+- Past A/B tests were called before reaching statistical significance, so the team doesn't trust its own test history.
 
-## Business objective
+## Methodology
 
-This skill helps the team answer:
+Generate one variant per persuasion structure, not per wording style — each structure makes a different bet about what moves this buyer:
 
-> Which ad message variations are most likely to resonate with the target audience and improve click-through and conversion quality?
+| Structure | Pattern | Bets that the buyer responds to... |
+|---|---|---|
+| **PAS** (Problem-Agitate-Solve) | Name the problem → intensify why it hurts → present the fix | pain-avoidance |
+| **AIDA** (Attention-Interest-Desire-Action) | Hook → build relevance → build desire → clear CTA | aspirational/gain-seeking |
+| **Proof-led** | Lead with the strongest stat or named-customer result, then explain | skepticism — needs evidence before attention |
 
-## Expert memory layer
+## Test design (required output, not optional)
 
-Strong performance marketing teams know that copy quality depends on buyer appetite, message positioning, and specific value framing.
+Before running variants live, specify:
 
-Patterns that matter include:
-
-- messages that sound generic and fail to create urgency
-- unsupported claims that weaken trust
-- value propositions that are too broad to stand out
-- ad tests that never distinguish between message clarity and offer mismatch
-
-This skill helps turn those patterns into sharper variant testing.
+```
+Minimum detectable effect (MDE): smallest CTR/CVR lift worth detecting, e.g. 20% relative lift
+Required sample size per variant ≈ 16 × p × (1-p) / MDE²   (standard two-proportion z-test approximation)
+  where p = baseline conversion rate
+Do not call a winner before each variant reaches this sample size, regardless of interim results.
+```
 
 ## Inputs
 
-- audience context and segment
-- offer or CTA details
-- value proposition and positioning
-- campaign objective and channel
-- known buyer objections or concerns
+| Field | Type | Example |
+|---|---|---|
+| `product_value_prop` | string | core claim to build variants around |
+| `target_persona` | string | who the ad targets |
+| `proof_points_available` | list[string] | real stats/customer names usable in the proof-led variant |
+| `baseline_conversion_rate` | float | current CTR or CVR, for sample-size calculation |
+| `minimum_detectable_effect` | float | default 0.20 (20% relative lift) |
 
-## Decision logic
+## Worked example
 
-A strong ad variant set should evaluate:
+Product: AI deal-risk scoring tool. Persona: VP Sales. Proof point available: "40+ RevOps teams, 22% forecast variance reduction." Baseline CTR: 1.8%.
 
-1. message clarity and relevance
-2. alignment with the buyer’s actual problem
-3. differentiating angle and promise quality
-4. urgency and engagement trigger
-5. fit with the channel and audience intent
+- **PAS**: *"Deals slip and nobody sees it coming until the forecast call. [Product] flags at-risk deals two weeks before your reps do. See what you're missing — free trial."*
+- **AIDA**: *"What if you never got surprised by a slipped deal again? [Product] shows you exactly which deals are at risk, why, and what to do — so your forecast call has no surprises. Start free."*
+- **Proof-led**: *"40+ RevOps teams cut forecast variance 22% with [Product]. See your at-risk deals in 15 minutes — no setup required."*
 
-The goal is not just more variants, but better ones.
+Sample size: MDE 20%, baseline p=0.018 → required ≈ 16 × 0.018 × 0.982 / (0.018×0.20)² ≈ 0.283 / 0.0000130 ≈ **~21,700 impressions per variant** before calling a result — flagged explicitly so the team doesn't call the test at day 3 on partial data.
 
 ## Common failure patterns
 
-- testing copy that is too generic to differentiate
-- reusing the same message across different audience segments
-- making promises the offer cannot support
-- creating urgency without a clear reason to act
-- ignoring buyer-specific objections or stage context
+- Generating 5 variants that are all the same structure (usually all PAS) with different adjectives, which tests wording, not persuasion angle — the actual thing worth learning.
+- Calling a test winner from early results before reaching the calculated sample size, which produces false positives that don't replicate at scale.
+- Writing a proof-led variant with an invented or unverified statistic — only use `proof_points_available` that are real and approved.
+- Testing all variants against the same audience segment when the structures may work differently by segment (proof-led often outperforms with skeptical/technical buyers, PAS with buyers in acute pain) — segment the test if budget allows.
 
-## Outputs
+## Output schema
 
-- multiple ad variations
-- headline and CTA options
-- value proposition framing by audience segment
-- reason-to-believe cues
-- testing recommendation or prioritization
-
-## Example result
-
-### Ad variation set
-- Headline: Reduce manual workflow bottlenecks without slowing teams down
-- CTA: See the ROI model
-- Framing: operations-focused message emphasizing efficiency and visibility
-- Alternate angle: built for teams that need faster execution without adding complexity
+```json
+{
+  "variants": [
+    {"structure": "PAS", "copy": "...", "hypothesis": "pain-avoidance framing outperforms with this audience"},
+    {"structure": "AIDA", "copy": "...", "hypothesis": "aspirational framing outperforms"},
+    {"structure": "proof-led", "copy": "...", "hypothesis": "skeptical buyers need evidence before attention"}
+  ],
+  "test_design": {"baseline_rate": 0.018, "mde": 0.20, "required_sample_size_per_variant": 21700, "do_not_call_before": "each variant reaches required sample size"}
+}
+```
 
 ## Recommended prompt
 
-> You are a senior growth marketer. Generate a set of ad copy variants that fit the target audience and offer context provided. Focus on clear value, buyer-specific language, and a stronger reason to click or convert.
+> You are a B2B performance marketer. Generate three ad copy variants for the product/persona below, one each in PAS (problem-agitate-solve), AIDA (attention-interest-desire-action), and proof-led structure — using only the real proof points provided for the proof-led variant, never an invented statistic. Then calculate the required sample size per variant using required_n ≈ 16 × p × (1-p) / MDE², given the baseline conversion rate and minimum detectable effect provided, and state that the test should not be called before each variant reaches that sample size. Return JSON matching the schema above.
 
-## Source basis
+## Grounded in
 
-This skill is informed by public performance marketing, copywriting, and conversion optimization practices used in B2B demand-generation programs.
+Classic direct-response copy structures (PAS, AIDA) applied to distinct persuasion hypotheses rather than stylistic variation, paired with the standard two-proportion sample-size approximation used in A/B testing so test conclusions are statistically defensible rather than read from partial data.
 
-## References
-
-See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the pack's general reference list.
