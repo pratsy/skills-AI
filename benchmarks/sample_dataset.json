@@ -1,0 +1,41 @@
+[
+  {
+    "skill": "renewal-risk-scorer",
+    "input": {
+      "Account Name": "CloudOps",
+      "Renewal Date": "2026-11-15",
+      "Product Usage": {
+        "Usage trend (last 90 days)": "Down 22%"
+      },
+      "Stakeholder Health": {
+        "Executive sponsor change": "Yes"
+      },
+      "Support and Success History": {
+        "Critical issues unresolved": 1
+      }
+    },
+    "expected_output": {
+      "risk_score": 7,
+      "top_drivers": ["usage_decline", "executive_sponsor_change"],
+      "recommended_actions": ["exec_review", "resolve_critical_issue"]
+    }
+  },
+  {
+    "skill": "executive-sponsor-identifier",
+    "input": {
+      "OPPORTUNITY CONTEXT": {
+        "Company": "FinServ Corp",
+        "Deal size": "$600K",
+        "Timeline": "8 weeks"
+      },
+      "PRIMARY CONTACT": {
+        "Name": "Sarah Chen"
+      }
+    },
+    "expected_output": {
+      "executive_sponsor": "Thomas O'Brien",
+      "buying_committee": ["CFO", "CTO", "VP Analytics"],
+      "engagement_plan": ["Executive briefing", "Technical proof"]
+    }
+  }
+]
