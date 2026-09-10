@@ -22,6 +22,7 @@ Open-source AI playbooks for B2B marketing strategy, messaging, campaign optimiz
 - brand-positioning-synthesizer
 - audience-segmentation-optimizer
 - nurture-sequence-architect
+- content-gap-analysis-agent
 
 ## Research basis
 

@@ -81,6 +81,16 @@ This makes it useful for:
 - revenue operations teams
 - market and competitive intelligence workflows
 
+## Recently expanded skill additions
+
+New additions in the public library include:
+
+- `Competitive Differentiation Coach` — sales-facing differentiation and objection support
+- `Content Gap Analysis Agent` — marketing messaging and funnel coverage analysis
+- broader revenue workflow coverage across qualification, messaging, forecasting, and executive enablement
+
+These additions reinforce the repo’s aim: source-backed, operational AI skills that are useful in real B2B sales and marketing execution.
+
 ## Notes
 
 This is a curated operating library for B2B revenue teams, grounded in public industry practice and structured for real-world workflow use.

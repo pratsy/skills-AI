@@ -22,6 +22,7 @@ Open-source AI playbooks for sales execution, qualification, pipeline strategy, 
 - forecast-confidence-model
 - renewal-risk-scorer
 - executive-sponsor-identifier
+- competitive-differentiation-coach
 
 ## Research basis
 
