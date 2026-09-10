@@ -1,8 +1,53 @@
 # B2B Agent Skills for Sales, Marketing, and GTM
 
-Curated AI skills for the people who actually run revenue operations: sales leaders, marketers, RevOps teams, founders, and GTM operators.
+Curated AI skills for revenue teams that need better decisions, clearer execution, and less guesswork across the funnel.
 
-This repo is designed to help teams improve the quality of their decisions and execution across the funnel without turning AI into a generic chatbot experiment.
+This repo is designed for the people who actually run GTM work: sales leaders, marketing teams, RevOps leaders, founders, and operators who need practical AI support for real business work.
+
+## The business problems this solves
+
+Most GTM teams are not short on activity. They are short on clarity.
+
+This repo helps teams solve the problems that usually slow revenue execution down:
+
+- too many accounts with no clear prioritization
+- weak pipeline disguised as full pipeline
+- campaign activity without conversion clarity
+- unclear marketing positioning and buyer messaging
+- late-stage deal risk that could have been spotted earlier
+- no consistent way to interpret market or competitor signals
+- too much operational noise and not enough practical action
+
+## The value in one sentence
+
+Instead of generic AI output, this gives teams structured playbooks for the business work that matters most in B2B sales and marketing.
+
+## Workflow examples people immediately understand
+
+### Example 1: sales prioritization
+A sales leader wants to know which accounts deserve attention this week.
+
+Result: use a prioritization skill to rank accounts by value, urgency, fit, and likely conversion quality.
+
+### Example 2: pipeline quality review
+A RevOps lead wants to know why the pipeline feels weak despite high volume.
+
+Result: use pipeline health and forecast bias skills to identify stage bottlenecks, weak qualification, and forecast risk early.
+
+### Example 3: content and conversion diagnosis
+A marketing leader sees traffic but weak conversion and unclear messaging.
+
+Result: use content gap analysis and friction audit skills to find where buyer interest drops and what content or messaging is missing.
+
+### Example 4: market and competitor monitoring
+A GTM leader wants to see whether market change or competitor movement is becoming important.
+
+Result: use market shift and competitor signal skills to cluster noisy signals into real strategic implications and recommended response actions.
+
+### Example 5: executive deal readiness
+A team is preparing for a high-stakes customer conversation and does not know which objections or stakeholder themes matter most.
+
+Result: use executive briefing, committee readiness, and champion strategy skills to prepare better before the conversation starts.
 
 ## Why this matters
 
