@@ -81,13 +81,25 @@ This makes it useful for:
 - revenue operations teams
 - market and competitive intelligence workflows
 
+## Roadmap
+
+Planned expansion areas for the public repo:
+
+- deeper B2B sales playbooks for discovery, objection handling, and enterprise deal strategy
+- stronger RevOps coverage for forecasting discipline, handoff quality, and pipeline governance
+- expanded GTM market intelligence skills for competitor monitoring and strategic prioritization
+- more evaluation examples and benchmark-ready outputs for real-world usage
+- stronger contributor and citation patterns to keep the library source-backed and trustable
+
 ## Recently expanded skill additions
 
 New additions in the public library include:
 
 - `Competitive Differentiation Coach` — sales-facing differentiation and objection support
 - `Content Gap Analysis Agent` — marketing messaging and funnel coverage analysis
-- broader revenue workflow coverage across qualification, messaging, forecasting, and executive enablement
+- `Pipeline Health Audit Agent` — RevOps-focused pipeline quality and forecast risk analysis
+- `Account Priority Matrix Builder` — GTM prioritization and strategic account planning
+- `Market Shift Monitor` — category and competitor monitoring for enterprise GTM teams
 
 These additions reinforce the repo’s aim: source-backed, operational AI skills that are useful in real B2B sales and marketing execution.
 

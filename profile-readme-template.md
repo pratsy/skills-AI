@@ -28,6 +28,21 @@ Most AI projects are generic copilots.
 
 This one is different: it is built around the real operating motions of B2B revenue teams, with a focus on repeatability, business context, and execution quality.
 
+## Current focus
+
+- B2B sales execution and enterprise qualification
+- marketing messaging, lifecycle, and campaign quality
+- RevOps pipeline health, forecast confidence, and operational clarity
+- GTM prioritization, market intelligence, and strategic account focus
+
+## Roadmap
+
+- expand richer skill playbooks for discovery, pricing, forecasting, and deal strategy
+- strengthen RevOps coverage for pipeline governance and forecast quality
+- add more GTM and market intelligence capabilities
+- improve benchmark examples and evaluation frameworks
+- keep the library source-backed, structured, and practitioner-informed
+
 ## What’s inside
 
 - structured skill definitions

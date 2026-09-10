@@ -18,6 +18,7 @@ Open-source AI playbooks for revenue operations, pipeline health, forecasting co
 - crm-data-cleaner
 - sales-handoff-quality-auditor
 - revenue-attribution-reviewer
+- pipeline-health-audit-agent
 
 ## Research basis
 

@@ -18,6 +18,8 @@ Open-source AI playbooks for strategic go-to-market intelligence, competitive aw
 - account-intelligence-curator
 - market-trend-signal-reporter
 - strategic-account-priority-ranker
+- account-priority-matrix-builder
+- market-shift-monitor
 
 ## Research basis
 
