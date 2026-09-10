@@ -59,3 +59,6 @@ htmlcov/
 # Logs
 *.log
 logs/
+
+# Generated test fixtures
+tests/_tmp_input.json
