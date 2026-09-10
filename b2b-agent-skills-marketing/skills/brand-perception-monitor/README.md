@@ -1,49 +1,84 @@
 # Brand Perception Monitor
 
-## Purpose
+## Why this skill exists
 
-Track how the market describes the brand, product, and category so teams can spot perception gaps, competitive pressure, and message drift early.
+Brand perception is one of the clearest signals of whether the market sees the company the way it intends to be seen.
+
+This skill helps monitor how the market, buyers, and competitors are interpreting the brand so teams can identify perception drift, weak signals, and strategic gaps in positioning.
+
+## Business objective
+
+This skill helps the team answer:
+
+> How is the market perceiving the brand, and where does the perception differ from the intended positioning?
+
+## Expert memory layer
+
+Experienced marketing leaders know that perception is often built from patterns rather than isolated comments.
+
+Patterns that matter include:
+
+- repeated customer language that signals confusion or weak understanding
+- competitor comparison themes that become dominant in the market
+- shifts in language that suggest positioning drift or market relevance issues
+- trust and proof gaps that affect conversion or buying confidence
+
+This skill captures those patterns into a practical monitoring workflow.
 
 ## Inputs
 
-- customer feedback themes
-- review and support transcripts
-- sales call objections
-- competitor message summaries
-- campaign language and ad copy
+- customer feedback and sentiment themes
+- competitive brand signal data
+- market commentary and category language
+- messaging and campaign performance signals
+- buyer objections and sales feedback
+
+## Decision logic
+
+A strong brand perception monitor should evaluate:
+
+1. recurring topic or sentiment themes
+2. alignment between market language and brand language
+3. competitor comparison or reputation drift
+4. confidence and trust signals from the buyer journey
+5. implications for positioning and messaging updates
+
+The goal is to detect brand risk early and respond before perception becomes a growth issue.
+
+## Common failure patterns
+
+- confusing brand awareness with brand clarity
+- ignoring competitor comparison language in the market
+- not tracking whether buyers understand the real value story
+- treating sentiment as anecdotal instead of directional
+- failing to connect brand perception to conversion or trust issues
 
 ## Outputs
 
-- perception summary by audience segment
-- common trust or value gaps
-- competitor comparison themes
-- recommendation for message correction
-- priority actions for marketing and sales
-
-## Prompt
-
-“You are a senior B2B brand and positioning strategist. Analyze the market perception signals across customer conversations, reviews, sales objections, and competitor messages. Identify the strongest positives, most common friction points, and likely message gaps affecting conversion and trust.”
-
-## What a strong output includes
-
-- emotional and practical perception themes
-- perceived strengths and weaknesses
-- trust or credibility gaps
-- message correction opportunities
-- likely impact on pipeline conversion or retention
+- brand perception summary
+- major perception themes or risk areas
+- competitor or category comparison signals
+- recommended messaging or brand response actions
+- strategic recommendations for positioning adjustment
 
 ## Example result
 
-- Positive: operational simplicity and time savings
-- Risk: some buyers perceive the product as too complex to implement
-- Recommendation: sharpen messaging around guided onboarding and rapid value realization
+### Brand perception theme
+- The market associates the company with product capability but not business outcome or strategic value.
+- Recommendation: increase proof and outcome-based language in messaging and customer-facing proof content.
+
+## Recommended prompt
+
+> You are a senior brand strategist and market monitor. Review the customer and market signals below and identify how brand perception is shifting, where the business is being misunderstood, and what messaging or positioning changes are likely to improve trust and relevance.
 
 ## Source basis
 
-This skill is informed by public B2B positioning, messaging, brand research, and demand generation frameworks used in market-facing GTM teams.
+This skill is informed by public brand perception, market intelligence, and positioning monitoring practices used in B2B growth and demand-generation teams.
 
 ## References
 
-- HubSpot brand and messaging resources
-- Gartner and Forrester positioning and buyer behavior research
-- SaaS marketing and brand strategy content from public GTM practice
+- HubSpot Blog
+- Demandbase Blog
+- Gartner marketing research
+- Forrester B2B buyer insights
+- McKinsey Growth & Sales

@@ -1,50 +1,88 @@
 # Deal Risk Assessor
 
-## Purpose
+## Why this skill exists
 
-Assess and explain the main risks in a B2B deal based on buying signals, stakeholder dynamics, process indicators, and commercial complexity.
+A deal can look healthy on paper and still be at high risk.
 
-## Business problem
+This skill helps identify where a deal is likely to stall, weaken, or fail before the risk becomes visible too late in the cycle.
 
-Many deals appear promising but hide risk in buying process, internal alignment, or commercial complexity. This skill helps spot early warning signs before they escalate.
+## Business objective
+
+This skill helps the team answer:
+
+> Which deals are at real risk, what is driving that risk, and what should the team do about it?
+
+## Expert memory layer
+
+Experienced account teams know that risk often shows up in patterns:
+
+- stakeholder misalignment
+- weak executive sponsorship
+- weak buying urgency
+- unclear decision criteria
+- repeated value or ROI objections
+- lack of champion support
+
+This skill turns those patterns into a structured review of commercial risk.
 
 ## Inputs
 
-- account summary
-- stakeholder map
-- stage of buying process
-- win/loss notes
-- competitive notes
-- pricing and scope context
+- opportunity details
+- stakeholder dynamics
+- deal progression and stage quality
+- customer objections or blockers
+- timing and procurement complexity
+- competitor pressure or alternative validation
+
+## Decision logic
+
+A strong risk assessment weighs:
+
+1. buying urgency and timing pressure
+2. stakeholder commitment and power
+3. clarity of business need
+4. value alignment and economic fit
+5. operational or procurement friction
+
+If multiple risk dimensions are active at once, the deal should be treated as higher risk even if the pipeline number still looks positive.
+
+## Common failure patterns
+
+- overrating deals because they are large or strategic
+- missing weak champion support
+- ignoring procurement or stakeholder complexity
+- assuming timeline urgency is equal to real buying commitment
+- focusing only on product fit and not business risk
 
 ## Outputs
 
 - deal risk summary
-- red flags
+- key risk drivers
+- likelihood of delay or stall
 - recommended mitigation actions
-- forecast confidence indicator
+- executive-risk callout if needed
 
-## Use cases
+## Example result
 
-- AE deal reviews
-- forecast quality checks
-- executive pipeline meetings
-- strategic deal planning
+### Deal risk: high
+- Buying urgency is weak despite active engagement.
+- Stakeholder alignment is inconsistent across business and technical teams.
+- The economic buyer has not yet endorsed the initiative.
+- Recommendation: create a cross-functional alignment plan and reframe the decision around business impact.
 
-## Prompt
+## Recommended prompt
 
-“You are a senior B2B sales strategist. Assess the risk profile of this deal using the information provided. Identify the top 3–5 risks, explain why they matter, and recommend actions the rep can take to de-risk the opportunity. Return the output in a practical, executive-ready format.”
+> You are a senior sales risk analyst. Review the deal context and identify the main risk drivers, likely failure points, and practical mitigation actions. Focus on what could stall the deal, why it matters, and what the sales team should do next.
 
-## Example output
+## Source basis
 
-- High risk: buying committee is not aligned on priorities
-- Medium risk: timeline is unclear and pricing sensitivity is high
-- Moderate risk: competitor is still in the process, but decision criteria are still evolving
-- Mitigation: align stakeholders, clarify success metrics, commit to phased rollout
+This skill is informed by public deal review, enterprise sales, and B2B risk-tracking practices commonly used in strategic sales operations.
 
-## Evaluation
+## References
 
-- Risks are grounded in actual deal context
-- Mitigation steps are realistic and operational
-- Output helps forecast quality rather than just labeling deals as risky
-- Recommendations reflect actionability and commercial realities
+- Salesforce Blog
+- Gong Blog
+- HubSpot Sales Blog
+- Gartner sales and revenue research
+- Forrester B2B sales research
+- McKinsey Growth & Sales

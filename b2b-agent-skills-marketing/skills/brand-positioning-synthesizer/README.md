@@ -1,47 +1,85 @@
 # Brand Positioning Synthesizer
 
-## Purpose
+## Why this skill exists
 
-Turn competitive and customer evidence into a sharper, differentiated brand and messaging position for the market.
+Many brands sound credible internally but remain unclear in the market.
 
-## Business problem
+This skill helps synthesis market language, buyer needs, and competitive context into a sharper and more defensible positioning story.
 
-Marketing teams often have fragmented positioning signals spread across product, sales, customer interviews, and competitors. This skill synthesizes those inputs into a more usable strategic narrative.
+## Business objective
+
+This skill helps the team answer:
+
+> What is our clearest strategic position in the market, and how should we explain it so buyers understand the value quickly?
+
+## Expert memory layer
+
+Strong brand and positioning teams know that clarity comes from pattern recognition.
+
+Patterns that matter include:
+
+- repeated customer language around value or pain
+- pricing and differentiation themes the market responds to
+- voice and positioning signals that are not aligned with competitive reality
+- where the offer is being interpreted too broadly or too generically
+
+This skill captures those patterns into a sharper strategic position.
 
 ## Inputs
 
-- customer interviews
-- category and competitor analysis
-- product value proposition
-- ICP and persona notes
-- market research
+- current positioning and messaging
+- market and competitor context
+- buyer pain and language patterns
+- product or offer differentiation
+- customer feedback and market signal themes
+
+## Decision logic
+
+A strong positioning synthesis should evaluate:
+
+1. real buyer pain and urgency
+2. distinctive business value or outcome
+3. competitive relevance and differentiation
+4. trust, proof, and reason-to-believe quality
+5. clarity for the intended audience and segment
+
+The goal is not just a polished narrative, but an understandable and defensible market position.
+
+## Common failure patterns
+
+- broad or generic brand language without clear differentiation
+- product-first positioning instead of outcome-first positioning
+- inconsistent storytelling across segments or channels
+- market position that does not reflect actual buyer language
+- unclear reason-to-believe for the value promise
 
 ## Outputs
 
 - positioning summary
-- key differentiators
-- narrative themes
-- message framing guidance
+- clear message narrative
+- differentiation and proof themes
+- recommended positioning adjustments
+- target-market implications
 
-## Use cases
+## Example result
 
-- enterprise positioning refresh
-- campaign and ICP alignment
-- launch narrative creation
-- product marketing synthesis
+### Positioning synthesis
+- The company is strongest when positioned around efficiency and operational clarity, not generic platform breadth.
+- Buyers respond to language that connects the solution to measurable business outcome and less operational friction.
+- Recommendation: strengthen proof-led messaging around operational impact and risk reduction.
 
-## Prompt
+## Recommended prompt
 
-“You are a B2B marketing strategist. Synthesize market, customer, and competitive evidence into a practical positioning narrative. Identify the strongest differentiation, clarify the core buyer problem, and define messaging themes tailored to the ICP.”
+> You are a senior brand and positioning strategist. Review the market signals, competitive context, and customer language and synthesize a clearer strategic positioning narrative for the brand. Focus on unique value, buyer clarity, and the message the market is most likely to understand and trust.
 
-## Example output
+## Source basis
 
-- Positioning theme: simplify revenue execution without adding operational burden
-- Differentiators: faster workflow alignment, less data friction, clearer ownership
-- Message pillars: efficiency, predictability, measurable execution
+This skill is informed by public brand strategy, positioning, and market messaging practices used in B2B marketing and growth teams.
 
-## Evaluation
+## References
 
-- Positioning is grounded in evidence rather than generic marketing language
-- Distinctive claims are specific and defensible
-- Output is actionable for campaigns, sales enablement, and narrative development
+- HubSpot Blog
+- Demandbase Blog
+- Gartner marketing research
+- Forrester B2B buyer insights
+- McKinsey Growth & Sales

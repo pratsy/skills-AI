@@ -1,3 +1,57 @@
+# Internal planning and private files
 .private/
+.env
+
+# System files
 .DS_Store
 **/.DS_Store
+
+# Notebooks and benchmarks (development only)
+notebooks/
+benchmarks/
+
+# Profile template (internal reference)
+profile-readme-template.md
+
+# Python cache and environment
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE and editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Test cache
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs
+*.log
+logs/

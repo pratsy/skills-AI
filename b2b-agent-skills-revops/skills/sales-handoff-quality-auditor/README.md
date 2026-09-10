@@ -1,48 +1,84 @@
 # Sales Handoff Quality Auditor
 
-## Purpose
+## Why this skill exists
 
-Assess whether sales handoffs are clean, complete, and actionable for downstream teams without causing process friction or information loss.
+Many pipeline issues begin with a weak handoff.
 
-## Business problem
+When sales teams do not transfer context, qualification quality, or buyer signals cleanly, the next team inherits ambiguity and the deal loses momentum.
 
-Many teams lose quality when one function passes a lead or opportunity to another without enough context, clear ownership, or service-level clarity.
+## Business objective
+
+This skill helps the team answer:
+
+> Are handoffs between sales teams or motions being transferred with enough quality to maintain momentum and minimize risk?
+
+## Expert memory layer
+
+Experienced RevOps teams know that weak handoffs create predictable problems:
+
+- missing context or buying signal quality
+- unclear ownership and accountability
+- inconsistent qualification or stage discipline
+- stalled deals caused by poor transfer quality rather than poor product fit
+
+This skill captures those patterns into a structured process review.
 
 ## Inputs
 
-- handoff records
-- lead or opportunity notes
-- ownership assignment data
-- SLA or process step details
-- handoff quality history
+- handoff notes and transition records
+- sales process and stage definitions
+- SDR-to-AE or sales-to-customer team context
+- deal quality and conversion flow data
+- missed context or process issues noted in the deal history
+
+## Decision logic
+
+A strong handoff review should evaluate:
+
+1. whether the receiving team gets enough context to continue effectively
+2. whether qualification quality is preserved through the handoff
+3. whether ownership and next steps are clear
+4. whether the buyer movement is sufficiently documented and actionable
+5. whether the handoff creates friction or delays in progression
+
+Good handoffs reduce risk and keep agreement quality high.
+
+## Common failure patterns
+
+- incomplete context or poor summary quality
+- poor timing of the handoff
+- no clear owner for the next action
+- churn caused by weak qualification transfer
+- different teams using different assumptions about the deal status
 
 ## Outputs
 
-- handoff quality score
-- issues in process and information quality
-- remediation actions
-- stakeholder ownership notes
+- handoff quality review
+- handoff risk summary
+- missing or weak context issues
+- recommended quality improvements
+- operating changes for smoother transition
 
-## Use cases
+## Example result
 
-- sales-to-marketing handoff review
-- sales-to-CS handoff checks
-- internal operational process QA
-- funnel-stage quality audits
+### Handoff quality: weak
+- The receiving team has insufficient context about stakeholder alignment and buying urgency.
+- The handoff does not preserve required qualification depth.
+- Recommendation: add handoff checklist, deal summaries, and a qualification quality threshold before passing the account forward.
 
-## Prompt
+## Recommended prompt
 
-“You are a RevOps process auditor. Review the provided handoff records and evaluate the quality of the transfer between teams. Identify missing information, ownership issues, and process friction that may reduce downstream effectiveness. Return a quality score and prioritized remediation steps.”
+> You are a senior sales operations analyst. Review the handoff quality between stages or teams and identify the issues that are reducing continuity, momentum, or qualification quality. Explain what is missing and what operational changes would improve the transition.
 
-## Example output
+## Source basis
 
-- Handoff quality: moderate
-- Issue: buyer context and urgency signal are not fully documented
-- Recommendation: standardize key fields and add a required owner-readiness check before escalation
+This skill is informed by public sales operations, stage-quality, and process governance practices used in B2B revenue organizations.
 
-## Evaluation
+## References
 
-- Quality assessment matches real operational risk
-- Issue categories are practical and actionable
-- Recommendations improve information continuity and execution clarity
-- Output supports process governance rather than vague quality comments
+- Salesforce Blog
+- Gong Blog
+- HubSpot Sales Blog
+- Gartner sales and RevOps research
+- Forrester B2B sales insights
+- McKinsey Growth & Sales

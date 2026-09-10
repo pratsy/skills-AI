@@ -1,51 +1,87 @@
 # Negotiation Readiness Coach
 
-## Purpose
+## Why this skill exists
 
-Prepare a sales team for a negotiation by identifying leverage points, risk areas, and strategic positioning before the conversation begins.
+Many deals are not lost because the product fails. They are lost because the team enters negotiation without clarity on leverage, value, risk, and buyer priorities.
 
-## Business problem
+This skill helps sales teams prepare for commercial pressure with a more disciplined negotiation strategy.
 
-Negotiation quality is often poor because teams enter the conversation without clear objectives, fallback positions, or value framing.
+## Business objective
+
+This skill helps the team answer:
+
+> What are we negotiating for, which levers matter most, and how do we protect value while still creating a path to close?
+
+## Expert memory layer
+
+Experienced negotiators understand that pressure is not the same as value.
+
+Patterns that matter include:
+
+- buyers using price as a proxy for risk or uncertainty
+- teams negotiating from a weak value story rather than a strong business case
+- little clarity on the true commercial levers beyond discount
+- failure to align internal stakeholders before the negotiation begins
+
+This skill helps convert those patterns into a realistic readiness plan.
 
 ## Inputs
 
-- deal summary
-- stakeholders
-- pricing or commercial context
-- competitor context
-- buyer pressure indicators
-- current leverage and risk points
+- deal context and commercial situation
+- customer budget and buying process
+- objections and buying constraints
+- pricing or discount concerns
+- competitor alternatives or internal pressure points
+
+## Decision logic
+
+A strong negotiation readiness plan should cover:
+
+1. value narrative and business case
+2. negotiation objectives and fallback position
+3. key concession levers
+4. risk and urgency factors
+5. buying criteria and stakeholder pressure points
+
+The best negotiation strategy protects value while reducing buyer uncertainty.
+
+## Common failure patterns
+
+- negotiating on price before value is clear
+- not aligning internally on acceptable concessions
+- ignoring stakeholder pressure or procurement dynamics
+- failing to understand what the buyer really values most
+- entering the negotiation without a clear commercial objective
 
 ## Outputs
 
-- negotiation strategy summary
-- leverage assessment
-- fallback options
-- value-positioning guidance
-- likely objection patterns
+- negotiation preparation summary
+- value and leverage framing
+- likely buyer objections and response strategy
+- concession map and fallback plan
+- recommended next-step positioning
 
-## Use cases
+## Example result
 
-- commercial negotiation coaching
-- price and scope discussions
-- enterprise deal strategy calls
-- renewal and expansion commercial planning
+### Negotiation readiness
+- Buyer is focused on cost, but the real issue is implementation risk and complexity.
+- Position the value case around lower operational burden and faster time-to-value.
+- Offer phased rollout and measurable success checkpoints instead of broad discounting.
+- Maintain clear commercial boundaries while making the business case stronger.
 
-## Prompt
+## Recommended prompt
 
-“You are a commercial negotiation coach. Prepare the sales team for this negotiation by assessing leverage, buyer pressure, and likely risk points. Identify the top commercial objectives, fallback options, and the strongest value-based positioning. Return a practical negotiation strategy that helps the team enter the conversation with more confidence.”
+> You are a senior commercial negotiation coach. Review the deal and customer context below and prepare a negotiation strategy that protects value, addresses buyer pressure, and gives the team a clear path to close without giving away unnecessary concessions.
 
-## Example output
+## Source basis
 
-- Leverage: product fit and implementation simplicity are visible strengths
-- Risk: procurement pressure and cost sensitivity are likely
-- Value position: emphasize operational efficiency and reduced operational drag
-- Fallback: phased rollout or scoped deployment option to reduce initial friction
+This skill is informed by public commercial negotiation, enterprise buying behavior, and value-based selling practice used in strong B2B sales organizations.
 
-## Evaluation
+## References
 
-- Strategy is grounded in commercial leverage, not generic advice
-- It reflects buyer pressure and risk
-- It supports a disciplined negotiation position
-- It helps the team prepare realistic fallback options and messaging
+- Salesforce Blog
+- Gong Blog
+- HubSpot Sales Blog
+- Gartner sales and commercial strategy research
+- Forrester B2B sales insights
+- McKinsey Growth & Sales

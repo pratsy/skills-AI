@@ -1,47 +1,86 @@
 # Nurture Sequence Architect
 
-## Purpose
+## Why this skill exists
 
-Design an intelligent nurture journey for low-intent and mid-funnel prospects based on engagement patterns, product fit, and buying-stage signals.
+Nurture programs fail when they become generic content delivery instead of buyer progression support.
 
-## Business problem
+This skill helps design a nurture flow that fits the buyer journey, supports the real decision path, and keeps engagement relevant as the prospect moves through stages.
 
-Most nurture sequences are generic and do not respond to real buying intent. This skill helps create more relevant, behavior-aware sequences that improve conversion without adding noise.
+## Business objective
+
+This skill helps the team answer:
+
+> Which nurture flow is most likely to move the buyer forward, and how should each step support their current stage of decision-making?
+
+## Expert memory layer
+
+Strong nurture programs learn that sequence quality depends on timing, relevance, and progression logic.
+
+Patterns that matter include:
+
+- sequences that overload buyers with content too early or too late
+- message repetition without value or urgency changes
+- email cadence that is not aligned with buying maturity
+- weak handoff between education and evaluation behavior
+
+This skill turns these patterns into a better nurture architecture.
 
 ## Inputs
 
-- lifecycle stage data
-- engagement events
-- funnel and campaign context
-- content inventory
-- buyer persona signals
+- nurture stage map or lifecycle journey
+- audience segment and persona context
+- existing asset library and content themes
+- engagement and conversion patterns
+- common buyer questions and objections
+
+## Decision logic
+
+A strong nurture flow should:
+
+1. match each step to the buyer’s current stage
+2. reinforce relevance and urgency without overselling
+3. move the buyer toward a clear next action
+4. support objection handling and proof delivery
+5. reduce fatigue and preserve attention quality
+
+The best nurture systems are designed to create momentum, not just content volume.
+
+## Common failure patterns
+
+- one-size-fits-all sequence design
+- too much educational content without proof or decision support
+- inconsistent CTA logic across sequence steps
+- sending the same message too often with no change in buyer context
+- failing to align the sequence with actual funnel behavior
 
 ## Outputs
 
-- nurture flow structure
-- email sequence map
-- trigger logic
-- content recommendations
+- sequence strategy by stage
+- recommended content themes and CTA flow
+- triggers or conditions for progression
+- key proof and objection support by step
+- sequence refinement recommendations
 
-## Use cases
+## Example result
 
-- lifecycle marketing
-- lead nurturing
-- demand generation optimization
-- conversion path design
+### Nurture strategy
+- Early-stage: education and problem relevance
+- Mid-stage: proof, credibility, and comparison support
+- Late-stage: value case, implementation support, and next-step conversion
 
-## Prompt
+## Recommended prompt
 
-“You are a lifecycle marketing strategist. Create a nurture sequence for this target audience based on stage maturity, content engagement, and buying signals. Recommend message cadence, trigger conditions, and content flow that moves the prospect forward.”
+> You are a senior nurture and lifecycle strategist. Review the audience, buyer journey, and current flow and design a nurture sequence that matches buyer stage, improves progression, and increases the likelihood of action with less noise.
 
-## Example output
+## Source basis
 
-- Stage 1: educational touchpoint after content download
-- Stage 2: use-case proof after product page revisit
-- Stage 3: sales follow-up after demo request and competitive comparison view
+This skill is informed by public lifecycle marketing, nurture design, and buyer progression practices used in B2B growth programs.
 
-## Evaluation
+## References
 
-- Sequence is based on distinct engagement behavior rather than generic bulk sending
-- Trigger logic reflects real buying stage progression
-- Content and cadence are appropriate for the audience and funnel movement
+- HubSpot Blog
+- Demandbase Blog
+- 6sense Blog
+- Gartner marketing research
+- Forrester B2B buyer insights
+- McKinsey Growth & Sales

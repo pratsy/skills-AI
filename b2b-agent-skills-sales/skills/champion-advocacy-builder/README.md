@@ -1,50 +1,84 @@
 # Champion Advocacy Builder
 
-## Purpose
+## Why this skill exists
 
-Create a practical champion strategy that helps a seller convert stakeholder enthusiasm into buying momentum and expansion confidence.
+A champion is only valuable if they help the buying team move forward.
+
+This skill helps sales teams identify how to strengthen champion advocacy, build internal support, and turn that champion into a driver of momentum rather than just a polite internal contact.
+
+## Business objective
+
+This skill helps the team answer:
+
+> How can we turn a champion into a stronger internal advocate who helps the buying group move toward a decision?
+
+## Expert memory layer
+
+Experienced sales teams know that the most effective champions share a few patterns:
+
+- they care about the outcome and can connect the solution to business needs
+- they can influence peers and decision-makers
+- they are willing to help map internal blockers and open doors
+- they see a strategic or operational benefit in the change
+
+This skill encodes those patterns into a practical champion-activation plan.
 
 ## Inputs
 
-- champion profile
-- business case themes
-- internal stakeholder relationships
-- current deal maturity
-- known blockers and objections
+- stakeholder and role context
+- champion dynamics and engagement quality
+- key business pain points and outcomes
+- buying group structure and blockers
+- prior stakeholder interactions and sentiment
+
+## Decision logic
+
+A strong champion strategy should:
+
+1. assess the champion’s credibility and influence
+2. clarify what the champion needs to advocate internally
+3. identify the business case they can sell to peers
+4. provide a path to reduce risk and increase urgency
+5. create opportunities for the champion to help accelerate the decision
+
+The best champion plan is practical and tied to real business outcomes.
+
+## Common failure patterns
+
+- assuming a champion is enough without strategic support
+- failing to give the champion a clear business story to carry
+- ignoring the risk that the champion lacks authority or visibility
+- not preparing the champion for internal resistance
+- treating the champion as a contact rather than an advocate
 
 ## Outputs
 
-- champion engagement plan
-- message themes to reinforce internally
-- resistance handling guidance
-- executive escalation trigger points
-- next-step actions for the sales team
-
-## Prompt
-
-“You are a senior enterprise sales strategist. Help the seller build a champion advocacy plan for this account. Identify what a champion needs to believe, what proof points will help them sell internally, and how to convert their support into buying momentum without creating unnecessary risk.”
-
-## What a strong output includes
-
-- champion positioning summary
-- internal narrative the champion can credibly repeat
-- proof points and narratives for stakeholder conversations
-- escalation triggers and potential risks
-- next actions for the next 2–4 weeks
+- champion assessment
+- advocacy opportunity map
+- message and proof points for the champion
+- likely blockers and mitigation actions
+- recommended next-step engagement plan
 
 ## Example result
 
-- Champion is enthusiastic but lacks budget authority
-- Recommendation: create a business case tied to operational efficiency and time savings
-- Next step: schedule a stakeholder alignment workshop with technical and finance leads
+### Champion advocacy plan
+- The champion is highly engaged but lacks a clean business case to share with peers.
+- Recommendation: help the champion align the business case around operational efficiency and measurable impact.
+- Add a proof-based narrative and prepare them for likely objections from finance or procurement.
+
+## Recommended prompt
+
+> You are a senior enterprise sales strategist. Review the champion and buying-group context and build a plan to strengthen the champion’s advocacy, improve internal influence, and reduce friction in the decision process.
 
 ## Source basis
 
-This skill is informed by public enterprise sales and buying committee strategy frameworks used by B2B sales teams selling into complex organizations.
+This skill is informed by public enterprise sales, account strategy, and champion development practices used in complex buying situations.
 
 ## References
 
-- Salesforce sales enablement content
-- Gong strategic selling resources
-- HubSpot enterprise sales coaching material
-- B2B account strategy and buying committee research from public SaaS sales frameworks
+- Salesforce Blog
+- Gong Blog
+- HubSpot Sales Blog
+- Gartner sales research
+- Forrester B2B sales insights
+- McKinsey Growth & Sales

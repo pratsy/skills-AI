@@ -1,49 +1,86 @@
 # Renewal Risk Scorer
 
-## Purpose
+## Why this skill exists
 
-Identify accounts at risk of churn or renewal delay based on engagement, product usage, stakeholder health, and commercial signals.
+Renewals are not only about contract date. They are about customer momentum, value realization, and operational risk.
 
-## Business problem
+This skill helps revenue teams identify which customer accounts are likely to churn, weaken, or require intervention before the renewal decision is made.
 
-Renewal teams often see churn risk too late. This skill helps flag accounts that show early warning signs before the renewal window tightens.
+## Business objective
+
+This skill helps the team answer:
+
+> Which renewals are at risk, what is driving the risk, and what action should be taken before the renewal conversation becomes a churn conversation?
+
+## Expert memory layer
+
+Experienced account teams know that renewal risk is a pattern, not a single signal.
+
+Patterns that matter include:
+
+- declining product or service engagement
+- customer dissatisfaction beginning to show in conversations
+- lack of executive alignment or value realization
+- accounts where usage is thin relative to intention or expansion potential
+- a weak business case for continuing without change
+
+This skill captures those patterns in a practical risk analysis.
 
 ## Inputs
 
-- renewal date
-- product usage trends
-- customer health signals
-- support history
-- stakeholder engagement data
-- account expansion or risk notes
+- customer health and usage data
+- account history and engagement patterns
+- renewal timing and contract value
+- customer sentiment and support history
+- stakeholder dynamics and value realization status
+
+## Decision logic
+
+A strong renewal risk assessment should evaluate:
+
+1. customer value realization and product engagement
+2. stakeholder trust and executive relationship quality
+3. risk of business disruption or failure outcomes
+4. competitive or pricing pressure
+5. likelihood of expansion or contraction at renewal time
+
+The goal is to catch early warning signs before risk becomes churn.
+
+## Common failure patterns
+
+- assuming renewal is safe because account size is high
+- reacting only near the renewal date
+- missing the relationship signs that precede risk
+- focusing on product usage while ignoring stakeholder health
+- failing to identify the difference between churn risk and expansion risk
 
 ## Outputs
 
-- renewal risk score
-- top risk drivers
-- escalation or intervention recommendations
-- likely retention actions
+- renewal risk assessment
+- key risk factors
+- likely churn or reduction scenarios
+- recommended retention actions
+- escalation or account plan recommendations
 
-## Use cases
+## Example result
 
-- renewal review
-- customer success risk management
-- expansion and retention planning
-- leadership health checks
+### Renewal risk: high
+- Product usage has been inconsistent with the commercial commitment.
+- The customer is still engaged, but stakeholder alignment is weak and value realization is uneven.
+- Recommendation: meet with the customer early, review success metrics, and address the value gap before renewal escalates into churn risk.
 
-## Prompt
+## Recommended prompt
 
-“You are a customer retention strategist. Assess the renewal risk for this account using product usage, stakeholder engagement, support history, and commercial signals. Return a risk score, key risk drivers, and an action plan for retention or intervention.”
+> You are a senior customer success and renewal strategist. Review the customer account data and identify renewal risk factors, likely causes of risk, and the most effective intervention strategy before the contract renewal decision is made.
 
-## Example output
+## Source basis
 
-- Risk level: High
-- Primary drivers: reduced usage depth, lower stakeholder engagement, evidence of buyer fatigue
-- Recommended actions: executive check-in, customer success review, value realization audit, targeted onboarding or usage recovery plan
+This skill is informed by public customer success, retention risk, and renewal management practices used in B2B account management and SaaS revenue teams.
 
-## Evaluation
+## References
 
-- Risk score reflects operational and commercial evidence
-- Action plan is actionable and specific
-- Output supports renewal planning, not just generic retention language
-- Findings are useful to CS, sales, and executive review
+- Salesforce Blog
+- HubSpot Sales Blog
+- Gartner customer success and retention research
+- Forrester B2B customer insights
+- McKinsey Growth & Sales

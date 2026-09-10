@@ -1,48 +1,87 @@
 # Pricing Justification Builder
 
-## Purpose
+## Why this skill exists
 
-Create a clear, value-based pricing justification for a customer conversation, including ROI framing, commercial logic, and risk reduction.
+Pricing conversations become difficult when the value story is vague or inconsistent.
 
-## Business problem
+This skill helps teams build a more credible commercial case by tying pricing to business value, risk reduction, operational efficiency, and buyer-specific outcomes.
 
-Price objections usually reflect uncertainty, not final objection to value. Reps often struggle to translate value into a persuasive commercial argument.
+## Business objective
+
+This skill helps the team answer:
+
+> How do we justify the price in a way that feels credible, relevant, and aligned with the customer’s business goals?
+
+## Expert memory layer
+
+Real pricing conversations are usually won or lost based on perceived value, not just cost.
+
+Experienced teams know to watch for:
+
+- value arguments that are too generic to be persuasive
+- buyer objections that lack a business case behind them
+- pricing structures that create confusion instead of confidence
+- lack of ROI framing around operational impact or strategic benefit
+
+This skill translates those patterns into a clear buyer-facing justification framework.
 
 ## Inputs
 
-- pricing context
-- customer use case
-- ROI or efficiency metrics
-- budget or procurement sensitivity
-- competitive comparison
+- pricing or packaging structure
+- customer use case and business context
+- buyer constraints or objections
+- value levers such as efficiency, risk reduction, revenue upside, or cost avoidance
+- competitive pricing context
+
+## Decision logic
+
+A strong pricing justification should connect:
+
+1. customer pain and business urgency
+2. quantified or qualitative value impact
+3. economic or operational rationale
+4. scope or implementation fit
+5. commercial defensibility against alternatives
+
+The result should feel like a business case, not a discount argument.
+
+## Common failure patterns
+
+- pricing defended only on features instead of outcomes
+- value claims that are too broad or not buyer-specific
+- weak ROI reasoning for decision-makers
+- failing to connect pricing to business risk or opportunity cost
+- relying on discounting when the value story is weak
 
 ## Outputs
 
-- pricing position summary
-- ROI-based value narrative
-- commercial justification points
-- recommended negotiation posture
+- pricing justification narrative
+- value rationale by buyer persona or stakeholder
+- business outcome framing
+- comparison to status quo or alternatives
+- recommended negotiation stance
 
-## Use cases
+## Example result
 
-- pricing conversations
-- enterprise proposal reviews
-- executive commercial discussions
-- ROI defense in procurement
+### Pricing case
+- The buyer’s operational friction is creating measurable manual effort and delay.
+- This solution reduces overhead and shortens cycle time, creating measurable efficiency gains.
+- The total cost is justified by a clearer operational improvement and lower risk of failure.
+- Recommendation: anchor on savings and efficiency, then use phased rollout to reduce perceived risk.
 
-## Prompt
+## Recommended prompt
 
-“You are a senior commercial strategist. Build a pricing justification for this customer conversation. Use the buyer context, use case, value metrics, and any competitive or implementation considerations to create a concise value-based argument. Include a business case, operational benefits, and a recommended way to frame the conversation.”
+> You are a senior commercial strategist. Build a pricing justification for the deal using the customer context, value drivers, and commercial constraints provided. Connect the price to real business outcomes, show why the investment is justified, and recommend a defensible negotiation posture.
 
-## Example output
+## Source basis
 
-- Commercial rationale: reduced workflow friction and improved pipeline visibility create measurable operating leverage
-- ROI framing: with expected time or cost reduction, the investment should be recouped within a defined business cycle
-- Negotiation posture: position the offer as a phased investment with operational benefits and measurable outcomes
+This skill is informed by public commercial strategy, pricing discipline, ROI framing, and enterprise value-selling practices used in B2B sales.
 
-## Evaluation
+## References
 
-- Argument is value-based rather than price-focused
-- It reflects buyer context and commercial reality
-- It addresses risk and decision criteria clearly
-- It supports a constructive sales conversation rather than a defensive one
+- Salesforce Blog
+- Gong Blog
+- HubSpot Sales Blog
+- Gartner sales and pricing research
+- Forrester B2B commercial strategy insights
+- McKinsey Growth & Sales

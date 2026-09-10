@@ -2,12 +2,12 @@ import argparse
 import json
 import importlib
 from pathlib import Path
-from .providers import MockProvider
+from .providers import MockProvider, get_provider_from_env
 
 
 def run_skill(skill_name: str, input_path: str = None, provider=None):
     if provider is None:
-        provider = MockProvider()
+        provider = get_provider_from_env()
 
     # import skill module from skills_ai.skills
     module_name = f"skills_ai.skills.{skill_name}"

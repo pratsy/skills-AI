@@ -1,49 +1,95 @@
 # Market Trend Signal Reporter
 
-## Purpose
+## Why this skill exists
 
-Identify and summarize emerging market patterns that may affect demand, buying behavior, or GTM strategy.
+Most teams are exposed to too many market signals to interpret manually. The challenge is not finding information; it is separating meaningful pattern change from background noise.
 
-## Business problem
+This skill helps identify the market trends that likely influence buyer behavior, segment demand, and GTM planning so teams can act on what matters.
 
-B2B teams often fail to synthesize weak but meaningful signals from broader market changes into action. This skill helps turn general market movement into tactical strategic insight.
+## Business objective
+
+This skill helps the team answer:
+
+> Which market trends meaningfully affect our category, and how should we adjust strategy or messaging?
+
+## Expert memory layer
+
+Strong GTM teams build memory around patterns like:
+
+- changing buyer priorities across the category
+- recurring operational pain that is becoming more urgent
+- new buying criteria entering the market
+- external changes that affect pricing, messaging, or sales motion
+
+This skill captures those patterns and translates them into strategic response recommendations.
 
 ## Inputs
 
-- industry news
-- market reports
-- customer feedback
-- product usage patterns
-- competitor activity
-- demand trends
+- industry news and market reports
+- customer feedback and buying signals
+- product usage patterns and customer behavior
+- competitor activity and category commentary
+- demand trends and market shifting narratives
+
+## Decision logic
+
+A good trend report should assess:
+
+1. signal quality: is the trend real and repeatable?
+2. buyer relevance: does it affect buying criteria or urgency?
+3. commercial impact: does it change demand, pricing, or value perception?
+4. response fit: does the team need to update messaging, targeting, or offers?
+
+The goal is not to summarize information broadly but to identify the shifts that should change action.
+
+## Common failure patterns
+
+- overreacting to weak or noisy market commentary
+- treating every category trend as equally important
+- missing the link between trend change and buyer behavior
+- reporting trends without operational implications
+- failing to distinguish macro noise from category-specific signals
 
 ## Outputs
 
 - trend summary
-- impact assessment
-- likely strategic implications
-- recommended response perspective
+- likely buyer impact
+- strategic implication for GTM teams
+- recommended sales or marketing response
+- priority watch-list items
 
-## Use cases
+## Example result
 
-- quarterly GTM review
-- market scanning
-- strategic planning
-- sales and marketing briefing
+### Market trend: buyers value implementation speed and operational simplicity more heavily
+- Why it matters: the category is moving toward lower-friction deployment and faster time-to-value.
+- Buyer effect: buying criteria are shifting from feature breadth to operational ease and proof of efficiency.
+- Recommended response: strengthen messaging around launch speed, onboarding simplicity, ROI proof, and implementation readiness.
 
-## Prompt
+## Recommended prompt
 
-“You are a B2B market strategy analyst. Review the provided market signals and summarize the most meaningful trends affecting this category. Explain which changes matter most, why they matter, and how they may affect buying behavior or GTM strategy. Provide a concise and executive-ready summary.”
+> You are a senior market strategy analyst. Review the provided market signals and summarize the most meaningful trends affecting this category. Explain which changes are likely to influence buying behavior, why they matter, and how the GTM team should respond.
 
-## Example output
+## Source basis
 
-- Trend: growing emphasis on implementation speed and team efficiency
-- Why it matters: buyers are prioritizing lower friction and faster time to value
-- Implication: sales messaging should emphasize speed of deployment and operational simplicity
+This skill is informed by public market intelligence, category analysis, customer-behavior monitoring, and B2B growth strategy practices.
 
-## Evaluation
+## References
 
-- Signals are synthesized into meaningful business patterns
-- Output is strategic but actionable
-- Key implications are tied to customer behavior and GTM motion
-- Recommendations are relevant to the market context
+- McKinsey Growth & Sales
+- Gartner market research
+- Forrester category insight resources
+- Demandbase and Bombora market intelligence content
+- public SaaS and growth trend research
+
+## Why this is different from a generic prompt
+
+This is not a basic “summarize the news” prompt.
+
+It is a structured market-scanning workflow that helps teams decide:
+
+- which trends are real enough to matter
+- how the trend affects buying behavior
+- what the business implication is
+- whether the company should monitor, align, or respond strategically
+
+That is the expert memory that turns information gathering into decision support.

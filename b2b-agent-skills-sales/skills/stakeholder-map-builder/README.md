@@ -1,49 +1,86 @@
 # Stakeholder Map Builder
 
-## Purpose
+## Why this skill exists
 
-Map the likely stakeholders, decision roles, and influence patterns in a B2B buying committee.
+Enterprise deals fail when the buying group is not understood well enough.
 
-## Business problem
+A seller may see a champion, but miss the real blockers, economic buyer, technical evaluators, and process gatekeepers. This skill helps map the buying group more realistically.
 
-Deals stall when the buying group is not mapped correctly. Reps often underestimate the number of stakeholders, influence dynamics, or informal decision-makers.
+## Business objective
+
+This skill helps the team answer:
+
+> Who matters in the buying process, how they influence the decision, and what role they play in moving the deal forward?
+
+## Expert memory layer
+
+Experienced sales teams know that buying groups are rarely simple. The useful patterns are:
+
+- who has formal authority versus informal influence
+- which stakeholders are likely to resist or slow the decision
+- where consensus is weak or conflicted
+- which relationships can accelerate or block progress
+
+This skill captures that context in a structured stakeholder map.
 
 ## Inputs
 
-- account description
-- known contacts
-- buying process notes
-- existing stakeholder information
-- deal context and stage
+- account context and deal summary
+- stakeholder names and roles
+- conversation notes and buying process details
+- relationships across teams or departments
+- recent objections and stakeholder themes
+
+## Decision logic
+
+A strong stakeholder map should show:
+
+1. decision authority
+2. buying influence and sponsorship
+3. risk or resistance patterns
+4. dependencies or process gatekeepers
+5. opportunities for multi-threading and champion development
+
+The goal is not to list names, but to understand influence and momentum.
+
+## Common failure patterns
+
+- assuming the visible contact is the decision-maker
+- ignoring hidden blockers or process dependencies
+- treating every stakeholder as equally important
+- missing role conflict between technical and business stakeholders
+- failing to identify the actual buying decision path
 
 ## Outputs
 
 - stakeholder map
-- influence and role summary
-- decision path notes
-- suggested engagement strategy
+- role and influence summary
+- likely blockers and champions
+- recommended engagement strategy
+- multi-threading opportunities
 
-## Use cases
+## Example result
 
-- enterprise deal planning
-- expansion conversations
-- multi-threaded account strategy
-- executive sponsor development
+### Stakeholder map
+- Economic buyer: CFO
+- Champion: VP of operations
+- Technical influencer: IT architecture lead
+- Blocker: procurement team with strict vendor review process
+- Recommendation: align champion with business case and prepare technical validation for IT stakeholders
 
-## Prompt
+## Recommended prompt
 
-“You are a B2B stakeholder strategy advisor. Build a stakeholder map for this account and likely buying committee. Identify the likely decision-makers, influencers, blockers, and operational supporters. Also suggest the best engagement strategy for each stakeholder group.”
+> You are a senior enterprise sales strategist. Map the buying group for this account and identify who matters most, who influences the decision, who is likely to resist it, and how the sales team should engage each stakeholder to improve momentum.
 
-## Example output
+## Source basis
 
-- Executive sponsor: high-level strategic buyer, needs ROI narrative and business case
-- Operational champion: cares about day-to-day process improvement and implementation ease
-- Procurement: concerned with risk, vendor fit, and commercial controls
-- Best engagement strategy: tailor messaging by role and align around business outcomes
+This skill is informed by public enterprise sales, stakeholder mapping, and account strategy practice used in complex B2B sales motions.
 
-## Evaluation
+## References
 
-- Stakeholder map reflects real buying complexity
-- Influence is differentiated by role, not assumed equally
-- Engagement strategy is realistic and targeted
-- Output supports better discovery and deal management
+- Salesforce Blog
+- Gong Blog
+- HubSpot Sales Blog
+- Gartner sales research
+- Forrester B2B sales insights
+- McKinsey Growth & Sales

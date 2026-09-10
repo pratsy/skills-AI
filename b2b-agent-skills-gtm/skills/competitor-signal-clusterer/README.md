@@ -1,50 +1,84 @@
 # Competitor Signal Clusterer
 
-## Purpose
+## Why this skill exists
 
-Group competitor signals into meaningful themes so GTM teams can understand the real pattern behind competitive change rather than reacting to isolated events.
+Competitive monitoring becomes useful only when noise is turned into insight.
+
+This skill helps cluster competitor signals into meaningful themes so GTM teams can understand whether the movement matters, how it affects buyers, and what response is needed.
+
+## Business objective
+
+This skill helps the team answer:
+
+> Which competitor signals are genuinely important, and how should the team interpret them for messaging, product, or strategic response?
+
+## Expert memory layer
+
+Strong GTM teams know that competitor movement matters only when it affects buyer decisions.
+
+Patterns that matter include:
+
+- repeated competitor language around a common pain point
+- market shifts that change buyer urgency or value perception
+- signals with strategic impact versus signals that are tactical noise
+- competitive behavior that affects positioning or pricing pressure
+
+This skill transforms those patterns into interpretable clusters and action guidance.
 
 ## Inputs
 
-- competitor announcements
-- product updates
-- customer feedback around alternatives
-- sales call notes
-- market trend summaries
+- competitor announcements and market updates
+- customer feedback and messaging themes
+- product, pricing, and category changes
+- market commentary and signal data
+- strategic priorities and GTM context
+
+## Decision logic
+
+A strong signal cluster review should consider:
+
+1. signal strength and credibility
+2. buyer relevance and urgency impact
+3. competitive significance versus noise
+4. risk and opportunity implications
+5. best GTM response or reframing approach
+
+The goal is to decide whether a signal should lead to action, monitoring, or silence.
+
+## Common failure patterns
+
+- treating every competitor move as a strategic threat
+- missing the difference between product noise and buying impact
+- overreacting to one signal without understanding pattern meaning
+- failing to connect competitor activity to customer behavior
+- not translating signal clusters into a practical GTM response
 
 ## Outputs
 
-- cluster summary by competitive theme
-- likely message or category shifts
-- account-level competitive insight
-- recommended GTM response
-- watchlist for strategic follow-up
-
-## Prompt
-
-“You are a senior market intelligence and competitive strategy analyst. Cluster the incoming competitor signals into meaningful themes and explain what they likely mean for buyer behavior and category dynamics. Highlight the strategic implications and recommend how the GTM team should respond.”
-
-## What a strong output includes
-
-- key competitive themes and message shifts
-- recurrent customer objections or switching triggers
-- likely strategic implications by segment
-- recommendations for sales, product, and marketing response
-- monitoring priorities for the next review cycle
+- competitor signal clusters
+- likely market and buyer impact summary
+- strategic relevance and urgency assessment
+- recommended responses across positioning, message, and sales motion
+- monitoring priorities and watch-list items
 
 ## Example result
 
-- Theme: strong packaging flexibility is driving more buyer comparisons on implementation cost
-- Response: emphasize value realization and faster rollout in messaging
-- Watchlist: competitor pricing changes in the mid-market segment
+### Clustered signal
+- Competitors are increasingly emphasizing integration and time-to-value.
+- Buyers are responding to implementation burden and ROI proof.
+- Recommendation: sharpen positioning around faster implementation, lower friction, and measurable operational gain.
+
+## Recommended prompt
+
+> You are a senior competitive intelligence strategist. Review the competitor signal data and cluster the main patterns by strategic meaning and buyer impact. Explain which signals matter most and recommend the proper GTM response.
 
 ## Source basis
 
-This skill is informed by public competitor intelligence, category analysis, and B2B market research methods used by GTM and growth teams.
+This skill is informed by public competitive intelligence, market monitoring, and B2B strategy practices used in GTM teams.
 
 ## References
 
-- McKinsey market and growth resources
-- Gartner competitive strategy and market intelligence research
-- Forrester B2B market and category analysis
-- 6sense, Demandbase, and Bombora signal monitoring perspectives
+- Gartner sales and market research
+- Forrester B2B strategy insights
+- McKinsey Growth & Sales
+- public competitive intelligence practice and market monitoring resources

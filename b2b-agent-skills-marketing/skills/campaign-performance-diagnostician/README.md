@@ -1,49 +1,84 @@
 # Campaign Performance Diagnostician
 
-## Purpose
+## Why this skill exists
 
-Diagnose why a campaign or demand-generation program is underperforming and recommend changes to improve efficiency and conversion.
+Marketing teams often see weak performance and assume the issue is the channel or tactic alone.
 
-## Business problem
+This skill helps diagnose the real cause behind poor performance by looking at audience fit, message quality, funnel friction, and conversion path quality.
 
-Campaign performance issues are often caused by poor targeting, weak offer-market fit, unclear messaging, or weak conversion flow rather than a single isolated problem.
+## Business objective
+
+This skill helps the team answer:
+
+> Why is this campaign underperforming, and which changes are most likely to improve the quality of the result?
+
+## Expert memory layer
+
+Strong performance teams know that weak campaign output often comes from predictable problems:
+
+- the wrong audience or poor fit for the offer
+- message mismatch between the ad and the landing experience
+- weak proof or relevance at the decision point
+- channel behavior that looks promising but is not building qualified intent
+
+This skill turns those patterns into a structured diagnosis.
 
 ## Inputs
 
-- campaign metrics
-- audience data
-- landing page information
-- funnel stages
-- content and offer details
-- conversion and performance trends
+- campaign data and engagement metrics
+- audience and segment context
+- conversion and funnel performance by stage
+- message and offer details
+- landing page or web experience quality
+
+## Decision logic
+
+A strong campaign diagnosis should review:
+
+1. demand quality and audience fit
+2. message-to-offer alignment
+3. conversion friction and funnel drop-offs
+4. channel and segment performance differences
+5. likely root cause behind weak performance
+
+The point is to find the decision driver behind the numbers, not just describe the numbers.
+
+## Common failure patterns
+
+- blaming a channel without checking fit or message quality
+- treating all clicks as equal when some are low-intent or low-fit
+- ignoring landing page or offer mismatch
+- optimizing for early-stage engagement without conversion quality
+- missing the fact that the problem is often higher in the funnel than people think
 
 ## Outputs
 
-- performance diagnosis
-- likely root causes
-- prioritization of fixes
-- optimization recommendations
+- campaign diagnosis summary
+- performance bottleneck analysis
+- likely causes of weak performance
+- recommended adjustments by campaign lever
+- next optimization priorities
 
-## Use cases
+## Example result
 
-- paid media review
-- email campaign analysis
-- content-driven demand generation
-- landing page performance troubleshooting
+### Campaign diagnosis
+- Audience fit is acceptable, but the offer-to-message alignment is weak.
+- Traffic quality is moderate, but conversion drops after click because the landing page is not matching the audience’s specific problem.
+- Recommendation: rebalance message framing and match the landing page to buyer intent and offer relevance.
 
-## Prompt
+## Recommended prompt
 
-“You are a B2B demand generation strategist. Review the data and diagnose why this campaign is underperforming. Identify the strongest likely causes in targeting, message-market fit, offer relevance, funnel issues, and conversion friction. Suggest a ranked action plan to improve performance.”
+> You are a senior growth marketing analyst. Review the campaign data and diagnose the main reasons for poor performance. Identify the most likely bottlenecks and suggest the specific adjustments in audience, offer, or landing-page strategy that would most improve performance.
 
-## Example output
+## Source basis
 
-- Likely issue: strong impression volume but weak audience-fit quality
-- Secondary issue: landing page is not aligned to the campaign promise
-- Recommendation: narrow audience segment, rewrite CTA, improve value statement, test two offer variants
+This skill is informed by public campaign optimization, performance marketing, and funnel diagnostics practice used in B2B growth teams.
 
-## Evaluation
+## References
 
-- Diagnosis is evidence-based and structured
-- Root causes are prioritized logically
-- Recommendations are actionable and focused on the biggest impact areas
-- The output is useful to both marketing and GTM stakeholders
+- HubSpot Blog
+- Demandbase Blog
+- 6sense Blog
+- Gartner marketing research
+- Forrester B2B buyer research
+- McKinsey Growth & Sales

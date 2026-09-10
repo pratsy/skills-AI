@@ -1,48 +1,83 @@
 # Win-Loss Theme Clusterer
 
-## Purpose
+## Why this skill exists
 
-Cluster win and loss themes to identify recurring reasons customers buy or don’t buy, then translate them into GTM action.
+Win-loss analysis is only useful when the patterns are understood and acted on.
 
-## Business problem
+This skill helps cluster repeated themes from customer feedback, competitive dynamics, and buying behavior so GTM teams can see what is really influencing success or failure.
 
-Win-loss data is often messy and scattered. Without clustering, teams miss the recurring patterns that matter most for value proposition and sales execution.
+## Business objective
+
+This skill helps the team answer:
+
+> What themes are consistently driving wins or losses, and how should the team use those insights to improve messaging, positioning, or GTM motion?
+
+## Expert memory layer
+
+Strong GTM teams know the real value of win-loss analysis is not the summary, but the pattern clusters behind it.
+
+Patterns that matter include:
+
+- repeated reasons for customer hesitation or drop-off
+- competitive themes that keep reappearing across deals
+- product or service gaps revealed at different decision points
+- strategic reasons that influence win rates across specific segments or motions
+
+This skill turns those patterns into strategic insight clusters.
 
 ## Inputs
 
-- win-loss interview summaries
-- customer feedback notes
-- competitor references
-- deal outcome data
-- objection themes
+- win-loss notes and customer interview data
+- competitive positioning and objection patterns
+- sales feedback and deal outcomes
+- customer language and reasons for choosing or passing
+- segment and motion context
+
+## Decision logic
+
+A strong theme clustering review should analyze:
+
+1. recurring win themes and loss themes
+2. customer reasons by segment or deal type
+3. competitive and positioning pressure points
+4. buyer risk or trust themes that influence decisions
+5. the strategic opportunities that follow from the pattern clusters
+
+The purpose is not just classification but strategic actionability.
+
+## Common failure patterns
+
+- summarizing win-loss without grouping the real driver themes
+- not connecting the theme to decision-maker behavior
+- missing the difference between product issues and buying-process issues
+- failing to compare themes across segments or motions
+- treating isolated anecdotes as the full story
 
 ## Outputs
 
-- clustered win themes
-- clustered loss themes
-- recurring patterns
-- GTM implications and recommendations
+- clustered win and loss themes
+- summary of the strongest patterns by segment or deal type
+- competitive and buyer insight implications
+- recommended action for positioning, sales approach, or product focus
 
-## Use cases
+## Example result
 
-- win-loss review
-- competitive insight synthesis
-- pricing or messaging updates
-- GTM strategy refresh
+### Clustered themes
+- Wins are driven by faster implementation and clear ROI visibility.
+- Losses are influenced by procurement friction and lack of clear business case support.
+- Recommendation: strengthen implementation confidence messaging and align value story to decision criteria.
 
-## Prompt
+## Recommended prompt
 
-“You are a GTM strategy analyst. Review the win-loss interview data and cluster the major themes driving successful and failed outcomes. Highlight the recurring themes, identify the strongest patterns, and translate them into practical GTM implications for sales, marketing, and product strategy.”
+> You are a senior GTM analyst. Review the win-loss and customer feedback data and cluster the recurring themes behind successful and unsuccessful deals. Explain the key patterns and recommend how the team should respond in strategy, messaging, and execution.
 
-## Example output
+## Source basis
 
-- Winning themes: lower implementation complexity, better operational clarity, stronger value proof
-- Losing themes: unclear ROI case, weak stakeholder alignment, slower deployment than expected
-- GTM implication: improve proof of deployment speed and buyer risk reduction in messaging and sales process
+This skill is informed by public win-loss analysis, competitive intelligence, and B2B market learning practices used in GTM teams.
 
-## Evaluation
+## References
 
-- Themes are clustered meaningfully rather than isolated as random issues
-- Patterns align with actual buying logic
-- Recommendations drive GTM action and not just observation
-- Output is useful for strategy and field enablement
+- Gartner sales and GTM research
+- Forrester B2B strategy insights
+- McKinsey Growth & Sales
+- public competitive intelligence and customer feedback practices

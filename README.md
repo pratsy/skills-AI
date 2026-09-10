@@ -4,6 +4,25 @@ Curated AI skills for revenue teams that need better decisions, clearer executio
 
 This repo is designed for the people who actually run GTM work: sales leaders, marketing teams, RevOps leaders, founders, and operators who need practical AI support for real business work.
 
+## Expert memory layer: the difference between generic AI and useful AI
+
+Most AI repos are generic because they only give you a model and a prompt.
+
+This repo is different.
+
+This is a domain memory system for B2B revenue execution. It is designed to capture the things that real operators learn over time:
+
+- which accounts matter and why
+- which objections tend to show up in specific buying motions
+- what good pipeline quality looks like in practice
+- how messaging breaks down at different funnel stages
+- what market signals deserve attention versus noise
+- which patterns repeatedly cause missed forecast, stalled deals, or weak conversion
+
+In other words, this is not just a library of prompts. It is a structured way to encode business judgment, field experience, and source-backed operating patterns into repeatable AI workflows.
+
+That is the real value. Generic AI generates text. Expert memory produces decision support.
+
 ## Who this is for
 
 This repo is built for:
@@ -181,6 +200,7 @@ It stands apart by combining:
 - source-backed references
 - real GTM and revenue context
 - examples that look like actual operating tasks, not toy demos
+- expert memory patterns that encode operator learning and decision context
 
 It is most competitive for teams that want AI to support execution, not just generate content.
 
@@ -202,6 +222,7 @@ This is a practical library for revenue and GTM teams who want more usable, repe
 - `b2b-agent-skills-gtm` — strategic planning, market intelligence, and account prioritization
 - `skills_ai/` — runtime engine for using the skills programmatically
 - `examples/` — quick runnable examples and app patterns
+- `memory/` — operational memory model, skill schema, and domain quality checklist
 
 ## Quick start for non-technical users
 
@@ -244,6 +265,20 @@ New additions in the public library include:
 - `Competitor Signal Clusterer` — strategic grouping of competitive movement and message themes
 
 These additions reinforce the repo’s aim: source-backed, operational AI skills that are useful in real B2B sales and marketing execution.
+
+## Memory architecture
+
+This repo is designed around an expert memory system for B2B revenue work.
+
+Each skill is expected to include business context, decision logic, failure patterns, and source-backed references so the output is useful in a real operating environment.
+
+Key files:
+
+- `memory/README.md` — memory model and design logic
+- `memory/skill-memory-template.yaml` — reusable skill memory schema
+- `memory/domain-memory-checklist.md` — checklist for keeping the repo from becoming generic
+
+This is the part that separates real domain intelligence from a basic prompt library.
 
 ## Notes
 

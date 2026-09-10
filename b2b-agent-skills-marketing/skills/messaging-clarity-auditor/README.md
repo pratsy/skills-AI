@@ -1,50 +1,84 @@
 # Messaging Clarity Auditor
 
-## Purpose
+## Why this skill exists
 
-Evaluate whether current marketing or sales messaging clearly explains value, buyer pain, and differentiation.
+Strong messaging is not just clear writing. It is clear buying logic.
 
-## Business problem
+This skill helps teams evaluate whether the current positioning and messaging actually explain the value, urgency, and relevance to the buyer in a way they can understand quickly.
 
-Many teams assume their messaging is clear when it is actually vague, overloaded, or too internally focused.
+## Business objective
+
+This skill helps the team answer:
+
+> Is the message clear, specific, and persuasive enough to support buyer action?
+
+## Expert memory layer
+
+Experienced marketing teams know that buyer confusion often hides behind vague or overly broad language.
+
+Patterns that matter include:
+
+- positioning that sounds polished but does not explain the real business value
+- jargon-heavy messaging that confuses rather than clarifies
+- content that is clear to internal teams but not to buyers
+- inconsistency across channels or buyer stages
+
+This skill captures those patterns into a structured message review.
 
 ## Inputs
 
-- website copy
-- ad copy
-- sales pitch language
-- email sequences
-- value proposition statements
-- competitive positioning notes
+- value propositions and messaging framework
+- landing pages and campaign copy
+- customer language and objections
+- sales call notes and feedback
+- buyer persona context
+
+## Decision logic
+
+A strong clarity review should evaluate:
+
+1. message simplicity and buyer comprehension
+2. specificity of the business problem and outcome
+3. relevance to buyer stage and role
+4. differentiation from alternative solutions
+5. proof and reason-to-believe quality
+
+The best messaging is easy to understand and hard to confuse with alternatives.
+
+## Common failure patterns
+
+- messaging that is broad but not specific
+- overly internal language instead of buyer language
+- lack of proof or differentiation in the message
+- inconsistent value framing across the funnel
+- poor message fit for the persona or buying stage
 
 ## Outputs
 
-- messaging clarity score
-- gaps in clarity
-- recommended rewrite direction
-- buyer-focused value framing
+- message clarity assessment
+- confusing or weak claims
+- recommended message changes
+- proof and differentiation suggestions
+- performance or buyer feedback implications
 
-## Use cases
+## Example result
 
-- positioning review
-- campaign messaging refresh
-- sales enablement QA
-- landing page optimization
+### Message clarity issue
+- The value proposition states broad business benefit but does not explain the customer’s real pain or expected outcome.
+- Recommendation: anchor the message in the operational problem, business outcome, and specific proof tied to customer use cases.
 
-## Prompt
+## Recommended prompt
 
-“You are a B2B messaging strategist. Review the provided messaging copy for clarity, differentiation, buyer relevance, and value articulation. Assess what is working, what is vague, and how the message can be improved. Then rewrite the core message in a clearer, buyer-oriented form.”
+> You are a senior messaging strategist. Review the current copy and positioning and assess whether it is clear, buyer-relevant, and persuasive. Identify the biggest clarity issues, explain where the message fails, and recommend how to improve it.
 
-## Example output
+## Source basis
 
-- Strength: clear process description
-- Gap: low emotional or business urgency signal
-- Recommendation: shift from feature language to operational pain and ROI framing
-- Rewritten value statement: reduce manual pipeline variance and improve forecast confidence with a single operating view
+This skill is informed by public value proposition, messaging strategy, and buyer-language practices used in strong B2B marketing teams.
 
-## Evaluation
+## References
 
-- Messaging is buyer-centric and relevant
-- The value proposition is specific and clear
-- Differentiation is visible without jargon
-- It supports both marketing and sales motion
+- HubSpot Blog
+- Demandbase Blog
+- Gartner marketing research
+- Forrester B2B buyer insights
+- McKinsey Growth & Sales

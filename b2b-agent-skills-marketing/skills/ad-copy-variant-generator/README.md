@@ -1,49 +1,87 @@
 # Ad Copy Variant Generator
 
-## Purpose
+## Why this skill exists
 
-Generate multiple ad copy variants tailored to different buyer personas, value angles, and campaign goals.
+Most ad copy fails because teams optimize for volume instead of message clarity.
 
-## Business problem
+This skill helps generate ad variations that are more specific to the customer problem, buyer motion, and offer, so teams can test stronger hooks and improve campaign performance.
 
-Ad teams often test too little variation or generate copy that does not align with meaningful buyer differences or value propositions.
+## Business objective
+
+This skill helps the team answer:
+
+> Which ad message variations are most likely to resonate with the target audience and improve click-through and conversion quality?
+
+## Expert memory layer
+
+Strong performance marketing teams know that copy quality depends on buyer appetite, message positioning, and specific value framing.
+
+Patterns that matter include:
+
+- messages that sound generic and fail to create urgency
+- unsupported claims that weaken trust
+- value propositions that are too broad to stand out
+- ad tests that never distinguish between message clarity and offer mismatch
+
+This skill helps turn those patterns into sharper variant testing.
 
 ## Inputs
 
-- audience segment
-- value proposition
-- campaign goal
-- pain point
-- CTA objective
-- offer context
+- audience context and segment
+- offer or CTA details
+- value proposition and positioning
+- campaign objective and channel
+- known buyer objections or concerns
+
+## Decision logic
+
+A strong ad variant set should evaluate:
+
+1. message clarity and relevance
+2. alignment with the buyer’s actual problem
+3. differentiating angle and promise quality
+4. urgency and engagement trigger
+5. fit with the channel and audience intent
+
+The goal is not just more variants, but better ones.
+
+## Common failure patterns
+
+- testing copy that is too generic to differentiate
+- reusing the same message across different audience segments
+- making promises the offer cannot support
+- creating urgency without a clear reason to act
+- ignoring buyer-specific objections or stage context
 
 ## Outputs
 
-- multiple ad copy variants
-- CTA options
-- tone variations
-- offer/value framing variations
+- multiple ad variations
+- headline and CTA options
+- value proposition framing by audience segment
+- reason-to-believe cues
+- testing recommendation or prioritization
 
-## Use cases
+## Example result
 
-- paid media ideation
-- A/B testing
-- campaign refresh work
-- messaging experiments
+### Ad variation set
+- Headline: Reduce manual workflow bottlenecks without slowing teams down
+- CTA: See the ROI model
+- Framing: operations-focused message emphasizing efficiency and visibility
+- Alternate angle: built for teams that need faster execution without adding complexity
 
-## Prompt
+## Recommended prompt
 
-“You are a B2B paid media strategist. Generate several ad copy variants for the target audience and campaign objective. Each variant should emphasize a different buyer angle, value proposition, or risk-reduction message. Keep the tone relevant to the audience and include a clear CTA.”
+> You are a senior growth marketer. Generate a set of ad copy variants that fit the target audience and offer context provided. Focus on clear value, buyer-specific language, and a stronger reason to click or convert.
 
-## Example output
+## Source basis
 
-- Variant 1: pain + urgency message focused on operational inefficiency
-- Variant 2: ROI and efficiency message for decision-makers seeking measurable performance gains
-- Variant 3: simplification and time-to-value message for buyer groups focused on implementation ease
+This skill is informed by public performance marketing, copywriting, and conversion optimization practices used in B2B demand-generation programs.
 
-## Evaluation
+## References
 
-- Variants reflect real audience differences
-- Message angles are distinct and useful for testing
-- CTA and benefit framing are aligned with buyer motivation
-- The output is usable for testing and iteration rather than generic copy generation
+- HubSpot Blog
+- Demandbase Blog
+- 6sense Blog
+- Gartner marketing research
+- Forrester B2B marketing insights
+- McKinsey Growth & Sales

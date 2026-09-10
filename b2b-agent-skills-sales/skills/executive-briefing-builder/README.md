@@ -1,50 +1,86 @@
 # Executive Briefing Builder
 
-## Purpose
+## Why this skill exists
 
-Build a concise executive-ready brief that summarizes account status, business context, opportunity risk, and strategic next steps.
+Executives do not need more information. They need the right information in the right context.
 
-## Business problem
+This skill helps teams build a concise executive-facing customer brief that focuses on business relevance, commercial importance, risk, and actionability rather than operational detail.
 
-Executives need a short, decision-focused summary, but sales teams often provide long narrative updates with too much detail and not enough clarity.
+## Business objective
+
+This skill helps the team answer:
+
+> What do we need an executive audience to understand before the conversation, and what message will help them act?
+
+## Expert memory layer
+
+Experienced sales leaders know that executive summaries work when they are sharp, business-led, and decision-oriented.
+
+Patterns that matter include:
+
+- too much operational detail and not enough business framing
+- leadership discussions that lack a clear commercial case
+- strategic summaries that do not reflect the actual buying complexity
+- conversations without a strong recommendation or next-step path
+
+This skill turns those patterns into a concise executive brief.
 
 ## Inputs
 
-- account summary
-- stakeholder status
-- buying process information
-- risk assessment
-- commercial context
-- recent activity and relationship notes
+- customer account context
+- strategic priorities and business challenges
+- stakeholder and buying group insights
+- value drivers and commercial impact
+- risk, urgency, and decision dynamics
+
+## Decision logic
+
+A strong executive briefing should:
+
+1. reflect what matters to the executive audience
+2. connect the issue to measurable business impact
+3. explain why the opportunity matters now
+4. outline the risks, dependencies, and decision path
+5. give the team a clear recommendation for conversation flow
+
+The brief should reduce ambiguity and improve alignment before the stakeholder conversation begins.
+
+## Common failure patterns
+
+- building a long operational recap instead of a decision brief
+- missing the business problem and the practical recommendation
+- failing to connect the account to strategic value or risk
+- too much detail without prioritization or clarity
+- no clear “what should happen next” message
 
 ## Outputs
 
-- exec briefing
-- key business premise
-- strategic risk and opportunity summary
-- recommended leadership action
+- executive brief summary
+- business context and opportunity framing
+- stakeholder and value considerations
+- risk and decision summary
+- recommended next steps or executive ask
 
-## Use cases
+## Example result
 
-- executive account reviews
-- leadership check-ins
-- strategic customer updates
-- commercial escalation briefs
+### Executive briefing summary
+- This account is operationally constrained and has a clear business case for improving process efficiency.
+- The buying group has strong internal alignment risk, but the opportunity is strategically meaningful.
+- The recommendation is to focus the next conversation on business outcomes, risk reduction, and executive sponsorship.
 
-## Prompt
+## Recommended prompt
 
-“You are a strategic account advisor. Draft a concise executive briefing for a senior leader reviewing this account. Include business context, opportunity status, stakeholder momentum, risk indicators, and the next three actions the leadership team should support. Keep it crisp, decision-oriented, and commercially relevant.”
+> You are a senior account strategist. Build an executive-facing briefing for the customer situation below. Focus on business relevance, strategic urgency, stakeholder dynamics, and the next decision or action needed to advance the opportunity.
 
-## Example output
+## Source basis
 
-- Opportunity: strategic expansion with high value but mixed buying committee alignment
-- Current momentum: buyer has improved urgency after workflow pain became visible
-- Key risk: stakeholder overlap and procurement complexity
-- Recommended leadership action: align executive sponsor and clarify business case around ROI and implementation plan
+This skill is informed by public executive communication, strategic account planning, and enterprise sales briefing practices used in complex B2B opportunities.
 
-## Evaluation
+## References
 
-- The brief is concise and clear
-- It gives leaders a useful decision frame
-- It emphasizes business context and risk, not just activity updates
-- It is appropriate for strategic commercial conversations
+- Salesforce Blog
+- Gong Blog
+- HubSpot Sales Blog
+- Gartner sales and customer strategy research
+- Forrester B2B sales insights
+- McKinsey Growth & Sales

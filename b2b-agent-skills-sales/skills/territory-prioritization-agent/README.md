@@ -1,48 +1,86 @@
 # Territory Prioritization Agent
 
-## Purpose
+## Why this skill exists
 
-Recommend how to allocate territories, segments, or named accounts based on revenue potential, market fit, and rep capacity.
+Sales teams often spread effort too evenly across a territory, even when the opportunity quality is uneven.
 
-## Business problem
+This skill helps prioritize territory focus based on commercial potential, account quality, fit, and execution capacity so the team invests attention where it is most likely to produce results.
 
-Sales coverage is often uneven. Some territories have higher upside but poor coverage, while others are over-served without proportional return.
+## Business objective
+
+This skill helps the team answer:
+
+> Where should attention, capacity, and rep effort be concentrated for the strongest revenue impact?
+
+## Expert memory layer
+
+Experienced sales leaders know that territory quality varies significantly by segment, account density, and buying maturity.
+
+Patterns that matter include:
+
+- geographies or segment groups with unusually strong conversion potential
+- territories with high volume but weak fit or low quality
+- uneven rep capacity versus account opportunity quality
+- signals that suggest a territory deserves more focus or restructuring
+
+This skill incorporates those patterns into a structured territory strategy view.
 
 ## Inputs
 
-- account list
-- geography or segment map
-- rep capacity and workload
-- historical conversion and close rates
-- revenue potential by segment
+- account list by territory
+- segment, firmographic, and fit data
+- historical conversion and rep performance
+- market opportunity and coverage density
+- channel and route-to-market considerations
+
+## Decision logic
+
+A strong territory assessment should evaluate:
+
+1. opportunity quality and account fit
+2. competition and market maturity by geography or segment
+3. rep capacity and coverage efficiency
+4. strategic commercial potential
+5. risk of overloading or overinvesting in low-quality areas
+
+The goal is not equal coverage; it is efficient coverage.
+
+## Common failure patterns
+
+- distributing effort evenly instead of by quality and strategic value
+- overinvesting in large but low-fit territories
+- ignoring rep capacity and workload constraints
+- failing to adjust for changing buyer patterns or market demand
+- under-prioritizing high-potential segments with little current coverage
 
 ## Outputs
 
-- optimized territory or segment allocation
-- coverage recommendations
-- opportunity-to-capacity view
-- high-priority coverage changes
+- prioritized territory view
+- account focus and rep allocation recommendations
+- high-value segments to concentrate on
+- weaker areas to deprioritize or restructure
+- recommended actions for sales leadership
 
-## Use cases
+## Example result
 
-- regional realignment
-- new market planning
-- coverage optimization
-- rep capacity balancing
+### Territory prioritization
+- High-priority territory: segment with strong fit, healthy conversion trends, and under-served account density
+- Deprioritize: low-fit accounts with weak conversion potential and heavy internal effort requirements
+- Recommendation: shift more rep capacity into the strong territory while narrowing low-yield outreach in weaker regions
 
-## Prompt
+## Recommended prompt
 
-“You are a senior sales operations strategist. Review the account distribution, rep capacity, and revenue potential data. Recommend how to reallocate territory or coverage to maximize revenue efficiency while balancing capacity, market opportunity, and rep productivity. Return a prioritized recommendation with rationale.”
+> You are a senior sales strategy analyst. Review the territory data and prioritize where leadership should concentrate rep effort based on account quality, conversion potential, strategic value, and capacity constraints.
 
-## Example output
+## Source basis
 
-- Reallocate high-potential accounts from low-velocity segments to a stronger coverage model
-- Increase focus on urban enterprise clusters with repeatability and higher expansion potential
-- Reduce low-fit coverage in thin markets where depth is weak and conversion is low
+This skill is informed by public territory planning, revenue coverage, and account segmentation practices used in B2B sales organizations.
 
-## Evaluation
+## References
 
-- Recommendations improve coverage efficiency
-- They reflect realistic rep capacity limits
-- Opportunity potential and market density are considered
-- Output helps structure sales organization design instead of random account assignment
+- Salesforce Blog
+- Gong Blog
+- HubSpot Sales Blog
+- Gartner sales strategy research
+- Forrester B2B sales insights
+- McKinsey Growth & Sales

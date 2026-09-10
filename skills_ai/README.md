@@ -1,6 +1,13 @@
 # skills_ai SDK
 
-Minimal Python SDK to run skills locally.
+This folder is not a public skill pack. It is the runtime implementation layer for the repo.
+
+Think of the architecture like this:
+
+- `b2b-agent-skills-sales/`, `b2b-agent-skills-marketing/`, etc. = the public-facing playbooks, prompts, source references, and examples
+- `skills_ai/` = the Python SDK and engine that loads those templates, runs providers, evaluates outputs, and lets you execute skills in code
+
+This separation is intentional. The public repo should stay readable and credible for people browsing the library, while the runtime layer handles execution logic and automation.
 
 Quickstart
 

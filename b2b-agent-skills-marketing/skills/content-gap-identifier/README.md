@@ -1,50 +1,86 @@
 # Content Gap Identifier
 
-## Purpose
+## Why this skill exists
 
-Identify the most important content gaps across the funnel and recommend where the team should create or refresh assets to support buyer progression.
+Most content problems are not caused by a lack of volume. They are caused by missing buyer coverage.
 
-## Business problem
+This skill helps identify where the content journey is weak, unclear, or disconnected from what buyers actually need at each stage of the decision process.
 
-Marketing teams often create content without a clear map of what buyers actually need at each stage of the journey.
+## Business objective
+
+This skill helps the team answer:
+
+> Which buyer questions, objections, and stage needs are not being addressed well enough by our current content?
+
+## Expert memory layer
+
+Strong marketing teams know that content gaps show up as pattern-based friction.
+
+Patterns that matter include:
+
+- missing proof at the point where buyers are evaluating value
+- weak explanation of business outcomes or operational impact
+- content that is too generic to support a specific buyer persona
+- no clear response to common objections or risk concerns
+
+This skill helps translate that pattern awareness into a practical content gap review.
 
 ## Inputs
 
-- funnel stages
-- current content library
-- audience segments
-- buyer questions or objections
-- funnel drop-off points
-- campaign themes
+- buyer journey and funnel stages
+- persona context and audience segments
+- current content map and asset inventory
+- sales objections and customer questions
+- conversion drop-offs or weak engagement points
+
+## Decision logic
+
+A strong content gap review should evaluate:
+
+1. whether the content matches the buyer stage
+2. whether the content covers the buyer’s real questions
+3. whether proof and differentiation are present
+4. whether the message helps the buyer move to the next step
+5. whether gaps are concentrated in high-value funnel moments
+
+The best content is useful at the moment the buyer needs it most.
+
+## Common failure patterns
+
+- broad content libraries with weak stage-specific relevance
+- content that explains features but not business value
+- no clear answers to objections or common risk issues
+- weak transition between education and evaluation content
+- content created for internal teams instead of the buyer
 
 ## Outputs
 
-- content gap map
-- missing asset categories
-- recommended content ideas
-- top-priority creation list
+- content coverage summary
+- missing content opportunities by stage
+- likely friction or drop-off areas
+- message and proof recommendations
+- next content priorities
 
-## Use cases
+## Example result
 
-- content planning
-- funnel optimization
-- campaign refresh
-- editorial calendar design
+### Content gap
+- Buyers at the evaluation stage are not seeing enough proof or ROI framing.
+- The current content explains the product but not the customer outcome in measurable terms.
+- Recommendation: add business-case content, comparison points, and proof-led pieces tailored to decision-makers.
 
-## Prompt
+## Recommended prompt
 
-“You are a B2B content strategist. Review the audience, funnel stages, and current content library to identify the biggest content gaps. Highlight which topics are missing, what buyer questions are not being answered, and which assets should be prioritized for creation or refresh.”
+> You are a senior content strategist. Review the content inventory and buyer journey below and identify the biggest gaps in coverage, importance, and buyer usefulness. Focus on what buyers need at each stage and what content currently fails to support that decision.
 
-## Example output
+## Source basis
 
-- Missing stage: mid-funnel proof and comparison content
-- Gap: buyer objections around integration effort and implementation risk are not addressed
-- Priority asset: ROI calculator or implementation comparison guide
-- Next action: refresh top-of-funnel messaging and add deeper case-study content
+This skill is informed by public content strategy, lifecycle planning, and buyer-journey optimization practices used in B2B marketing programs.
 
-## Evaluation
+## References
 
-- Gap analysis reflects actual funnel needs
-- Recommendations are tied to buyer progression and objections
-- Content priorities are actionable and commercially relevant
-- Output helps plan meaningful content versus random production
+- HubSpot Blog
+- Demandbase Blog
+- 6sense Blog
+- Gartner marketing research
+- Forrester B2B buyer insights
+- McKinsey Growth & Sales
