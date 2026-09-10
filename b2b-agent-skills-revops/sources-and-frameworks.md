@@ -1,5 +1,12 @@
 # Public source base and framework references
 
+## Named methodologies used in this pack
+
+- **Pipeline coverage ratio** (required coverage = 1 / win rate), standard RevOps pipeline capacity planning
+- **Forecast calibration analysis**, the same underlying logic as calibration-curve/Brier-score evaluation in forecasting theory
+- **Data quality dimensions** (completeness, accuracy, consistency, timeliness), standard data management practice
+- **Multi-touch attribution models** (first-touch, last-touch, linear, position-based/U-shaped, time-decay), standard marketing analytics practice
+
 ## RevOps reference base
 
 This repo is informed by public revenue operations, forecasting, and pipeline governance practices used in B2B organizations.

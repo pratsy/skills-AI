@@ -1,114 +1,91 @@
 # Pipeline Health Monitor
 
-## Why this skill exists
+Score pipeline health against pipeline coverage ratio and stage-conversion benchmarks — the two standard RevOps pipeline-quality metrics — instead of a narrative "pipeline looks weak" read. Distinguishes a coverage problem (not enough pipeline) from a conversion problem (enough pipeline, but it's not moving).
 
-Most pipeline problems are not random. They are predictable.
+## When to use this
 
-A sales team can look busy and still have weak revenue quality because the pipeline is overloaded with low-conviction deals, stage imbalance, poor conversion behavior, and weak signal quality. This skill helps detect that early before forecasting and leadership reviews become unreliable.
+- Pipeline volume looks adequate but leadership is nervous about the number — need to know if the nervousness is justified.
+- Comparing pipeline health across segments/reps and need an objective basis, not a stage-count table.
+- Preparing for a QBR and need to show whether current pipeline actually supports the forecast, not just its size.
 
-It is designed to assess whether the pipeline is truly healthy, balanced, and actionable.
+## Methodology
 
-## Expert memory layer
+**Pipeline coverage ratio**: total open pipeline value divided by the remaining quota/target for the period. The standard benchmark range is **3–4x** for a typical B2B sales motion (varies by win rate and cycle length — a business with a 40% win rate needs less coverage than one with 15%).
 
-Experienced RevOps teams know that pipeline health is not just about volume.
+```
+Required Coverage Ratio ≈ 1 / historical_win_rate
+(a 25% win rate implies needing roughly 4x pipeline coverage to reliably hit target)
+```
 
-The patterns that matter most include:
+**Stage conversion health**: for each stage transition, compare current-period conversion rate to the trailing historical median for that same transition (not an external benchmark — internal history is the right comparison once you have ~6 months of data).
 
-- which stages are weak or inconsistent
-- where deals sit too long with no clear momentum
-- which segments create false confidence because the pipeline is full but low quality
-- which source or motion is producing poor conversion patterns
-- whether the pipeline reflects actual buying readiness or just activity
+## Scoring model
 
-This skill encodes those patterns into a structured health review and operational recommendation.
+```
+Coverage Status:
+  Actual Coverage >= Required Coverage (1/win_rate)           → sufficient
+  Actual Coverage between 0.75x and 1x of Required             → marginal
+  Actual Coverage < 0.75x of Required                          → insufficient
 
-## Business objective
+Stage Health (per transition):
+  current_rate >= 0.9 x historical_median   → healthy
+  current_rate 0.7-0.9x historical_median   → weakening
+  current_rate < 0.7x historical_median     → broken
 
-This skill helps the team answer:
-
-> Is the pipeline healthy enough to support revenue commitments, or is it masking weak quality behind a high number of deals?
+Overall Pipeline Health = "at risk" if EITHER coverage is insufficient OR any single stage is broken,
+regardless of how healthy the other metric looks - a broken stage can undermine sufficient coverage,
+and insufficient coverage can't be masked by healthy stage conversion.
+```
 
 ## Inputs
 
-- stage-by-stage pipeline data
-- conversion metrics by segment or motion
-- time-to-close trends
-- source mix and acquisition quality
-- deal quality signals, age, and progression patterns
-- forecast confidence or risk flags
+| Field | Type | Example |
+|---|---|---|
+| `open_pipeline_value` | number | `2400000` |
+| `remaining_quota` | number | `700000` |
+| `historical_win_rate` | float | `0.22` |
+| `stage_conversion_rates` | list[{transition, current_rate, historical_median}] | |
 
-## Decision logic
+## Worked example
 
-A healthy pipeline should show:
+Open pipeline: $2.4M. Remaining quota: $700K. Historical win rate: 22%.
+```
+Required Coverage = 1 / 0.22 ≈ 4.5x
+Actual Coverage = 2,400,000 / 700,000 ≈ 3.4x
+```
+3.4x is below the 4.5x required (ratio 3.4/4.5 = 0.76) → **marginal, not sufficient.**
 
-1. balanced flow across stages
-2. realistic conversion rates by segment and source
-3. healthy speed of progression
-4. early visibility into risk or stalled deals
-5. enough quality signal to support forecasting confidence
+Stage conversion: "Discovery → Proposal" current rate 28% vs. historical median 45% → ratio 0.62 → **broken.** Other stages within 0.9x of median → healthy.
 
-When the pipeline is full but weak, the issue is usually not volume. It is quality management and stage control.
+Overall read: **at risk** — driven specifically by the Discovery→Proposal breakdown, not by coverage alone (coverage is marginal but not the primary driver). The recommended action targets that specific transition (qualification discipline or proposal-readiness criteria), not a generic "generate more pipeline" response, which wouldn't fix a conversion problem.
 
 ## Common failure patterns
 
-This skill should guard against weak reasoning such as:
+- Reporting coverage ratio against a flat industry rule of thumb ("we hit 3x, we're fine") instead of computing the ratio actually required by this team's own win rate — a lower win rate needs proportionally more coverage.
+- Treating "pipeline looks big" as healthy without checking stage conversion, which misses pipelines that are large but structurally broken at a specific stage.
+- Comparing stage conversion to an external benchmark instead of internal trailing history, which produces false alarms when a business's normal conversion profile legitimately differs from generic industry numbers.
+- Recommending "generate more pipeline" as the default fix regardless of diagnosis — the correct fix depends entirely on whether the problem is coverage or a specific stage conversion break.
 
-- mistaking pipeline volume for pipeline quality
-- ignoring stage-specific bottlenecks
-- treating all sources as equally reliable
-- failing to see stall patterns before forecast review
-- accepting weak qualification because the number of deals looks healthy
+## Output schema
 
-## Outputs
-
-A useful output should include:
-
-- pipeline health assessment
-- weak stage summary
-- stage-to-stage conversion issues
-- source or segment risk patterns
-- operational recommendations to improve quality and forecast confidence
-
-## Example result
-
-### Pipeline health: moderate risk
-- Weak stage: qualification to proposal conversion is underperforming
-- Pattern: too many deals remain in early stages without strong buying progression
-- Source issue: lower-quality inbound leads are inflating volume without improving conversion quality
-- Recommendation: tighten qualification criteria, improve SDR-to-AE handoff quality, and review stage-entry standards
-
-### Pipeline health: strong but fragile
-- Volume is healthy, but deal progression is concentrated in a few segments
-- Risk: forecast confidence is inflated because a small share of deals carries most of the upside
-- Recommendation: rebalance acquisition mix and review stage aging across segments
+```json
+{
+  "coverage_ratio": {"actual": 3.4, "required": 4.5, "status": "marginal"},
+  "stage_health": [
+    {"transition": "discovery_to_proposal", "current_rate": 0.28, "historical_median": 0.45, "status": "broken"}
+  ],
+  "overall_health": "at risk",
+  "primary_driver": "discovery_to_proposal conversion broken (0.62x historical median)",
+  "recommended_action": "review qualification discipline entering discovery, not pipeline generation volume"
+}
+```
 
 ## Recommended prompt
 
-> You are a senior RevOps analyst. Evaluate the pipeline health using the provided stage conversion, deal age, source mix, and quality signals. Identify weak stages, conversion bottlenecks, risks to forecast confidence, and the operational actions needed to improve quality. Focus on realistic revenue execution issues rather than just activity volume.
+> You are a RevOps analyst. Compute Required Coverage Ratio = 1 / historical_win_rate, and Actual Coverage = open_pipeline_value / remaining_quota. Classify coverage as sufficient (actual >= required), marginal (0.75-1x of required), or insufficient (<0.75x). For each stage transition, compare current_rate to historical_median and classify as healthy (>=0.9x), weakening (0.7-0.9x), or broken (<0.7x). Set overall_health to "at risk" if either coverage is insufficient or any stage is broken. Identify the primary driver and recommend an action specific to that diagnosis. Return JSON matching the schema above.
 
-## Source basis
+## Grounded in
 
-This skill is informed by public pipeline quality, forecasting, and revenue operations practices, including:
+Pipeline coverage ratio (calibrated to the team's own win rate, standard RevOps practice) combined with trailing-internal-history stage-conversion benchmarking, so pipeline health reflects this team's actual historical pattern rather than a generic external rule of thumb.
 
-- stage-to-stage conversion review methods
-- forecasting discipline and bias awareness
-- pipeline hygiene and qualification quality frameworks
-- sales ops governance practices for revenue reliability
-
-## References
-
-See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.
-
-## Why this is different from a generic prompt
-
-This is not just a “review my pipeline” prompt.
-
-It is designed to detect the real operational issues that hurt revenue quality:
-
-- weak stage progression
-- excess volume with poor quality
-- false confidence from inflated pipeline coverage
-- uneven source performance
-- forecast risk hidden behind healthy-looking numbers
-
-That is the expert memory that makes the skill genuinely useful for revenue teams.
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the pack's general reference list.

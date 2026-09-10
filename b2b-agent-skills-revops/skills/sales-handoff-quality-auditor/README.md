@@ -1,79 +1,90 @@
 # Sales Handoff Quality Auditor
 
-## Why this skill exists
+Score the completeness of context transferred at a handoff point (SDR→AE, AE→Customer Success/Implementation) against an explicit required-field checklist, and correlate handoff quality with downstream outcomes — instead of a subjective "handoffs feel sloppy" complaint.
 
-Many pipeline issues begin with a weak handoff.
+## When to use this
 
-When sales teams do not transfer context, qualification quality, or buyer signals cleanly, the next team inherits ambiguity and the deal loses momentum.
+- Deals stall or accounts churn early post-sale, and you suspect information loss at a handoff, not a product or fit problem.
+- SDRs and AEs (or AEs and CS) disagree about whose responsibility a dropped detail was.
+- You want evidence, not anecdote, before mandating a new handoff process or template.
 
-## Business objective
+## Methodology
 
-This skill helps the team answer:
+Define the required context fields for each handoff type — these should reflect what the *receiving* role actually needs to be effective immediately, not everything the sending role happens to know:
 
-> Are handoffs between sales teams or motions being transferred with enough quality to maintain momentum and minimize risk?
+**SDR → AE handoff**, typical required fields: qualification evidence (BANT/MEDDPICC basics gathered), stated pain in the buyer's words, known stakeholders and roles, objections already raised, competitive context if mentioned, timeline/urgency signal.
 
-## Expert memory layer
+**AE → CS/Implementation handoff**, typical required fields: promises made during the sales cycle (explicit or implied), success criteria the buyer defined, key stakeholders and their roles (see [`stakeholder-map-builder`](../../b2b-agent-skills-sales/skills/stakeholder-map-builder/README.md)), known risks or reservations raised pre-close, technical requirements or constraints discussed.
 
-Experienced RevOps teams know that weak handoffs create predictable problems:
+## Scoring model
 
-- missing context or buying signal quality
-- unclear ownership and accountability
-- inconsistent qualification or stage discipline
-- stalled deals caused by poor transfer quality rather than poor product fit
+```
+Handoff Completeness Score (0-100) = (required fields present with substantive content / total required fields) x 100
 
-This skill captures those patterns into a structured process review.
+"Present with substantive content" excludes placeholder text (e.g. "n/a", "tbd", a single generic word) -
+count only fields with information the receiving role could actually act on.
+
+Handoff Quality Band:
+  90-100  Excellent
+  70-89   Adequate - minor gaps
+  50-69   Poor - likely to cause early friction
+  <50     Failed handoff - receiving role is starting effectively blind
+```
+
+**Outcome correlation** (run periodically, not per-handoff): compare Handoff Completeness Score distribution against downstream outcomes (SDR→AE: SQL-to-opportunity conversion; AE→CS: 90-day churn or time-to-value) to confirm which specific missing fields actually predict downstream problems, rather than assuming all fields matter equally.
 
 ## Inputs
 
-- handoff notes and transition records
-- sales process and stage definitions
-- SDR-to-AE or sales-to-customer team context
-- deal quality and conversion flow data
-- missed context or process issues noted in the deal history
+| Field | Type | Example |
+|---|---|---|
+| `handoff_type` | enum | `sdr_to_ae \| ae_to_cs` |
+| `handoff_fields` | list[{field, content}] | the actual handoff notes/fields as submitted |
+| `required_fields` | list[string] | the checklist for this handoff type |
 
-## Decision logic
+## Worked example
 
-A strong handoff review should evaluate:
+AE → CS handoff for a closed-won deal. Required fields: promises made, success criteria, stakeholders, pre-close risks, technical requirements (5 fields).
 
-1. whether the receiving team gets enough context to continue effectively
-2. whether qualification quality is preserved through the handoff
-3. whether ownership and next steps are clear
-4. whether the buyer movement is sufficiently documented and actionable
-5. whether the handoff creates friction or delays in progression
+Submitted: promises made = "n/a" (placeholder, doesn't count); success criteria = "reduce forecast variance by 20% within 2 quarters, per CFO" (substantive); stakeholders = "J. Alvarez (EB), M. Chen (champion)" (substantive); pre-close risks = missing entirely; technical requirements = "Salesforce integration required, SSO via Okta" (substantive).
 
-Good handoffs reduce risk and keep agreement quality high.
+```
+Handoff Completeness = 3 substantive of 5 required = 60% → Poor band
+```
+
+Missing/placeholder fields flagged specifically: "promises made" (placeholder only) and "pre-close risks" (missing). Recommendation: CS should not begin onboarding without first getting these two fields directly from the AE — starting implementation without knowing what was promised or what risks were raised pre-close is the specific pattern most likely to produce an early-churn surprise.
 
 ## Common failure patterns
 
-- incomplete context or poor summary quality
-- poor timing of the handoff
-- no clear owner for the next action
-- churn caused by weak qualification transfer
-- different teams using different assumptions about the deal status
+- Scoring a field as complete because it's non-empty, without checking for placeholder/non-substantive content ("n/a," "will follow up") — this significantly overstates real handoff quality.
+- Auditing handoffs individually without periodically checking which specific missing fields actually correlate with downstream problems — not all fields carry equal risk, and treating them as equal wastes enforcement effort on low-impact gaps.
+- Defining the required-field checklist from the sending role's perspective ("what I usually write down") instead of the receiving role's actual needs.
+- Auditing only at handoff time and never re-checking whether process changes (new template, new training) actually moved the completeness score over time.
 
-## Outputs
+## Output schema
 
-- handoff quality review
-- handoff risk summary
-- missing or weak context issues
-- recommended quality improvements
-- operating changes for smoother transition
-
-## Example result
-
-### Handoff quality: weak
-- The receiving team has insufficient context about stakeholder alignment and buying urgency.
-- The handoff does not preserve required qualification depth.
-- Recommendation: add handoff checklist, deal summaries, and a qualification quality threshold before passing the account forward.
+```json
+{
+  "handoff_type": "ae_to_cs",
+  "fields_scored": [
+    {"field": "promises_made", "status": "placeholder_only"},
+    {"field": "success_criteria", "status": "substantive"},
+    {"field": "stakeholders", "status": "substantive"},
+    {"field": "pre_close_risks", "status": "missing"},
+    {"field": "technical_requirements", "status": "substantive"}
+  ],
+  "completeness_score": 60,
+  "quality_band": "poor",
+  "critical_gaps": ["promises_made", "pre_close_risks"],
+  "recommended_action": "CS should get promises_made and pre_close_risks directly from the AE before onboarding kickoff"
+}
+```
 
 ## Recommended prompt
 
-> You are a senior sales operations analyst. Review the handoff quality between stages or teams and identify the issues that are reducing continuity, momentum, or qualification quality. Explain what is missing and what operational changes would improve the transition.
+> You are a RevOps process analyst. Given the handoff type, required fields checklist, and submitted handoff content below, score each field as substantive, placeholder_only, or missing (placeholder content like "n/a" or "tbd" does not count as substantive). Compute Handoff Completeness Score = substantive fields / total required fields x 100, and assign a quality band. List the critical gaps specifically and recommend what the receiving role should get before proceeding. Return JSON matching the schema above.
 
-## Source basis
+## Grounded in
 
-This skill is informed by public sales operations, stage-quality, and process governance practices used in B2B revenue organizations.
+Handoff-quality auditing as practiced in RevOps process governance, scored against a receiving-role-defined required-field checklist so completeness reflects what the next team actually needs, not what the sending team happens to record.
 
-## References
-
-See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the pack's general reference list.

@@ -19,9 +19,19 @@ Open-source AI playbooks for revenue operations, pipeline health, forecasting co
 - sales-handoff-quality-auditor
 - attribution-model-reviewer
 
+## Named methodologies used in this pack
+
+Each skill operationalizes a specific, checkable method rather than a general "informed by industry practice" claim:
+
+- **Pipeline coverage ratio, calibrated to win rate** (1/win_rate) — `pipeline-health-monitor`
+- **Forecast calibration / bias-consistency analysis** (the same logic behind calibration curves in forecasting theory) — `forecast-bias-detector`
+- **Completeness/accuracy/consistency/timeliness data-quality framework** — `crm-data-cleaner`
+- **Required-field handoff auditing against receiving-role needs** — `sales-handoff-quality-auditor`
+- **Multi-touch attribution model comparison** (first-touch, last-touch, linear, position-based, time-decay) with sensitivity-range analysis — `attribution-model-reviewer`
+
 ## Research basis
 
-This repo is informed by public RevOps, forecasting, pipeline health, and sales operations practices used by modern B2B organizations.
+This repo is also informed by public RevOps, forecasting, pipeline health, and sales operations practices used by modern B2B organizations, as general background.
 
 ## Public source base
 

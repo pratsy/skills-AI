@@ -1,81 +1,96 @@
 # CRM Data Cleaner
 
-## Why this skill exists
+Score CRM record quality across the four standard data-quality dimensions — completeness, accuracy, consistency, timeliness — and prioritize cleanup by which records actually affect active decisions (open pipeline, upcoming renewals), instead of a flat field-completeness percentage across the whole database.
 
-Poor CRM data creates weak operating decisions.
+## When to use this
 
-This skill helps teams clean and standardize customer and pipeline data so reports, forecasts, and decisions are based on useful, trustworthy information rather than noise.
+- Reports and dashboards are inconsistent because underlying CRM data has gaps, but nobody knows which records matter most to fix first.
+- Planning a CRM cleanup project with limited ops time and need to prioritize by business impact, not by record count.
+- A specific analysis (pipeline health, attribution, forecast) is producing suspicious output and you suspect the input data quality, not the analysis, is the problem.
 
-## Business objective
+## Methodology
 
-This skill helps the team answer:
+Four standard data-quality dimensions, each scored independently because a record can fail on one and pass on others:
 
-> Is the CRM data accurate enough to support revenue decisions, reporting, and team execution?
+| Dimension | Question | Example failure |
+|---|---|---|
+| **Completeness** | Are required fields populated? | close date missing on an open opportunity |
+| **Accuracy** | Does the data reflect reality? | stage says "negotiation" but no activity in 60 days |
+| **Consistency** | Do related fields agree with each other? | deal stage is "closed-won" but amount is $0 |
+| **Timeliness** | Was the record updated recently enough to trust? | last modified 90+ days ago on an active deal |
 
-## Expert memory layer
+## Scoring model
 
-Strong RevOps teams know that data quality is not only a hygiene issue. It is a decision-quality issue.
+```
+Record Quality Score (0-100) = 
+    30 x Completeness (required fields populated / required fields total)
+  + 25 x Accuracy (1 if stage matches activity recency pattern, 0 if stage/activity mismatch detected)
+  + 25 x Consistency (1 if cross-field logic checks pass, 0 if any fail - e.g. closed-won with $0 amount)
+  + 20 x Timeliness (1 if modified within expected cadence for its stage, 0 if stale)
 
-Patterns that matter include:
+Business Impact Weight:
+  open pipeline deal, closing this quarter        = 3x
+  open pipeline deal, later quarter                = 2x
+  active renewal account                           = 3x
+  closed/inactive record                           = 1x
 
-- stale or incomplete values that distort reporting and forecast confidence
-- inconsistent stage or owner data that makes pipeline health unclear
-- duplicate or confusing records that create false urgency or poor account understanding
-- data quality issues that reduce trust in the system and slow execution
+Cleanup Priority = (100 - Record Quality Score) x Business Impact Weight
+```
 
-This skill converts those patterns into a practical data quality review.
+Rank cleanup work by Priority score, not by raw error count — a low-quality record on a closed deal from two years ago is lower priority than a moderately imperfect record on a deal closing this month.
 
 ## Inputs
 
-- CRM records and account data
-- pipeline and opportunity fields
-- stage, owner, and lifecycle values
-- duplicate or incomplete record patterns
-- operational quality and reporting requirements
+| Field | Type | Example |
+|---|---|---|
+| `record_id` | string | |
+| `required_fields` | list[{field, populated}] | |
+| `stage` | string | |
+| `last_activity_date` | date | |
+| `last_modified_date` | date | |
+| `amount` | number | |
+| `business_context` | enum | `open_this_quarter \| open_later \| active_renewal \| closed` |
 
-## Decision logic
+## Worked example
 
-A strong CRM data review should evaluate:
+Record: opportunity, stage "negotiation," amount $0 (consistency fail), 8 of 10 required fields populated (completeness 0.8), last activity 65 days ago while stage implies active engagement (accuracy fail), last modified 70 days ago (timeliness fail, stale for an active-stage deal). Business context: open, closing this quarter.
 
-1. completeness and consistency of fields
-2. ownership and accountability quality
-3. stage integrity and progression accuracy
-4. account and opportunity duplication risk
-5. reporting and forecasting trustworthiness
+```
+Record Quality Score = 30(0.8) + 25(0) + 25(0) + 20(0) = 24 + 0 + 0 + 0 = 24
+Cleanup Priority = (100 - 24) x 3 = 76 x 3 = 228
+```
 
-The value is not just cleaner records — it is stronger decision-making downstream.
+This record ranks near the top of the cleanup queue — not primarily because of the completeness gap (which is fairly minor at 80%), but because it fails accuracy, consistency, *and* timeliness simultaneously on a deal that's supposed to close this quarter, meaning the forecast number currently includes an opportunity that's very likely misrepresented or stalled.
 
 ## Common failure patterns
 
-- stale account records and weak owner assignments
-- inconsistent stage labels or notes across teams
-- duplicate contacts creating confusion in account context
-- poor data entry discipline reducing forecast confidence
-- data quality issues that are hidden until reporting or review time
+- Prioritizing cleanup by raw field-completeness percentage alone, which misses records that are "complete" but inaccurate or inconsistent (all fields filled in, but stage doesn't match reality).
+- Treating every incomplete record as equal priority regardless of whether it's an active deal or a two-year-old closed record — cleanup time is wasted on records with no current business impact.
+- Flagging accuracy issues only from missing data, without checking activity-vs-stage mismatches, which catch a different and often more consequential class of "stale but technically complete" record.
+- Running cleanup as a one-time project instead of a standing scored queue — new records decay into the same quality issues on the same timeline as old ones did.
 
-## Outputs
+## Output schema
 
-- data quality summary
-- duplicate or inconsistent fields identified
-- recommended cleanup actions
-- reporting or pipeline reliability implications
-- standardization suggestions for future entries
-
-## Example result
-
-### Data quality issue
-- Several opportunities have inconsistent stage labels and stale ownership fields.
-- This reduces trust in both pipeline health and forecast quality.
-- Recommendation: standardize the stage process and establish a basic validation rule for key fields before the next reporting cycle.
+```json
+{
+  "record_id": "opp_5521",
+  "completeness": 0.8,
+  "accuracy_pass": false,
+  "consistency_pass": false,
+  "timeliness_pass": false,
+  "record_quality_score": 24,
+  "business_context": "open_this_quarter",
+  "cleanup_priority": 228,
+  "issues": ["stage/activity mismatch (65 days no activity in negotiation stage)", "closed-won-style amount inconsistency", "stale (70 days since last modification)"]
+}
+```
 
 ## Recommended prompt
 
-> You are a senior RevOps analyst. Review the CRM and opportunity data for quality issues and identify the highest-impact cleanup priorities. Explain what is degrading decision quality and recommend the operational fixes that would improve reporting, forecasting, and execution.
+> You are a RevOps data quality analyst. For each record, score completeness (populated required fields / total), and pass/fail accuracy (does activity recency match the stage), consistency (do cross-field values agree logically), and timeliness (was it modified recently enough for its stage). Compute Record Quality Score = 30xcompleteness + 25xaccuracy + 25xconsistency + 20xtimeliness. Apply a business impact weight (3x for open-this-quarter or active-renewal records, 2x for later-quarter open records, 1x for closed/inactive) and compute Cleanup Priority = (100 - quality score) x weight. Rank records by priority, not raw error count. Return JSON matching the schema above.
 
-## Source basis
+## Grounded in
 
-This skill is informed by public CRM hygiene, revenue operations, and data-quality management practices used in strong B2B organizations.
+The completeness/accuracy/consistency/timeliness data-quality framework standard in data management practice, applied to CRM records with a business-impact weighting so cleanup effort targets records that actually affect current pipeline and forecast decisions.
 
-## References
-
-See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the pack's general reference list.
