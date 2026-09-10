@@ -2,7 +2,7 @@
 """CLI wrapper to run skills locally.
 Usage: bin/skills-ai <skill_module_name> --input examples/fixtures/renewal_input.json
 """
-from skills_ai.runner import _cli
+from sdk.runner import _cli
 
 
 if __name__ == "__main__":

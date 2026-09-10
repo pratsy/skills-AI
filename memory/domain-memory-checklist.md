@@ -27,10 +27,9 @@ Use this checklist when building or improving a skill so it does not become gene
 - Is the recommendation practical and operationally realistic?
 - Does it tell the user what to validate before taking action?
 
-## 6. Memory improvement
-- Can the skill learn from repeated usage?
-- Can operators add real-world patterns over time?
-- Is there a clear place to capture lessons from actual outcomes?
+## 6. Update path
+- If the named methodology turns out to be wrong for a case, is it clear which section to fix (the scoring model, the failure patterns, or the worked example)?
+- Does the skill cite a specific enough source (`sources-and-frameworks.md`) that a contributor could check whether it's still accurate?
 
 ## 7. Distinctiveness
 - Is this skill more than a generic summary prompt?

@@ -1,5 +1,5 @@
 import json
-from skills_ai.evaluation import evaluate_skill_output, evaluate_skill_from_result, SKILL_EXPECTED_FIELDS
+from sdk.evaluation import evaluate_skill_output, evaluate_skill_from_result, SKILL_EXPECTED_FIELDS
 
 
 def test_evaluation_renewal_skill():

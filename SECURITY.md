@@ -1,78 +1,35 @@
-# Security and Secrets Guidance
+# Security and secrets guidance
 
-## Environment variables
+## What actually leaves your machine
 
-Use a local `.env` file for development and GitHub Secrets for CI/CD.
+Running a skill through `sdk` sends two things to whichever provider you've configured: the skill's `SKILL.md` instructions (public — it's committed to this repo) and the input data you pass in. **The input data is the only part that can contain anything sensitive**, and it goes to the provider verbatim — nothing in this repo redacts or filters it for you. Treat every skill invocation as "this JSON payload leaves my machine and goes to a third-party API," and decide what belongs in it accordingly.
 
-Example:
+Using `PROVIDER=mock` (the default) sends nothing anywhere — useful for testing the plumbing without exposing data or needing an API key.
 
-```bash
-cp .env.example .env
-```
+## Provider configuration
 
-Example `.env`:
+`sdk/providers.py` supports three providers, selected via the `PROVIDER` environment variable. Copy `.env.example` to `.env` and set only the block for the provider you're using:
 
-```bash
-PROVIDER=openai
-OPENAI_API_KEY=your_key_here
-OPENAI_MODEL=gpt-4o-mini
-```
+| `PROVIDER` | Required variables | Notes |
+|---|---|---|
+| `mock` (default) | none | deterministic fixture response, no network call, safe for CI |
+| `anthropic` | `ANTHROPIC_API_KEY` | optional `ANTHROPIC_MODEL` (defaults to `claude-sonnet-5`) |
+| `openai` | `OPENAI_API_KEY` | optional `OPENAI_MODEL` (defaults to `gpt-4o-mini`) |
 
-Never commit real secrets to Git.
+Never commit a real `.env` file or hardcode a key into a skill file — `.env` is already in `.gitignore`. If you add a new provider, follow the same pattern: read the key from an environment variable in `__init__`, fail loudly with a clear error if it's missing, never accept a key as a function argument or default value.
 
-## PII and sensitive data handling
+## Handling sensitive input data
 
-Before sending any payload to an LLM provider:
+Before passing real account/customer data into a skill:
 
-- redact customer names if not required
-- remove internal-only identifiers if not required
-- strip secrets, API keys, and tokens from text
-- avoid sending sensitive financial or legal data unless explicitly approved
-- log only sanitized metadata in production systems
+- Strip anything not needed for the specific question you're asking — a deal-risk score doesn't need a customer's full contract text, just the fields the skill's README documents as inputs.
+- Don't include secrets, credentials, or internal system identifiers in the input payload — they add no value to the skill's output and every field you include is sent to the provider.
+- If you're running skills against real customer data at any volume, review your provider's data retention and training-use policy before doing so — this varies by provider and by API tier, and this repo doesn't set any provider-side retention configuration for you.
 
-Recommended policy:
+## If you deploy `examples/webhook_app.py`
 
-- keep prompts minimal and scoped to the business task
-- send only required fields
-- mask or hash identifiers when possible
-- document where data is retained and for how long
+It's a minimal example of exposing a skill over HTTP, not a production service: it has no authentication, no rate limiting, and no input validation beyond what FastAPI's type checking gives you for free. Before running it anywhere reachable outside your own machine, at minimum add authentication, rate limiting, and request size limits, and confirm which provider it's configured to call — don't assume it's still pointed at the mock provider.
 
-## GitHub Actions secrets
+## Reporting a vulnerability
 
-For GitHub Actions, store secrets in the repository settings:
-
-- `OPENAI_API_KEY`
-- `PROVIDER`
-
-Example workflow environment usage:
-
-```yaml
-env:
-  PROVIDER: openai
-  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-```
-
-## `.gitignore` guidance
-
-Make sure these are ignored:
-
-```gitignore
-.env
-.env.*
-__pycache__/
-*.pyc
-```
-
-## Production recommendations
-
-- validate and sanitize user input before invoking a skill
-- store prompt logs separately from business data
-- rate-limit API access
-- add retry and timeout controls
-- review provider retention and privacy terms before production use
-- keep a mapping of which skill requires which data fields
-
-
-## GitHub Actions workflow policy note
-
-After adjusting repository Actions settings, workflows can run normally for the default branch and pull requests. Keep the repository policy minimal and explicit: disable unnecessary approval gates for forked PRs unless you intentionally want maintainer review before jobs start.
+This is a skill-content and reference-implementation repository, not a hosted service — most "vulnerabilities" in practice will be in how you deploy `examples/webhook_app.py` or a skill of your own, not in this repo's code. If you find an issue in the code itself (the SDK, the CI workflow, or a skill's instructions producing an unsafe recommendation), please open a GitHub issue.

@@ -16,7 +16,7 @@ Restart your Claude Code session and it's available there too — no install ste
 
 ## The other integration surface
 
-`skills_ai/`, the Python SDK, reads these exact same `SKILL.md` files as its prompt source (see [`skills_ai/runner.py`](../../skills_ai/runner.py)) — so a skill's logic lives in exactly one place regardless of whether you invoke it through Claude Code or through code. If you add or edit a skill here, both surfaces pick it up automatically.
+`sdk/`, the Python SDK, reads these exact same `SKILL.md` files as its prompt source (see [`sdk/runner.py`](../../sdk/runner.py)) — so a skill's logic lives in exactly one place regardless of whether you invoke it through Claude Code or through code. If you add or edit a skill here, both surfaces pick it up automatically.
 
 ## Directory
 

@@ -2,6 +2,28 @@
 
 ## [Unreleased]
 
+- Renamed `skills_ai/` to `sdk/` — the old name overloaded "skills" for a
+  fourth thing in a repo that already has `b2b-agent-skills-*/skills/` and
+  `.claude/skills/`, which was a source of confusion. Updated every import,
+  CLI reference, and doc link accordingly.
+- Rewrote `sdk/providers.py`: fixed `OpenAIProvider`, which was written
+  against the pre-1.0 `openai.ChatCompletion` API while `requirements.txt`
+  installed the current SDK (v1+) — the old code would have raised an
+  `AttributeError` on first real call. Added a native `AnthropicProvider`
+  alongside it, since this is fundamentally a Claude Code skills repo and
+  didn't have one. `PROVIDER=mock|anthropic|openai` are now equally
+  supported, matching `.env.example`.
+- Rewrote `SECURITY.md`, which was generic AI-security boilerplate hardcoded
+  to OpenAI despite the SDK being provider-agnostic, and ended with an
+  unrelated paragraph about GitHub Actions approval-gate policy. Now
+  describes what data actually leaves the machine, how to configure any of
+  the three providers, and flags that `examples/webhook_app.py` has no auth
+  and isn't production-ready.
+- `sdk.runner.run_skill()` now accepts `input_data` directly instead of
+  requiring a JSON file path; simplified `examples/webhook_app.py`
+  accordingly (it previously round-tripped the request payload through a
+  temp file, and was hardcoded to `MockProvider` regardless of `.env`
+  configuration, so it could never call a real model).
 - Packaged all 45 skills as real Claude Code Skills (`.claude/skills/<slug>/SKILL.md`),
   not just markdown to read — clone the repo and Claude Code invokes them directly.
 - Rebuilt `skills_ai`'s runner to read those same `SKILL.md` files as its prompt

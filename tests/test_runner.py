@@ -1,8 +1,8 @@
 import json
 import pathlib
 import pytest
-from skills_ai.runner import run_skill, run_generic_skill, _strip_frontmatter
-from skills_ai.providers import MockProvider
+from sdk.runner import run_skill, run_generic_skill, _strip_frontmatter
+from sdk.providers import MockProvider
 
 
 def test_run_renewal_risk_scorer():

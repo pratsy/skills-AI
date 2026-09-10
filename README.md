@@ -23,7 +23,7 @@ Sales leaders, marketing and lifecycle teams, RevOps and forecasting teams, GTM 
 Supporting folders:
 
 - [`.claude/skills/`](.claude/skills/) — all 45 skills packaged as real Claude Code Skills you can invoke directly, not just read
-- [`skills_ai/`](skills_ai/) — a small Python SDK that runs any of the 45 skills programmatically, reading the same `.claude/skills/` definitions as the prompt (provider abstraction, output evaluation). See [`skills_ai/README.md`](skills_ai/README.md).
+- [`sdk/`](sdk/) — a small Python SDK that runs any of the 45 skills programmatically, reading the same `.claude/skills/` definitions as the prompt (provider abstraction, output evaluation). See [`sdk/README.md`](sdk/README.md).
 - [`PROMPT_PACKS.md`](PROMPT_PACKS.md) — copy-paste prompts by role, as a faster on-ramp than reading a full skill README
 - [`examples/`](examples/) — sample input fixtures and a webhook app example
 - [`memory/`](memory/) — the checklist used to keep skills specific and evidence-grounded instead of generic
@@ -34,7 +34,7 @@ Supporting folders:
 1. Pick the problem you already have (weak pipeline, unclear messaging, poor account prioritization, forecast risk, competitor noise).
 2. Open the matching pack above and find the skill whose title matches the problem.
 3. Read its README: business objective, inputs, decision logic, and a recommended prompt.
-4. Paste the prompt into your AI tool of choice along with your own data, run it via `skills_ai`, or — if you're in Claude Code — just ask; the matching skill in `.claude/skills/` is invoked automatically.
+4. Paste the prompt into your AI tool of choice along with your own data, run it via `sdk`, or — if you're in Claude Code — just ask; the matching skill in `.claude/skills/` is invoked automatically.
 5. Turn the output into a decision — who owns the action, and what happens next.
 
 For role-specific prompts you can copy-paste immediately, see [`PROMPT_PACKS.md`](PROMPT_PACKS.md).
@@ -55,14 +55,14 @@ All 45 skills are packaged as real [Claude Code Skills](https://code.claude.com/
 
 ## Using skills in code
 
-`skills_ai` is a thin runtime that reads the same `.claude/skills/<name>/SKILL.md` files used by Claude Code, sends them to a pluggable model provider (mock provider included, OpenAI provider available) along with your input data, and evaluates the output's structure — one source of truth for both surfaces, so they can't drift apart. Works for any of the 45 skills, not a subset.
+`sdk` is a thin runtime that reads the same `.claude/skills/<name>/SKILL.md` files used by Claude Code, sends them to a pluggable model provider (mock provider for testing, or Anthropic/OpenAI for real runs) along with your input data, and evaluates the output's structure — one source of truth for both surfaces, so they can't drift apart. Works for any of the 45 skills, not a subset.
 
 ```bash
 python3 -m pip install -r requirements.txt
-python3 -m skills_ai.runner renewal_risk_scorer --input examples/fixtures/renewal_input.json
+python3 -m sdk.runner renewal_risk_scorer --input examples/fixtures/renewal_input.json
 ```
 
-See [`skills_ai/README.md`](skills_ai/README.md) for how the public skill packs relate to the runtime layer, and [`benchmarks/README.md`](benchmarks/README.md) for how output quality is scored.
+See [`sdk/README.md`](sdk/README.md) for how the public skill packs relate to the runtime layer, and [`benchmarks/README.md`](benchmarks/README.md) for how output quality is scored.
 
 ## Contributing
 

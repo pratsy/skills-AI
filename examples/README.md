@@ -3,7 +3,7 @@
 ## Local CLI usage
 
 ```bash
-PYTHONPATH=. python -m skills_ai.runner renewal_risk_scorer --input examples/fixtures/renewal_input.json
+PYTHONPATH=. python -m sdk.runner renewal_risk_scorer --input examples/fixtures/renewal_input.json
 ```
 
 ## Webhook example

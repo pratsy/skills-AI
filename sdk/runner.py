@@ -22,7 +22,7 @@ def run_generic_skill(skill_name: str, input_data: dict, provider) -> dict:
     """Run any of the 45 skills using its .claude/skills/<slug>/SKILL.md as the prompt.
 
     This is the default execution path for every skill that doesn't have a bespoke
-    skills_ai.skills.<name> module. Keeping SKILL.md as the single source of prompt
+    sdk.skills.<name> module. Keeping SKILL.md as the single source of prompt
     content means the Claude Code skill and the Python SDK can never drift apart.
     """
     slug = _slugify(skill_name)
@@ -30,7 +30,7 @@ def run_generic_skill(skill_name: str, input_data: dict, provider) -> dict:
     if not skill_md_path.exists():
         raise FileNotFoundError(
             f"No skill found for '{skill_name}': expected {skill_md_path} "
-            f"(or a custom module at skills_ai/skills/{skill_name}.py)"
+            f"(or a custom module at sdk/skills/{skill_name}.py)"
         )
 
     instructions = _strip_frontmatter(skill_md_path.read_text(encoding="utf-8"))
@@ -51,18 +51,25 @@ def run_generic_skill(skill_name: str, input_data: dict, provider) -> dict:
     return {"skill": slug, "raw": raw}
 
 
-def run_skill(skill_name: str, input_path: str = None, provider=None):
+def run_skill(skill_name: str, input_path: str = None, provider=None, input_data: dict = None):
+    """Run a skill by name. Pass either input_path (a JSON file) or input_data
+    (an already-loaded dict) - not both. Neither is required; an empty input runs
+    the skill with no data, which is useful for checking the plumbing works."""
     if provider is None:
         provider = get_provider_from_env()
 
-    input_data = {}
-    if input_path:
-        with open(input_path, "r", encoding="utf-8") as f:
-            input_data = json.load(f)
+    if input_path and input_data is not None:
+        raise ValueError("pass either input_path or input_data, not both")
 
-    # A skill may have a bespoke skills_ai.skills.<name> module for custom input
+    if input_data is None:
+        input_data = {}
+        if input_path:
+            with open(input_path, "r", encoding="utf-8") as f:
+                input_data = json.load(f)
+
+    # A skill may have a bespoke sdk.skills.<name> module for custom input
     # handling; otherwise it runs generically off its SKILL.md.
-    module_name = f"skills_ai.skills.{skill_name}"
+    module_name = f"sdk.skills.{skill_name}"
     try:
         mod = importlib.import_module(module_name)
     except ModuleNotFoundError:
