@@ -2,6 +2,13 @@
 .private/
 .env
 
+# Internal launch and development documentation (not for public)
+LAUNCH_CHECKLIST.md
+GITHUB_PUBLISHING_GUIDE.md
+PRE_LAUNCH_STATUS.md
+LAUNCH_SUMMARY.md
+profile-readme-template.md
+
 # System files
 .DS_Store
 **/.DS_Store
@@ -9,9 +16,6 @@
 # Notebooks and benchmarks (development only)
 notebooks/
 benchmarks/
-
-# Profile template (internal reference)
-profile-readme-template.md
 
 # Python cache and environment
 __pycache__/
