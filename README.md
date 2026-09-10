@@ -1,85 +1,181 @@
 # B2B Agent Skills for Sales, Marketing, and GTM
 
-Curated AI skill libraries for B2B sales, marketing, revenue operations, and go-to-market teams.
+Curated AI skills for the people who actually run revenue operations: sales leaders, marketers, RevOps teams, founders, and GTM operators.
 
-This project contains structured playbooks for AI agents that support real revenue work across the funnel: prospecting, discovery, qualification, pipeline health, ICP refinement, campaign optimization, messaging clarity, account prioritization, and competitor intelligence.
+This repo is designed to help teams improve the quality of their decisions and execution across the funnel without turning AI into a generic chatbot experiment.
 
-## Why this exists
+## Why this matters
 
-Most AI tools are generic. B2B revenue teams need operational, repeatable playbooks for real work.
+Most AI tools are generic. Most teams do not need another chat assistant.
 
-This library focuses on the motions that matter most in modern GTM execution:
+They need practical, repeatable playbooks for business work that happens every day:
 
-- lead prioritization
-- sales discovery and qualification
-- deal risk analysis
-- forecast quality and pipeline health
-- ICP and positioning refinement
-- campaign performance diagnosis
-- ABM targeting and prioritization
-- market and competitor intelligence
+- prioritizing accounts worth pursuing
+- improving pipeline quality
+- reducing stalled deals
+- clarifying messaging and positioning
+- diagnosing campaign bottlenecks
+- identifying forecast risk earlier
+- shortening the gap between signal and action
 
-## Featured skill families
+This library is built for that real work.
 
-- Sales execution: qualification, objections, pricing, negotiation, forecasting
-- Marketing systems: messaging, lifecycle, ABM, landing page conversion, content planning
-- RevOps and analytics: pipeline quality, attribution, CRM hygiene, handoff audits
-- GTM intelligence: market scanning, competitor monitoring, strategic account prioritization
-- Revenue operating workflows: deal reviews, account planning, executive briefings, pipeline health
+## Who should use this
 
-## What is included
+### Sales leaders and account teams
+Use this when you need to:
+- prioritize the right accounts
+- improve qualification quality
+- reduce deal risk and stalled opportunities
+- prepare for executive and committee conversations
+- convert champion enthusiasm into buying momentum
 
-This repo is organized as a single public hub with domain-specific skill libraries:
+### Marketing teams
+Use this when you need to:
+- sharpen messaging
+- identify content gaps
+- reduce drop-off in the funnel
+- improve audience targeting
+- monitor brand and market perception
 
-- `b2b-agent-skills` — flagship library and shared taxonomy
-- `b2b-agent-skills-sales` — sales execution and qualification skills
-- `b2b-agent-skills-marketing` — marketing, messaging, and demand gen skills
-- `b2b-agent-skills-revops` — pipeline, forecasting, and operational quality skills
-- `b2b-agent-skills-gtm` — strategic GTM and market intelligence skills
+### RevOps and revenue operations teams
+Use this when you need to:
+- improve pipeline health
+- detect forecast bias early
+- identify stage-level bottlenecks
+- improve reporting quality and operational clarity
 
-Each skill contains:
+### GTM operators and founders
+Use this when you need to:
+- align sales, marketing, and strategy around the same signals
+- prioritize accounts strategically
+- monitor competitor movement and market shifts
+- turn noisy data into clear action plans
 
-- business problem and use case
-- inputs and outputs
-- workflow guidance
-- prompt template
-- example output
-- evaluation rubric
-- source references
+### Technical builders and integrators
+Use this when you need a structured starting point for:
+- agent workflows
+- internal AI tooling
+- CRM or marketing automation integrations
+- business-context-aware prompt systems
 
-## Source-backed and practitioner-informed
+## How this fits into a real workflow
 
-This library is informed by public B2B sales, marketing, RevOps, and GTM frameworks from Salesforce, HubSpot, Gong, McKinsey, Gartner, Forrester, Demandbase, 6sense, Bombora, and related public industry resources.
+This repo is not meant to replace business judgment. It is meant to make business judgment faster and more structured.
 
-## How to use it
+Typical usage pattern:
 
-Browse by function and start with the skill pack relevant to your motion. Each repo is organized around a common operating pattern:
+1. Identify the GTM problem
+   - weak pipeline quality
+   - unclear messaging
+   - low account prioritization confidence
+   - stalled renewals
+   - lack of executive alignment
 
-1. identify the GTM problem
-2. define the input signals
-3. run the skill or workflow
-4. evaluate the output against business criteria
-5. iterate for operational fit
+2. Feed in relevant context
+   - account data
+   - sales notes
+   - CRM signals
+   - campaign performance
+   - customer or market feedback
+
+3. Run a skill
+   - prioritize account list
+   - assess risk
+   - analyze signal quality
+   - evaluate campaign or messaging gaps
+
+4. Review the output with business context
+   - compare against actual experience
+   - choose actions that are realistic and operationally feasible
+
+5. Improve the workflow
+   - faster qualification
+   - better strategy conversations
+   - less guesswork at leadership reviews
+   - cleaner handoffs between teams
+
+## When to use it
+
+Use these skills in the moments when the business is already doing the work but needs better signal or clarity.
+
+Good moments to use this repo:
+- before a quarterly pipeline review
+- during renewal risk assessment
+- when preparing for a major deal review
+- when messaging feels vague or inconsistent
+- when campaign performance looks weak but the root cause is unclear
+- when GTM teams disagree on which accounts matter most
+- when competitor pressure or market change is creating confusion
+
+## What improvements it creates in day-to-day work
+
+This repo helps teams improve workflow quality in practical ways:
+
+- better prioritization of account attention
+- stronger discovery and qualification depth
+- clearer sales messaging and objection handling
+- better understanding of pipeline bottlenecks
+- earlier detection of renewal or risk issues
+- more structured GTM planning and execution
+- less time wasted on low-value accounts or low-quality campaigns
+- better alignment between teams using the same operating signals
+
+## Real value in plain English
+
+This is valuable when a team wants to move from intuition to structured decision support.
+
+Examples:
+- Instead of guessing which accounts deserve attention, use a prioritization skill.
+- Instead of reacting to weak campaign performance, use a content or funnel diagnostics skill.
+- Instead of relying on gut feeling for forecast risk, use a RevOps quality and bias analysis skill.
+- Instead of generic competitor updates, use a signal clustering approach to identify business-relevant shifts.
+
+## What makes this competitive
+
+This repo is competitive because it is not just a prompt library. It is a structured operating library for B2B revenue work.
+
+It stands apart by combining:
+- business use cases
+- clear skill structure
+- workflow-oriented design
+- source-backed references
+- real GTM and revenue context
+- examples that look like actual operating tasks, not toy demos
+
+It is most competitive for teams that want AI to support execution, not just generate content.
+
+## What this is not
+
+This is not:
+- a raw prompt dump
+- a generic productivity assistant
+- a technical-only engineering repo
+- a fake business framework with no operational structure
+
+This is a practical library for revenue and GTM teams who want more usable, repeatable AI support built around real business motions.
 
 ## Repo map
 
-- `b2b-agent-skills` — shared overview, taxonomy, and curated playbook library
-- `b2b-agent-skills-sales` — sales, qualification, negotiation, and pipeline skills
-- `b2b-agent-skills-marketing` — messaging, campaign, lifecycle, and ABM skills
-- `b2b-agent-skills-revops` — forecasting, pipeline quality, reporting, and process health
-- `b2b-agent-skills-gtm` — competitor monitoring, market intelligence, and strategic prioritization
+- `b2b-agent-skills-sales` — sales execution, deal strategy, and commercial workflows
+- `b2b-agent-skills-marketing` — messaging, lifecycle, campaign, and audience optimization
+- `b2b-agent-skills-revops` — pipeline health, forecasting, and operational clarity
+- `b2b-agent-skills-gtm` — strategic planning, market intelligence, and account prioritization
+- `skills_ai/` — runtime engine for using the skills programmatically
+- `examples/` — quick runnable examples and app patterns
 
-## Current focus
+## Quick start for non-technical users
 
-The project is intentionally organized around practical B2B revenue workflows rather than generic AI prompts.
+You do not need to understand the code to see the value.
 
-This makes it useful for:
+Start with the skill packs that match your immediate workflow:
 
-- GTM operators
-- sales leaders and reps
-- marketing teams and growth leaders
-- revenue operations teams
-- market and competitive intelligence workflows
+- Sales leader: lead prioritization, deal risk, committee readiness
+- Marketing leader: content gap analysis, brand perception, journey friction
+- RevOps leader: pipeline health, forecast bias, attribution quality
+- GTM leader: market shift monitor, competitor signal clustering, account priority matrices
+
+Read the skill README, identify the business problem, and use the output as a decision aid.
 
 ## Roadmap
 
@@ -113,3 +209,77 @@ These additions reinforce the repo’s aim: source-backed, operational AI skills
 ## Notes
 
 This is a curated operating library for B2B revenue teams, grounded in public industry practice and structured for real-world workflow use.
+
+## 3-minute repo summary
+
+If you run a B2B revenue motion, this repo gives you a practical toolkit for making better decisions with less guesswork.
+
+Use it to:
+- prioritize the right accounts
+- reduce stalled deals
+- improve pipeline quality
+- sharpen marketing messaging
+- diagnose campaign and funnel issues
+- detect forecast and renewal risk earlier
+- turn noisy data into clear action plans
+
+This is not a generic AI playground. It is a business-use library built for the people running GTM work every day.
+
+## Use cases by role
+
+### Sales leader
+- improve account prioritization
+- reduce weak pipeline and wasted effort
+- strengthen coaching and discovery quality
+- improve executive readiness and deal momentum
+
+### Marketing leader
+- diagnose funnel drop-off and content gaps
+- refine positioning and messaging
+- improve conversion quality with fewer wasted campaigns
+- align brand perception with buyer reality
+
+### RevOps leader
+- improve pipeline health visibility
+- reduce forecast bias and improve forecast confidence
+- surface stage-level bottlenecks and operational gaps
+- create cleaner operating rhythm for reviews and planning
+
+### Founder or GTM operator
+- align teams around shared GTM signals
+- prioritize the right accounts and motions
+- monitor market and competitor shifts faster
+- turn strategic intent into repeatable operational action
+
+### Technical builder
+- turn business workflows into structured agent patterns
+- build AI flows around real operating tasks
+- integrate AI into CRM, sales, and growth workflows with clearer context
+
+## Before and after workflow
+
+### Before
+- teams rely on intuition, scattered notes, and late-stage surprises
+- account attention is spread too thin
+- pipeline review is noisy and inconsistent
+- messaging and content are vague or misaligned
+- competitor shifts are noticed too late
+
+### After
+- teams work from structured decision support
+- account prioritization becomes more targeted and repeatable
+- deal risk and pipeline quality are reviewed with more clarity
+- marketing and sales use clearer signals and fewer blind spots
+- GTM decisions become easier to defend and operationalize
+
+## Why this feels usable to real people
+
+The value is immediate when a person sees a business problem they already have:
+
+- “We are spending time on the wrong accounts.”
+- “Our pipeline looks full but is not converting.”
+- “Our messaging is not landing consistently.”
+- “We do not know which deals are actually risky.”
+- “We are reacting to market shifts too late.”
+
+This repo gives people a structured way to work through those problems.
