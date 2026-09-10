@@ -4,6 +4,39 @@ Curated AI skills for revenue teams that need better decisions, clearer executio
 
 This repo is designed for the people who actually run GTM work: sales leaders, marketing teams, RevOps leaders, founders, and operators who need practical AI support for real business work.
 
+## Who this is for
+
+This repo is built for:
+
+- sales leaders and account teams
+- marketing and lifecycle teams
+- RevOps and forecasting teams
+- GTM operators and founders
+- technical teams building AI workflows around real business tasks
+
+## 5-minute quick start
+
+If you want to understand the value fast, start here:
+
+1. Pick the business problem you already have.
+   - weak pipeline quality
+   - poor account prioritization
+   - unclear messaging
+   - weak conversion or high drop-off
+   - risk or forecast uncertainty
+
+2. Go to the skill pack that matches the problem.
+   - sales
+   - marketing
+   - RevOps
+   - GTM
+
+3. Open the README for that skill and read the purpose, inputs, output, and example result.
+
+4. Use the plain-English prompts in `docs/prompt-packs.md` to test the idea quickly.
+
+5. Turn the result into a clear next action for your team, not just a model output.
+
 ## The business problems this solves
 
 Most GTM teams are not short on activity. They are short on clarity.
@@ -64,45 +97,6 @@ They need practical, repeatable playbooks for business work that happens every d
 - shortening the gap between signal and action
 
 This library is built for that real work.
-
-## Who should use this
-
-### Sales leaders and account teams
-Use this when you need to:
-- prioritize the right accounts
-- improve qualification quality
-- reduce deal risk and stalled opportunities
-- prepare for executive and committee conversations
-- convert champion enthusiasm into buying momentum
-
-### Marketing teams
-Use this when you need to:
-- sharpen messaging
-- identify content gaps
-- reduce drop-off in the funnel
-- improve audience targeting
-- monitor brand and market perception
-
-### RevOps and revenue operations teams
-Use this when you need to:
-- improve pipeline health
-- detect forecast bias early
-- identify stage-level bottlenecks
-- improve reporting quality and operational clarity
-
-### GTM operators and founders
-Use this when you need to:
-- align sales, marketing, and strategy around the same signals
-- prioritize accounts strategically
-- monitor competitor movement and market shifts
-- turn noisy data into clear action plans
-
-### Technical builders and integrators
-Use this when you need a structured starting point for:
-- agent workflows
-- internal AI tooling
-- CRM or marketing automation integrations
-- business-context-aware prompt systems
 
 ## How this fits into a real workflow
 
