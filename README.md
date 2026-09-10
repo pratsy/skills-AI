@@ -103,6 +103,10 @@ New additions in the public library include:
 - `Multi-threading Plan Builder` — enterprise stakeholder coverage and deal progression strategy
 - `Champion Advocacy Builder` — converting stakeholder enthusiasm into buying momentum
 - `Deal Committee Readiness Coach` — executive meeting prep and buying-group strategy
+- `Brand Perception Monitor` — market signal tracking for brand and messaging quality
+- `Customer Journey Friction Audit` — funnel and lifecycle optimization analysis
+- `Forecast Bias Detector` — bias review for pipeline quality and forecast confidence
+- `Competitor Signal Clusterer` — strategic grouping of competitive movement and message themes
 
 These additions reinforce the repo’s aim: source-backed, operational AI skills that are useful in real B2B sales and marketing execution.
 

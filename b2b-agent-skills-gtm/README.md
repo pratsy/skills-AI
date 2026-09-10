@@ -20,6 +20,7 @@ Open-source AI playbooks for strategic go-to-market intelligence, competitive aw
 - strategic-account-priority-ranker
 - account-priority-matrix-builder
 - market-shift-monitor
+- competitor-signal-clusterer
 
 ## Research basis
 
