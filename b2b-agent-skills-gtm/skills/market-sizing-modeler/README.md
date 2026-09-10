@@ -1,94 +1,88 @@
 # Market Sizing Modeler
 
-## Why this skill exists
+Build a TAM/SAM/SOM market size estimate using both top-down and bottom-up methods independently, then reconcile the two — instead of presenting a single top-down number, which is the most common way market sizing becomes unreliable (or unfalsifiable) in a GTM plan.
 
-Market opportunity is often discussed in vague terms. That weakens strategy, budget allocation, and GTM focus.
+## When to use this
 
-This skill helps teams estimate the practical size of a market or segment using a structured logic model so resource decisions are based on realistic commercial potential rather than intuition.
+- Building a GTM plan or investor/board narrative that needs a defensible market size, not a rounded industry-report figure.
+- Two team members have produced wildly different market size estimates and need a structured way to reconcile them.
+- Sizing a new segment or geography before committing GTM investment.
 
-## Business objective
+## Methodology
 
-This skill helps the team answer:
+**TAM** (Total Addressable Market): total revenue opportunity if you captured 100% of the market for your category, globally.
+**SAM** (Serviceable Addressable Market): the portion of TAM you could realistically serve given your actual product, geography, and go-to-market constraints (e.g., language support, compliance certifications, current sales motion).
+**SOM** (Serviceable Obtainable Market): the portion of SAM you could realistically capture in a defined time horizon given competition and your actual execution capacity.
 
-> How large is the opportunity, what drives it, and how should we prioritize the market strategically?
+**Two independent methods, always both computed:**
 
-## Expert memory layer
+- **Top-down**: start from a published industry market size figure, narrow by the % that matches your specific category/segment, narrow again by your SAM constraints.
+- **Bottom-up**: count actual target accounts (from firmographic data — see [`icp-refinement-agent`](../../b2b-agent-skills-marketing/skills/icp-refinement-agent/README.md)) × realistic average contract value, built up from your own comparable-customer data, not assumption.
 
-Experienced GTM teams know that market sizing is not just arithmetic. It is a judgment model shaped by:
+## Reconciliation logic
 
-- segment definition and buyer fit
-- price and contract assumptions
-- customer count or revenue proxies
-- growth momentum and adoption patterns
-- strategic attractiveness versus pure market size
+```
+Divergence = |top_down_estimate - bottom_up_estimate| / min(top_down_estimate, bottom_up_estimate)
 
-This skill converts those assumptions into a usable market opportunity view with explicit uncertainty.
+Divergence < 30%    → estimates roughly agree; use the average, note the range
+Divergence 30-100%  → material disagreement; investigate which method's assumptions are weaker
+                       before reporting either number with confidence
+Divergence > 100%   → one method is very likely wrong; most commonly the top-down category-%
+                       narrowing was too loose, or the bottom-up target-account count is incomplete
+```
+
+Never report a single blended number without disclosing the divergence — a market sizing estimate presented with false precision is a common way GTM plans lose credibility with a sharp board or investor.
 
 ## Inputs
 
-- market description and segment definition
-- customer count or revenue proxies
-- product pricing and contract assumptions
-- historical market patterns or adoption data
-- buyer profile and buying power signals
-- strategic priorities and market fit context
+| Field | Type | Example |
+|---|---|---|
+| `published_market_size` | {figure, source, category_scope} | e.g. `{"figure": 12000000000, "source": "industry report X", "category_scope": "broader than our specific segment"}` |
+| `category_narrowing_pct` | float | your estimate of what % of the published figure matches your specific category |
+| `sam_constraint_pct` | float | % of TAM addressable given your actual product/geo/motion constraints |
+| `target_account_count` | int | from bottom-up ICP-matched account counting |
+| `realistic_acv` | number | from actual comparable-customer contract values, not list price |
+| `time_horizon_years` | int | for SOM capture estimate |
+| `realistic_capture_rate` | float | your estimated realistic win share of SAM within the horizon |
 
-## Decision logic
+## Worked example
 
-A strong market sizing model should consider:
+Top-down: published market size $12B (broad category). Category narrowing: 15% of that is actually our specific segment → $1.8B TAM (top-down). SAM constraint: 40% addressable given current geo/product scope → $720M SAM (top-down).
 
-1. target definition: which customer group is actually in scope?
-2. demand drivers: what is fueling purchasing behavior?
-3. commercial logic: what is the realistic revenue or account potential?
-4. strategic fit: is the opportunity worth focusing on given our motion and differentiation?
-5. uncertainty: what assumptions matter most and where are the blind spots?
+Bottom-up: 3,400 target accounts matching ICP × $28,000 realistic ACV (from actual closed-won average, not list price) = **$95.2M SAM (bottom-up).**
 
-The best estimate is not the largest number. It is the most defendable, decision-useful estimate.
+```
+Divergence = |720,000,000 - 95,200,000| / 95,200,000 ≈ 656% → one method is very likely wrong
+```
+
+Investigation: the top-down category-narrowing (15%) was an unvalidated guess; the bottom-up count (3,400 accounts) is directly counted from firmographic data and far more defensible. Reported conclusion: **use the bottom-up SAM ($95.2M) as the primary figure**, flag the top-down estimate as needing a better category-narrowing input before it's usable, rather than averaging two numbers that disagree by 6.5x into a false middle figure.
 
 ## Common failure patterns
 
-- sizing the total category instead of the reachable segment
-- using broad assumptions without clear logic
-- ignoring buyer fit, price sensitivity, or distribution constraints
-- treating market size as market opportunity without strategic context
-- failing to show uncertainty and model assumptions
+- Reporting a single top-down number sourced from an industry report without ever cross-checking it against a bottom-up count — the most common way market sizing becomes disconnected from the actual target-account reality.
+- Averaging two estimates that diverge by more than 100% instead of investigating which one's assumptions are weak — the average of a very wrong number and a roughly right number is still wrong.
+- Using list price instead of realistic average contract value (from actual closed-won data) in the bottom-up calculation, which overstates SOM.
+- Computing SOM from SAM without an explicit, honest capture-rate assumption — "we could get 50% of the market" needs to be stated and justified, not implied by omission.
 
-## Outputs
+## Output schema
 
-- market size estimate
-- key value drivers
-- opportunity summary by segment or region
-- strategic implications for GTM investment
-- assumptions and uncertainty notes
-
-## Example result
-
-### Market opportunity: moderate-high for mid-market operations teams
-- Estimated opportunity is strong where pain is urgent and buying criteria match the current product fit.
-- Key drivers: customer count, average contract value, operational inefficiency, and willingness to replace manual workflows.
-- Strategic implication: attractive for targeted GTM motion, but only if the team can differentiate on ROI and implementation simplicity.
+```json
+{
+  "top_down": {"tam": 1800000000, "sam": 720000000},
+  "bottom_up": {"sam": 95200000, "target_account_count": 3400, "realistic_acv": 28000},
+  "divergence_pct": 656,
+  "divergence_verdict": "material disagreement - top-down category narrowing unvalidated",
+  "recommended_primary_estimate": "bottom-up SAM ($95.2M) - more defensible input data",
+  "som": {"time_horizon_years": 3, "realistic_capture_rate": 0.08, "estimate": 7616000}
+}
+```
 
 ## Recommended prompt
 
-> You are a senior market strategy analyst. Estimate the commercial opportunity for this target market using the provided data and assumptions. Explain the size logic, key drivers, and uncertainty boundaries before translating the estimate into GTM prioritization guidance.
+> You are a GTM strategy analyst. Compute TAM and SAM via top-down (published market size x category narrowing % x SAM constraint %) and separately via bottom-up (target account count x realistic ACV from actual comparable-customer data). Compute the divergence between the two SAM estimates as a percentage. If divergence exceeds 100%, identify which method's assumptions are weakest rather than averaging the two. Compute SOM from the more defensible estimate using the given time horizon and realistic capture rate, stating the capture rate assumption explicitly. Return JSON matching the schema above.
 
-## Source basis
+## Grounded in
 
-This skill is grounded in standard market-sizing practice, strategic planning, and portfolio prioritization used in B2B growth and GTM organizations.
+The TAM/SAM/SOM market-sizing framework standard in GTM and venture strategy, always computed via both top-down and bottom-up methods and explicitly reconciled, since a single-method estimate presented without a cross-check is one of the most common ways market sizing loses credibility.
 
-## References
-
-See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.
-
-## Why this is different from a generic prompt
-
-This is not just “estimate the TAM.”
-
-It is a strategic opportunity model that helps teams answer:
-
-- what part of the market is truly addressable
-- what assumptions matter most
-- whether the opportunity is attractive enough to pursue
-- how the estimate should influence GTM investment and focus
-
-That is the expert memory that turns market sizing into real operating guidance.
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the pack's general reference list.

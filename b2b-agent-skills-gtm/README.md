@@ -22,9 +22,22 @@ Open-source AI playbooks for strategic go-to-market intelligence, competitive aw
 - market-shift-monitor
 - competitor-signal-clusterer
 
+## Named methodologies used in this pack
+
+- **TAM/SAM/SOM sizing, reconciled top-down and bottom-up** — `market-sizing-modeler`
+- **Frequency/decisiveness/win-rate-delta theme scoring** — `win-loss-theme-clusterer`
+- **Move-type taxonomy with overlap/confirmation/pattern materiality scoring** — `competitor-monitor`
+- **Strategic-theme clustering with trajectory (accelerating/stable/fading) scoring** — `competitor-signal-clusterer`
+- **PESTEL-style categorization with breadth/velocity/durability scoring** — `market-shift-monitor`
+- **Signal-to-noise trend confirmation** (independent sources, corroboration types, multi-period) — `market-trend-signal-reporter`
+- **Cross-functional value/effort 2x2** — `account-priority-matrix-builder`
+- **Multi-criteria strategic value scoring beyond revenue** (reference-ability, market influence, expansion optionality) — `strategic-account-priority-ranker`
+
+Several of these skills look similar to account-scoring skills in the sales and marketing packs — see the comparison table in [`account-priority-matrix-builder`](skills/account-priority-matrix-builder/README.md#how-this-differs-from-similar-sounding-skills) for how they differ by organizational level and decision they answer.
+
 ## Research basis
 
-This repo is informed by public GTM strategy, account prioritization, competitor intelligence, and market research frameworks used in modern B2B growth teams.
+This repo is also informed by public GTM strategy, account prioritization, competitor intelligence, and market research practice, as general background.
 
 ## Public source base
 

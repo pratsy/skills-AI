@@ -1,5 +1,11 @@
 # Public source base and framework references
 
+## Named methodologies used in this pack
+
+- **TAM/SAM/SOM market sizing**, standard GTM and venture strategy practice, reconciled via both top-down and bottom-up methods
+- **PESTEL** external-signal categorization, standard strategic analysis framework
+- **Signal-to-noise trend confirmation**, requiring independent, multi-type, multi-period corroboration before elevating an observation to a confirmed trend
+
 ## GTM reference base
 
 This repo is informed by public GTM strategy, market intelligence, competitor monitoring, and strategic planning methods used in B2B growth teams.

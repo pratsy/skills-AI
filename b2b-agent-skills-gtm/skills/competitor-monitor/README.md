@@ -1,92 +1,89 @@
 # Competitor Monitor
 
-## Why this skill exists
+Classify raw competitor signals (product launches, pricing changes, hires, funding, messaging shifts) into a structured move-type taxonomy and score each by strategic materiality — instead of a running feed of competitor news with no way to tell what actually matters.
 
-Competitive monitoring is only valuable when it turns scattered updates into a decision-ready intelligence brief.
+## When to use this
 
-This skill helps GTM teams track positioning shifts, launch activity, pricing changes, and narrative movement so they can tell whether a competitor change is noise or a real buying signal.
+- Competitive intel currently means someone forwards interesting links with no consistent structure or prioritization.
+- Leadership asks "has anything changed with [competitor]" and the honest answer requires re-reading a month of scattered notes.
+- You need to feed structured, prioritized competitor signals into [`competitor-signal-clusterer`](../competitor-signal-clusterer/README.md) for theme-level analysis.
 
-## Business objective
+## Methodology
 
-This skill helps the team answer:
+Classify every signal into one move type — because the right response differs completely by type, and lumping them together as "competitor news" obscures that:
 
-> What are our competitors doing that is likely to change buying behavior, and how should we respond?
+| Move type | Examples | Typical response owner |
+|---|---|---|
+| **Product** | feature launch, platform expansion, acquisition of capability | Product/PMM |
+| **Pricing/packaging** | price change, new tier, packaging restructure | RevOps/Sales leadership |
+| **GTM motion** | new channel partnership, sales-led → PLG shift, new segment entry | Sales/Marketing leadership |
+| **Messaging/positioning** | new category claim, rebrand, campaign theme shift | Marketing/PMM |
+| **Organizational** | key exec hire/departure, funding round, layoffs | Executive/strategy |
 
-## Expert memory layer
+## Scoring model
 
-Experienced GTM teams build memory around the patterns that matter:
+```
+Materiality Score (0-100) = 
+    40 x Overlap (0-1: how directly this move competes with your specific ICP/use case, not just broad category)
+  + 30 x Signal_Strength (0=rumor/unconfirmed, 0.5=confirmed but early/limited rollout, 1=confirmed and broadly launched)
+  + 30 x Velocity_Relevance (0=isolated event, 0.5=part of a pattern of 2-3 similar moves in the last quarter, 1=part of a clear accelerating pattern of 4+ moves)
 
-- when competitor messaging shifts because of customer pain or market pressure
-- which changes affect buying criteria versus which are simply tactical moves
-- where competitor activity creates risk in specific segments or buyer groups
-- what adjustments are needed in sales enablement, messaging, or offer design
-
-This skill codifies those patterns into a routine market-intelligence review.
+Materiality Band:
+  70-100  High - brief leadership within 48 hours
+  40-69   Moderate - include in next regular competitive update
+  <40     Low - log for pattern tracking, no individual alert needed
+```
 
 ## Inputs
 
-- competitor websites and product pages
-- launch announcements and release notes
-- pricing and packaging changes
-- customer feedback and win-loss themes
-- campaign messaging and market commentary
-- sales objections and competitive questions
+| Field | Type | Example |
+|---|---|---|
+| `competitor` | string | |
+| `signal_description` | string | raw signal as observed |
+| `move_type` | enum | product \| pricing \| gtm_motion \| messaging \| organizational |
+| `overlap_with_icp` | float (0-1) | |
+| `confirmation_level` | enum | rumor \| confirmed_limited \| confirmed_broad |
+| `related_moves_last_quarter` | int | count of similar-type moves from this competitor recently |
 
-## Decision logic
+## Worked example
 
-A useful competitor monitor should assess:
+Signal: Competitor X launches a new "explainable scoring" feature (confirmed, broadly rolled out), directly overlapping with your own core differentiator (overlap 0.9). This is the 3rd product move in this direction from them in the last quarter (part of a pattern).
 
-1. strategic significance: is this a real category shift or a minor update?
-2. buyer relevance: does it change what customers value or compare?
-3. operational effect: does it affect pricing, positioning, or sales narrative?
-4. response urgency: should teams react now, monitor, or reposition?
+```
+Materiality = 40(0.9) + 30(1.0) + 30(0.5) = 36 + 30 + 15 = 81 → High materiality
+```
 
-The most important question is not whether a competitor changed something, but whether that change is influencing buyer decisions.
+This crosses the High threshold specifically because of the overlap with a stated core differentiator (see [`brand-positioning-synthesizer`](../../b2b-agent-skills-marketing/skills/brand-positioning-synthesizer/README.md)) — the same feature launch from a competitor with no overlap to your differentiation would score much lower on the Overlap component alone, even if equally "big news" in the abstract.
 
 ## Common failure patterns
 
-- treating every marketing update as a strategic threat
-- missing the difference between product activity and buying impact
-- ignoring customer language and competitive objections
-- failing to translate competitor moves into sales or messaging actions
-- responding without a segment-specific context
+- Treating all competitor news as equally worth surfacing, which trains stakeholders to tune out competitive updates entirely (alert fatigue from low-materiality noise).
+- Scoring materiality only by how impressive a move sounds, without weighting overlap with your specific ICP/differentiation — a competitor's move into a segment you don't compete in is low materiality regardless of how large the announcement is.
+- Acting on unconfirmed rumors with the same urgency as confirmed, broadly-launched moves.
+- Missing the pattern signal — three individually low-materiality product moves in the same direction within a quarter is a materially different (and often more important) finding than any one of them in isolation.
 
-## Outputs
+## Output schema
 
-- competitor movement summary
-- strategic significance assessment
-- buyer impact and segment relevance
-- sales and marketing response recommendations
-- surveillance priorities for upcoming watch items
-
-## Example result
-
-### Competitor trend: simplified pricing and faster implementation messaging
-- Strategic significance: medium to high
-- Buyer impact: buyers are showing stronger sensitivity to time-to-value and implementation effort
-- Recommended response: update sales battlecards and sharpen value proof around time-to-value, deployment simplicity, and business impact
+```json
+{
+  "competitor": "Competitor X",
+  "signal_description": "launched explainable scoring feature, broad rollout",
+  "move_type": "product",
+  "overlap_with_icp": 0.9,
+  "confirmation_level": "confirmed_broad",
+  "related_moves_last_quarter": 3,
+  "materiality_score": 81,
+  "materiality_band": "high",
+  "recommended_action": "brief leadership within 48 hours; feed into competitive-differentiation-coach battlecard update"
+}
+```
 
 ## Recommended prompt
 
-> You are a senior competitive intelligence strategist. Review the competitor activity and identify which changes are strategically important, which are likely to influence buyer behavior, and what response sales and marketing teams should take. Focus on practical business impact rather than marketing noise.
+> You are a competitive intelligence analyst. Classify the signal below by move type (product, pricing/packaging, GTM motion, messaging/positioning, organizational). Compute Materiality Score = 40 x overlap_with_icp + 30 x signal_strength (0/0.5/1 for rumor/confirmed-limited/confirmed-broad) + 30 x velocity_relevance (0/0.5/1 for isolated/pattern of 2-3/pattern of 4+ similar moves this quarter). Assign a materiality band and recommended response urgency. Return JSON matching the schema above.
 
-## Source basis
+## Grounded in
 
-This skill is informed by competitive intelligence practice, market monitoring, and B2B revenue strategy work used by GTM and growth teams.
+A move-type taxonomy and overlap/confirmation/pattern-weighted materiality scoring method for competitive intelligence, built to prevent alert fatigue by distinguishing signals that overlap with your actual differentiation from generic competitor news.
 
-## References
-
-See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.
-
-## Why this is different from a generic prompt
-
-This is not just “summarize competitor updates.”
-
-It is a disciplined competitive-intelligence workflow that helps teams decide:
-
-- which moves matter
-- what they mean for buyer behavior
-- how sales and marketing should respond
-- whether the company should watch, adjust, or reposition
-
-That is the operational memory that makes the skill useful in real GTM execution.
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the pack's general reference list.

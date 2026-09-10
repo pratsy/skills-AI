@@ -1,81 +1,86 @@
 # Competitor Signal Clusterer
 
-## Why this skill exists
+Cluster a batch of individual competitor signals (from [`competitor-monitor`](../competitor-monitor/README.md)) into strategic themes and classify each theme's trajectory — accelerating, stable, or fading — instead of presenting a flat list of unconnected events.
 
-Competitive monitoring becomes useful only when noise is turned into insight.
+## When to use this
 
-This skill helps cluster competitor signals into meaningful themes so GTM teams can understand whether the movement matters, how it affects buyers, and what response is needed.
+- You have weeks or months of logged competitor signals and need the strategic story they collectively tell, not a re-read of each one.
+- Individual signals scored "moderate" materiality on their own might be part of a "high materiality" pattern together.
+- Preparing a quarterly competitive strategy review and need themes, not a chronological event log.
 
-## Business objective
+## Methodology
 
-This skill helps the team answer:
+Individual signals are clustered by shared strategic implication, not just by move type — e.g., a pricing change, a new low-touch onboarding flow, and a self-serve signup page from the same competitor might all cluster under one theme: "moving down-market toward PLG."
 
-> Which competitor signals are genuinely important, and how should the team interpret them for messaging, product, or strategic response?
+**Trajectory classification**, based on signal frequency over time (not a single snapshot):
 
-## Expert memory layer
+```
+Accelerating: 3+ signals in this theme in the most recent quarter, more than the prior quarter
+Stable: consistent signal rate across the last 2+ quarters, no clear increase or decrease
+Fading: signals in this theme have decreased for 2+ consecutive quarters, or none in the most recent quarter
+```
 
-Strong GTM teams know that competitor movement matters only when it affects buyer decisions.
+## Scoring model
 
-Patterns that matter include:
+```
+Theme Strategic Weight = avg(signal materiality scores in the theme) x trajectory_multiplier
 
-- repeated competitor language around a common pain point
-- market shifts that change buyer urgency or value perception
-- signals with strategic impact versus signals that are tactical noise
-- competitive behavior that affects positioning or pricing pressure
+trajectory_multiplier: accelerating = 1.5, stable = 1.0, fading = 0.5
 
-This skill transforms those patterns into interpretable clusters and action guidance.
+Rank themes by Theme Strategic Weight, not by raw signal count - a theme with fewer but highly
+material, accelerating signals outranks a theme with many low-materiality, fading signals.
+```
 
 ## Inputs
 
-- competitor announcements and market updates
-- customer feedback and messaging themes
-- product, pricing, and category changes
-- market commentary and signal data
-- strategic priorities and GTM context
+| Field | Type | Example |
+|---|---|---|
+| `signals` | list[{signal_id, competitor, description, materiality_score, move_type, date}] | output from competitor-monitor, batched over a period |
+| `lookback_quarters` | int | how many quarters of signal history to analyze for trajectory |
 
-## Decision logic
+## Worked example
 
-A strong signal cluster review should consider:
+12 signals from Competitor X over 2 quarters, clustered into theme "moving down-market toward PLG": self-serve signup launch (materiality 65), free-tier pricing change (materiality 72), simplified onboarding flow (materiality 58), reduced minimum contract size (materiality 70) — 2 signals in Q1, 2 in Q2, increasing pace within Q2 itself.
 
-1. signal strength and credibility
-2. buyer relevance and urgency impact
-3. competitive significance versus noise
-4. risk and opportunity implications
-5. best GTM response or reframing approach
+```
+Avg materiality = (65+72+58+70)/4 = 66.25
+Trajectory: signal count increasing within the lookback window → accelerating (multiplier 1.5)
+Theme Strategic Weight = 66.25 x 1.5 = 99.4
+```
 
-The goal is to decide whether a signal should lead to action, monitoring, or silence.
+This theme should rank above a higher-materiality single signal or a fading theme with a higher average score — the combination of decent materiality *and* an accelerating pattern indicates a deliberate strategic shift by the competitor (moving down-market), which has different and broader implications (pricing pressure, new buyer persona to counter) than any single signal in isolation would suggest.
 
 ## Common failure patterns
 
-- treating every competitor move as a strategic threat
-- missing the difference between product noise and buying impact
-- overreacting to one signal without understanding pattern meaning
-- failing to connect competitor activity to customer behavior
-- not translating signal clusters into a practical GTM response
+- Clustering signals only by move-type category (all "pricing" signals together) instead of by shared strategic implication, which misses cross-category patterns like the PLG-shift example above that spans pricing, product, and GTM motion signals.
+- Ranking themes by raw signal count instead of materiality-weighted, trajectory-adjusted score, which can over-rank a theme with many trivial signals over one with fewer, highly material, accelerating ones.
+- Classifying trajectory from too short a window (a single quarter) — trajectory requires at least 2 quarters of comparison to distinguish a real pattern from a one-time cluster of unrelated events.
+- Presenting themes without a recommended response owner or action, leaving strategic findings without a clear next step.
 
-## Outputs
+## Output schema
 
-- competitor signal clusters
-- likely market and buyer impact summary
-- strategic relevance and urgency assessment
-- recommended responses across positioning, message, and sales motion
-- monitoring priorities and watch-list items
-
-## Example result
-
-### Clustered signal
-- Competitors are increasingly emphasizing integration and time-to-value.
-- Buyers are responding to implementation burden and ROI proof.
-- Recommendation: sharpen positioning around faster implementation, lower friction, and measurable operational gain.
+```json
+{
+  "themes": [
+    {
+      "theme": "moving down-market toward PLG",
+      "signal_count": 4,
+      "avg_materiality": 66.25,
+      "trajectory": "accelerating",
+      "strategic_weight": 99.4,
+      "implication": "competitor is pursuing a new buyer segment with different pricing/adoption expectations",
+      "recommended_response": "assess whether our own down-market packaging needs a counter-response"
+    }
+  ]
+}
+```
 
 ## Recommended prompt
 
-> You are a senior competitive intelligence strategist. Review the competitor signal data and cluster the main patterns by strategic meaning and buyer impact. Explain which signals matter most and recommend the proper GTM response.
+> You are a competitive strategist. Cluster the signals below by shared strategic implication (not just move type). For each theme, compute avg materiality across its signals, classify trajectory (accelerating: more signals in the most recent quarter vs. prior; stable: consistent rate over 2+ quarters; fading: declining for 2+ quarters) using the lookback window given, and compute Theme Strategic Weight = avg_materiality x trajectory_multiplier (1.5/1.0/0.5). Rank themes by strategic weight. State the strategic implication and a recommended response owner for each. Return JSON matching the schema above.
 
-## Source basis
+## Grounded in
 
-This skill is informed by public competitive intelligence, market monitoring, and B2B strategy practices used in GTM teams.
+Thematic clustering of competitive intelligence signals with a trajectory-weighted scoring method, so that a pattern of moderately material but accelerating signals is surfaced as more strategically important than isolated high-materiality events or fading patterns.
 
-## References
-
-See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the pack's general reference list.

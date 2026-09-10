@@ -1,91 +1,92 @@
 # Market Trend Signal Reporter
 
-## Why this skill exists
+Score raw market signals (search trend data, hiring pattern shifts, funding announcements, category discussion volume) by signal-to-noise ratio before reporting them as a "trend" — the discipline most market-trend reporting skips, which is why trend reports are often just a list of anything that happened recently.
 
-Most teams are exposed to too many market signals to interpret manually. The challenge is not finding information; it is separating meaningful pattern change from background noise.
+## When to use this
 
-This skill helps identify the market trends that likely influence buyer behavior, segment demand, and GTM planning so teams can act on what matters.
+- Producing a regular market trend digest and want to avoid reporting single anecdotal data points as trends.
+- Comparing several candidate "trends" and need to know which are actually well-supported versus speculative.
+- A stakeholder cites a "trend" they read somewhere and you need to evaluate whether it holds up.
 
-## Business objective
+## Methodology
 
-This skill helps the team answer:
+**Signal-to-noise scoring**: every candidate trend needs multiple independent, corroborating data sources before being reported as a trend rather than an anecdote. This mirrors how legitimate trend/forecasting analysis works — one data point is an observation, not a trend.
 
-> Which market trends meaningfully affect our category, and how should we adjust strategy or messaging?
+```
+Independent Source Count: how many genuinely independent sources show this pattern
+  (two articles citing the same original study count as 1 independent source, not 2)
 
-## Expert memory layer
+Corroboration Types: does the pattern show up in more than one KIND of signal -
+  e.g., search trend data AND hiring pattern data AND funding pattern data showing
+  the same direction is much stronger than three articles all making the same claim
+  from secondhand commentary
 
-Strong GTM teams build memory around patterns like:
+Time Span: is this observed over multiple periods (weeks/months), or a single spike
+  that could be a one-time event (a single viral post, a single conference cycle)
+```
 
-- changing buyer priorities across the category
-- recurring operational pain that is becoming more urgent
-- new buying criteria entering the market
-- external changes that affect pricing, messaging, or sales motion
+## Scoring model
 
-This skill captures those patterns and translates them into strategic response recommendations.
+```
+Signal-to-Noise Score (0-100) = 
+    40 x min(independent_source_count / 3, 1) x 100/100   [caps benefit at 3+ independent sources]
+  + 30 x (corroborating_signal_types / 3)   [search, hiring, funding/spend - or other relevant types]
+  + 30 x (1 if observed_over_multiple_periods else 0)
+
+Reporting threshold: only report as a "trend" if Signal-to-Noise Score >= 60.
+Below 60: report as "early/unconfirmed signal" explicitly, not as a trend, if reported at all.
+```
 
 ## Inputs
 
-- industry news and market reports
-- customer feedback and buying signals
-- product usage patterns and customer behavior
-- competitor activity and category commentary
-- demand trends and market shifting narratives
+| Field | Type | Example |
+|---|---|---|
+| `candidate_trend` | string | |
+| `sources` | list[{source, independent, signal_type}] | signal_type e.g. search/hiring/funding/media |
+| `observed_periods` | int | number of distinct time periods (e.g. months) this has been observed |
 
-## Decision logic
+## Worked example
 
-A good trend report should assess:
+Candidate trend: "B2B buyers increasingly expect AI-native features as a baseline, not a differentiator."
 
-1. signal quality: is the trend real and repeatable?
-2. buyer relevance: does it affect buying criteria or urgency?
-3. commercial impact: does it change demand, pricing, or value perception?
-4. response fit: does the team need to update messaging, targeting, or offers?
+Sources: 4 articles, but 3 of them cite the same original analyst report (1 independent source) + 1 genuinely independent survey (2nd independent source). Signal types: media commentary only (1 type — no corroborating hiring or spend data provided). Observed over: only the current period (1 month), no prior-period comparison.
 
-The goal is not to summarize information broadly but to identify the shifts that should change action.
+```
+Independent sources: 2 → 40 x min(2/3, 1) = 40 x 0.67 = 26.7
+Corroborating types: 1 of 3 → 30 x (1/3) = 10
+Multi-period: no → 0
+Signal-to-Noise Score = 26.7 + 10 + 0 = 36.7 → below 60 threshold
+```
+
+This should be reported as an **early/unconfirmed signal**, not a confirmed trend — the underlying claim may well be directionally correct, but the current evidence base (mostly derivative media coverage of one report, single time period, no corroborating behavioral data) doesn't yet support presenting it with trend-level confidence. The report should say exactly that, rather than upgrading it to "trend" because it's an interesting or plausible claim.
 
 ## Common failure patterns
 
-- overreacting to weak or noisy market commentary
-- treating every category trend as equally important
-- missing the link between trend change and buyer behavior
-- reporting trends without operational implications
-- failing to distinguish macro noise from category-specific signals
+- Counting multiple articles that all cite the same original source as multiple independent sources, which inflates apparent corroboration.
+- Reporting a single-period spike as a trend without checking whether it persists — many "trends" are one-time events (a viral post, a single conference) that don't recur.
+- Relying only on media/commentary signal types without checking for corroborating behavioral data (search volume, hiring patterns, spend data) where available — commentary about a trend is weaker evidence than behavioral data showing it.
+- Reporting every candidate trend at the same confidence level instead of explicitly distinguishing confirmed trends from early signals — this is the single biggest credibility risk in trend reporting.
 
-## Outputs
+## Output schema
 
-- trend summary
-- likely buyer impact
-- strategic implication for GTM teams
-- recommended sales or marketing response
-- priority watch-list items
-
-## Example result
-
-### Market trend: buyers value implementation speed and operational simplicity more heavily
-- Why it matters: the category is moving toward lower-friction deployment and faster time-to-value.
-- Buyer effect: buying criteria are shifting from feature breadth to operational ease and proof of efficiency.
-- Recommended response: strengthen messaging around launch speed, onboarding simplicity, ROI proof, and implementation readiness.
+```json
+{
+  "candidate_trend": "B2B buyers increasingly expect AI-native features as baseline",
+  "independent_source_count": 2,
+  "corroborating_signal_types": ["media"],
+  "observed_over_multiple_periods": false,
+  "signal_to_noise_score": 36.7,
+  "classification": "early/unconfirmed signal",
+  "reporting_recommendation": "report as an early signal to watch, not a confirmed trend; revisit after 2+ more periods of data"
+}
+```
 
 ## Recommended prompt
 
-> You are a senior market strategy analyst. Review the provided market signals and summarize the most meaningful trends affecting this category. Explain which changes are likely to influence buying behavior, why they matter, and how the GTM team should respond.
+> You are a market intelligence analyst. For the candidate trend below, count genuinely independent sources (sources citing the same original report count as one), count distinct corroborating signal types (e.g. search, hiring, funding/spend, media - not just multiple media mentions), and note whether it's observed over multiple time periods. Compute Signal-to-Noise Score = 40 x min(independent_sources/3, 1) + 30 x (corroborating_types/3) + 30 x (1 if multi-period else 0). Classify as a confirmed trend only if the score is 60 or above; otherwise classify as an early/unconfirmed signal and say so explicitly. Return JSON matching the schema above.
 
-## Source basis
+## Grounded in
 
-This skill is informed by public market intelligence, category analysis, customer-behavior monitoring, and B2B growth strategy practices.
+Signal-to-noise evaluation practice from trend/forecasting analysis (requiring independent, multi-type, multi-period corroboration before elevating an observation to "trend" status), applied to market intelligence reporting to prevent single-source anecdotes from being reported with trend-level confidence.
 
-## References
-
-See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.
-
-## Why this is different from a generic prompt
-
-This is not a basic “summarize the news” prompt.
-
-It is a structured market-scanning workflow that helps teams decide:
-
-- which trends are real enough to matter
-- how the trend affects buying behavior
-- what the business implication is
-- whether the company should monitor, align, or respond strategically
-
-That is the expert memory that turns information gathering into decision support.
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the pack's general reference list.
