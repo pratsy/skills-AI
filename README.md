@@ -100,6 +100,9 @@ New additions in the public library include:
 - `Pipeline Health Audit Agent` — RevOps-focused pipeline quality and forecast risk analysis
 - `Account Priority Matrix Builder` — GTM prioritization and strategic account planning
 - `Market Shift Monitor` — category and competitor monitoring for enterprise GTM teams
+- `Multi-threading Plan Builder` — enterprise stakeholder coverage and deal progression strategy
+- `Champion Advocacy Builder` — converting stakeholder enthusiasm into buying momentum
+- `Deal Committee Readiness Coach` — executive meeting prep and buying-group strategy
 
 These additions reinforce the repo’s aim: source-backed, operational AI skills that are useful in real B2B sales and marketing execution.
 

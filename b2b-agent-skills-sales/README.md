@@ -23,6 +23,23 @@ Open-source AI playbooks for sales execution, qualification, pipeline strategy, 
 - renewal-risk-scorer
 - executive-sponsor-identifier
 - competitive-differentiation-coach
+- multi-threading-plan-builder
+- champion-advocacy-builder
+- deal-committee-readiness-coach
+
+## Standard skill format
+
+Every skill in this library follows the same operational structure:
+
+- purpose
+- inputs
+- outputs
+- prompt
+- example result
+- source basis
+- references
+
+Use `skills/skill-template.md` as the reference layout for all future additions.
 
 ## Research basis
 
