@@ -35,7 +35,7 @@ Open-source AI playbooks for sales execution, qualification, pipeline strategy, 
 
 ## Standard skill format
 
-Every skill in this library follows the same operational structure — see [`skills/skill-template.md`](skills/skill-template.md):
+Every skill in this library follows the same operational structure — see [`memory/skill-template.md`](../memory/skill-template.md):
 
 - when to use it, in concrete situations
 - the named methodology it operationalizes (MEDDPICC, SPIN, the Challenger Sale's Mobilizer test, BATNA, the Pyramid Principle, and others — see below)
@@ -43,7 +43,7 @@ Every skill in this library follows the same operational structure — see [`ski
 - an input schema and a fully worked example with real numbers
 - an output JSON schema so the skill can be wired into a pipeline, not just pasted as a prompt
 
-## Named frameworks used in this pack
+## Named methodologies used in this pack
 
 Rather than one generic "informed by industry practice" claim per skill, each skill names the specific method it's built on:
 

@@ -30,9 +30,41 @@ Open-source AI playbooks for B2B marketing strategy, messaging, campaign optimiz
 - lifecycle-email-optimizer
 - ad-copy-variant-generator
 
+## Standard skill format
+
+Every skill in this library follows the same operational structure — see [`memory/skill-template.md`](../memory/skill-template.md):
+
+- when to use it, in concrete situations
+- the named methodology it operationalizes (see below)
+- an explicit scoring model or decision rubric, not a narrative description
+- an input schema and a fully worked example with real numbers
+- an output JSON schema so the skill can be wired into a pipeline, not just pasted as a prompt
+
+## Named methodologies used in this pack
+
+Rather than one generic "informed by industry practice" claim per skill, each skill names the specific method it's built on:
+
+- **April Dunford's competitive-alternatives framework** (*Obviously Awesome*) — `brand-positioning-synthesizer`
+- **Strategyzer's Value Proposition Canvas** — `value-proposition-tester`
+- **Firmographic/technographic/engagement/intent ABM segmentation model** — `audience-segmentation-optimizer`
+- **ITSMA ABM tiering model** (1:1 / 1:few / 1:many) — `abm-account-priority-ranker`
+- **Look-alike / attribute-lift analysis** against closed-won data — `icp-refinement-agent`
+- **Specificity/differentiation/proof/jargon clarity rubric** — `messaging-clarity-auditor`
+- **Standard B2B demand funnel with stage-conversion benchmarking** — `campaign-performance-diagnostician`
+- **Problem-aware/solution-aware/vendor-aware content coverage matrix** — `content-gap-analysis-agent`
+- **Effort × drop-off × downstream-value friction scoring** — `customer-journey-friction-audit`
+- **JTBD interview method** — `persona-insight-extractor`
+- **Lifecycle nurture design with engagement-based lead-score decay** — `nurture-sequence-architect`
+- **Deliverability → open → click layered diagnostic** — `lifecycle-email-optimizer`
+- **Message-match and on-page friction auditing** (CRO practice) — `landing-page-copy-optimizer`
+- **PAS/AIDA/proof-led persuasion structures with A/B sample-size design** — `ad-copy-variant-generator`
+- **Sequential brand funnel** (awareness → favorability → consideration → differentiation) — `brand-perception-monitor`
+
+See [sources-and-frameworks.md](sources-and-frameworks.md) for the pack's general reference list.
+
 ## Research basis
 
-This repo is informed by public B2B marketing strategy, ICP design, positioning, campaign optimization, and ABM resources used by growth and demand generation teams.
+This repo is also informed by public B2B marketing strategy, ICP design, positioning, campaign optimization, and ABM resources used by growth and demand generation teams, as general background.
 
 ## Public source base
 
@@ -49,9 +81,7 @@ This repo synthesizes public marketing and demand-generation practice into reusa
 
 ## Structure
 
-- `skills/` — marketing skill packs
-- `examples/` — sample campaign outputs
-- `templates/` — repeatable messaging and planning structures
+- `skills/` — marketing-specific agent playbooks
 
 ## Focus
 

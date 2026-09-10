@@ -2,7 +2,7 @@
 
 Every skill in this repo is meant to carry more than a prompt — a business objective, a named methodology, a decision rule, failure patterns, and source grounding, so the output is a decision aid rather than generic text.
 
-Each skill README follows this structure (the reference layout lives in each pack's `skills/skill-template.md`, e.g. [`b2b-agent-skills-sales/skills/skill-template.md`](../b2b-agent-skills-sales/skills/skill-template.md)):
+Each skill README follows this structure (the reference layout lives in [`skill-template.md`](skill-template.md), shared across all four packs):
 
 1. **Business objective** — the outcome this skill is meant to improve
 2. **Methodology** — the named, checkable framework it operationalizes (MEDDPICC, SPIN, TAM/SAM/SOM, and others — see each pack's `sources-and-frameworks.md`)

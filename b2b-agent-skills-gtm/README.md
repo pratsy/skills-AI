@@ -22,6 +22,16 @@ Open-source AI playbooks for strategic go-to-market intelligence, competitive aw
 - market-shift-monitor
 - competitor-signal-clusterer
 
+## Standard skill format
+
+Every skill in this library follows the same operational structure — see [`memory/skill-template.md`](../memory/skill-template.md):
+
+- when to use it, in concrete situations
+- the named methodology it operationalizes (see below)
+- an explicit scoring model or decision rubric, not a narrative description
+- an input schema and a fully worked example with real numbers
+- an output JSON schema so the skill can be wired into a pipeline, not just pasted as a prompt
+
 ## Named methodologies used in this pack
 
 - **TAM/SAM/SOM sizing, reconciled top-down and bottom-up** — `market-sizing-modeler`
@@ -50,6 +60,10 @@ This repo is also informed by public GTM strategy, account prioritization, compe
 - Public competitor intelligence and market research frameworks used in SaaS GTM teams
 
 This repo synthesizes public GTM strategy and market monitoring practice into reusable AI playbooks for strategic intelligence and account prioritization.
+
+## Structure
+
+- `skills/` — GTM-specific agent playbooks
 
 ## Focus
 

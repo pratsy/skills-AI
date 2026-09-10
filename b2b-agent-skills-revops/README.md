@@ -19,6 +19,16 @@ Open-source AI playbooks for revenue operations, pipeline health, forecasting co
 - sales-handoff-quality-auditor
 - attribution-model-reviewer
 
+## Standard skill format
+
+Every skill in this library follows the same operational structure — see [`memory/skill-template.md`](../memory/skill-template.md):
+
+- when to use it, in concrete situations
+- the named methodology it operationalizes (see below)
+- an explicit scoring model or decision rubric, not a narrative description
+- an input schema and a fully worked example with real numbers
+- an output JSON schema so the skill can be wired into a pipeline, not just pasted as a prompt
+
 ## Named methodologies used in this pack
 
 Each skill operationalizes a specific, checkable method rather than a general "informed by industry practice" claim:
@@ -44,6 +54,10 @@ This repo is also informed by public RevOps, forecasting, pipeline health, and s
 - Public SaaS RevOps frameworks and pipeline governance references
 
 This repo synthesizes public revenue operations practice into AI playbooks for pipeline health, forecasting quality, and operational clarity.
+
+## Structure
+
+- `skills/` — RevOps-specific agent playbooks
 
 ## Focus
 
