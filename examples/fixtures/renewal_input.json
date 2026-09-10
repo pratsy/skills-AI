@@ -1,0 +1,21 @@
+{
+  "Account Name": "CloudOps Solutions Inc.",
+  "Renewal Date": "2026-11-15",
+  "Contract Value": "$185,000 ARR",
+  "Years as Customer": 2.5,
+  "Product Usage": {
+    "Login frequency": "Weekly",
+    "Feature adoption rate": "65%",
+    "Monthly active users": "72%",
+    "Usage trend (last 90 days)": "Down 22%",
+    "Core workflows utilized": ["Infrastructure monitoring", "alert management"]
+  },
+  "Stakeholder Health": {
+    "Primary contact engagement": "Medium",
+    "Economic buyer accessibility": "Low",
+    "Executive sponsor change": "Yes"
+  },
+  "Support and Success History": {
+    "Critical issues unresolved": 1
+  }
+}
