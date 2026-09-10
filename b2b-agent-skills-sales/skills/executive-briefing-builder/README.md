@@ -1,81 +1,77 @@
 # Executive Briefing Builder
 
-## Why this skill exists
+Structure an executive briefing using the Pyramid Principle (Barbara Minto) — answer first, then supporting arguments, then evidence — instead of a chronological narrative that makes a time-pressed executive dig for the point.
 
-Executives do not need more information. They need the right information in the right context.
+## When to use this
 
-This skill helps teams build a concise executive-facing customer brief that focuses on business relevance, commercial importance, risk, and actionability rather than operational detail.
+- Preparing a one-page or verbal briefing for an economic buyer or exec sponsor ahead of a meeting.
+- Past exec conversations have gone long because the story was told chronologically instead of leading with the conclusion.
+- You need to brief an internal exec (your own leadership) on deal status before they join a customer call.
 
-## Business objective
+## Methodology
 
-This skill helps the team answer:
+The Pyramid Principle inverts how most people naturally write: state the governing conclusion first, then the (usually 3) supporting arguments that justify it, each backed by evidence — instead of building up to the conclusion through narrative or chronology. Executives read top-down and stop as soon as they have what they need; a pyramid structure means they get the answer even if they only read the first line.
 
-> What do we need an executive audience to understand before the conversation, and what message will help them act?
+```
+Level 1 — Governing Thought: the single conclusion/ask, one sentence.
+Level 2 — Supporting Arguments (usually 3): each a complete, standalone reason for the Level 1 conclusion — the MECE test (mutually exclusive, collectively exhaustive) applies: no overlap, no major gap.
+Level 3 — Evidence: the specific data/facts backing each Level 2 argument, only as much as needed to be credible, not exhaustive.
+```
 
-## Expert memory layer
+## Construction rule
 
-Experienced sales leaders know that executive summaries work when they are sharp, business-led, and decision-oriented.
-
-Patterns that matter include:
-
-- too much operational detail and not enough business framing
-- leadership discussions that lack a clear commercial case
-- strategic summaries that do not reflect the actual buying complexity
-- conversations without a strong recommendation or next-step path
-
-This skill turns those patterns into a concise executive brief.
+Write the Governing Thought last, but place it first — draft the supporting arguments and evidence, then distill the single sentence they collectively prove, and put that at the top. If the Governing Thought can't be stated as a single clear sentence, the underlying arguments likely aren't focused enough yet.
 
 ## Inputs
 
-- customer account context
-- strategic priorities and business challenges
-- stakeholder and buying group insights
-- value drivers and commercial impact
-- risk, urgency, and decision dynamics
+| Field | Type | Example |
+|---|---|---|
+| `audience` | string | `"buyer's CFO"` or `"our VP Sales"` |
+| `purpose` | string | e.g. `"secure approval to proceed to contract"` |
+| `key_facts` | list[string] | raw facts/evidence available |
+| `desired_ask` | string | the specific action wanted from this audience |
 
-## Decision logic
+## Worked example
 
-A strong executive briefing should:
+Audience: buyer's CFO, ahead of a budget approval conversation. Purpose: secure sign-off. Key facts: forecast misses cost ~$180K/year in re-planning per the VP Sales' own estimate; 3 reference customers of similar size report 20-25% variance reduction; implementation is 15 minutes, no IT involvement required; price is $60K/year.
 
-1. reflect what matters to the executive audience
-2. connect the issue to measurable business impact
-3. explain why the opportunity matters now
-4. outline the risks, dependencies, and decision path
-5. give the team a clear recommendation for conversation flow
+**Governing Thought**: "Approving this investment addresses a $180K/year cost at roughly a third of that price, with no IT burden."
 
-The brief should reduce ambiguity and improve alignment before the stakeholder conversation begins.
+**Supporting Arguments** (MECE — cost, proof, implementation risk, each independent):
+1. The cost of the status quo is quantified and material ($180K/year, per your own VP Sales' estimate).
+2. The expected improvement is evidenced by comparable customers (20-25% variance reduction, 3 references), not a vendor claim alone.
+3. Implementation risk is minimal (15-minute setup, no IT resourcing required) — this is not a project that competes with other IT priorities.
+
+**Evidence** under each: the specific $45K x 4 breakdown; the named reference accounts and their reported results; the setup process detail.
 
 ## Common failure patterns
 
-- building a long operational recap instead of a decision brief
-- missing the business problem and the practical recommendation
-- failing to connect the account to strategic value or risk
-- too much detail without prioritization or clarity
-- no clear “what should happen next” message
+- Leading with company background or product overview before the ask — burns the first (and sometimes only) attention window an executive gives the document.
+- Supporting arguments that overlap (e.g., two of three arguments both really being about cost) instead of covering genuinely distinct angles — fails the MECE test and reads as padded.
+- Including all available evidence under each argument instead of the minimum credible set — executives want enough to trust the claim, not the full analysis.
+- Writing the Governing Thought as a topic ("update on the deal") instead of an actual conclusion/ask ("approving this addresses X at Y cost") — a topic doesn't tell the reader what to do with the information.
 
-## Outputs
+## Output schema
 
-- executive brief summary
-- business context and opportunity framing
-- stakeholder and value considerations
-- risk and decision summary
-- recommended next steps or executive ask
-
-## Example result
-
-### Executive briefing summary
-- This account is operationally constrained and has a clear business case for improving process efficiency.
-- The buying group has strong internal alignment risk, but the opportunity is strategically meaningful.
-- The recommendation is to focus the next conversation on business outcomes, risk reduction, and executive sponsorship.
+```json
+{
+  "audience": "buyer's CFO",
+  "governing_thought": "Approving this investment addresses a $180K/year cost at roughly a third of that price, with no IT burden.",
+  "supporting_arguments": [
+    {"argument": "The cost of the status quo is quantified and material.", "evidence": ["$45K x 4 occurrences/year, per VP Sales estimate"]},
+    {"argument": "Expected improvement is evidenced by comparable customers, not a vendor claim.", "evidence": ["3 reference accounts, 20-25% variance reduction"]},
+    {"argument": "Implementation risk is minimal.", "evidence": ["15-minute setup, no IT resourcing required"]}
+  ],
+  "mece_check": "pass - cost, proof, and risk are independent angles with no overlap"
+}
+```
 
 ## Recommended prompt
 
-> You are a senior account strategist. Build an executive-facing briefing for the customer situation below. Focus on business relevance, strategic urgency, stakeholder dynamics, and the next decision or action needed to advance the opportunity.
+> You are an executive communications strategist using the Pyramid Principle. Given the audience, purpose, and key facts below, draft a single-sentence Governing Thought that states the conclusion/ask directly. Then generate 2-4 supporting arguments that are mutually exclusive and collectively exhaustive (MECE) — check explicitly for overlap between arguments. Under each argument, list only the minimum evidence needed for credibility. Return JSON matching the schema above.
 
-## Source basis
+## Grounded in
 
-This skill is informed by public executive communication, strategic account planning, and enterprise sales briefing practices used in complex B2B opportunities.
+Barbara Minto's Pyramid Principle, the standard structure for executive communication in management consulting, used here so the executive gets the conclusion and reasoning even if they only read the first sentence.
 
-## References
-
-See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the pack's general reference list.

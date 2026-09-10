@@ -14,8 +14,11 @@ def test_run_renewal_risk_scorer():
 def test_run_executive_sponsor_identifier():
     # Use minimal input for executive sponsor skill
     input_data = {
-        "OPPORTUNITY CONTEXT": {"Company": "Acme Corp", "Deal size": "$600K", "Timeline": "8 weeks"},
-        "PRIMARY CONTACT": {"Name": "Sarah Chen"}
+        "deal_size": "$600K",
+        "champion_notes": "Sarah Chen has named a VP as the likely approver",
+        "candidates": [
+            {"name": "Sarah Chen", "title": "RevOps Manager", "engagement_evidence": "scheduled 3 internal meetings"}
+        ],
     }
     # write a temp file
     with open("tests/_tmp_input.json", "w", encoding="utf-8") as f:

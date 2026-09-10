@@ -1,81 +1,83 @@
 # Deal Committee Readiness Coach
 
-## Why this skill exists
+Score readiness for an internal deal-committee review (forecast call, deal desk, exec pipeline review) against the same MEDDPICC evidence standard used in [`deal-risk-assessor`](../deal-risk-assessor/README.md), producing the specific questions the committee will ask and whether the rep can currently answer them with evidence.
 
-High-value deals often fail not because the solution is weak, but because the buying committee is not prepared to make a decision.
+## When to use this
 
-This skill helps sales teams understand the likely committee dynamics, decision criteria, and preparation gaps before a critical customer conversation.
+- Before a forecast call or deal desk review, to pressure-test the deal before someone else does.
+- A rep is confident about a deal but hasn't had to defend it to a skeptical internal audience yet.
+- Deal reviews are inconsistent because reps prep differently — this gives every deal the same bar.
 
-## Business objective
+## Methodology
 
-This skill helps the team answer:
+A deal committee's job is to find the weakest MEDDPICC pillar and ask about it. This skill simulates that: for each pillar, generate the question a sharp deal-desk reviewer would ask, and check whether the current evidence (from the deal-risk-assessor output or raw notes) actually answers it.
 
-> Are we ready for the buying committee, and what do we need to prepare to reduce friction and increase confidence?
+| Pillar | Committee question they'll ask | Answerable only if... |
+|---|---|---|
+| Economic Buyer | "Who signs, and have you spoken to them directly?" | EB pillar score ≥ 2 |
+| Decision Process | "What are the exact remaining steps to signature, and by when?" | Decision Process score ≥ 2 |
+| Paper Process | "Has legal/procurement seen this? What's their typical cycle time?" | Paper Process score ≥ 2 |
+| Champion | "What has your champion actually done to move this internally, beyond talking to you?" | Champion score ≥ 2 with a specific action cited |
+| Competition | "Who else are they evaluating, and why do you win?" | Competition score ≥ 2 |
 
-## Expert memory layer
+## Scoring model
 
-Experienced sales teams know that committee conversations are won through clarity, alignment, and risk reduction.
+```
+Readiness Score = (number of pillars answerable with cited evidence) / 8 x 100
 
-Patterns that matter include:
+>= 75%   Ready for committee — minor gaps only
+50-74%   Prep needed — 2-4 pillars will draw pushback
+< 50%    Not ready — recommend deal desk prep session before the review, not the live meeting
+```
 
-- decision-makers with different criteria and urgency levels
-- lack of preparation for security, financial, or operational concerns
-- committee members who are not aligned on the business case
-- sales teams that prepare only for product questions instead of committee-wide decision dynamics
-
-This skill distills those patterns into a practical readiness framework.
+For any pillar below score 2, the output must include the *specific unanswered question*, not just "Decision Process is weak" — the rep needs the exact question to prepare for, matched to what the evidence currently supports.
 
 ## Inputs
 
-- deal context and opportunity summary
-- stakeholder list and roles
-- committee or buying group maturity
-- past customer objections and concerns
-- likely decision criteria and buying process
+| Field | Type | Example |
+|---|---|---|
+| `deal_id` | string | `opp_5521` |
+| `meddpicc_scores` | object | from deal-risk-assessor, or raw notes per pillar |
+| `committee_type` | enum | `forecast_call \| deal_desk \| exec_review` — changes which pillars get emphasized |
 
-## Decision logic
+## Worked example
 
-A strong committee readiness review should evaluate:
+Using the deal-risk-assessor worked example (EB=1, Decision Process=1, Paper Process=0, others ≥2):
 
-1. decision-maker map and influence balance
-2. likely business objections or concerns
-3. required proof for risk-sensitive stakeholders
-4. internal alignment and message consistency
-5. what the sales team should prepare before the meeting
+Readiness Score = 5 pillars ≥2 (Metrics, Decision Criteria, Identify Pain, Champion, Competition) / 8 = **62.5% — prep needed.**
 
-The goal is to prepare the team for the real buying committee, not just the visible champion.
+Unanswered questions to prepare for:
+- "Who signs, and have you spoken to them directly?" (EB=1) — rep needs a plan, not just an answer; recommend citing the multi-threading plan's next step.
+- "What are the exact remaining steps to signature?" (Decision Process=1) — rep should get this directly from the champion before the review, not guess.
+- "Has legal/procurement seen this?" (Paper Process=0) — rep has no answer; flag this as the highest-priority pre-review action since a "we don't know" on paper process is the fastest way to lose forecast credibility.
 
 ## Common failure patterns
 
-- entering a committee meeting without understand the buyer roles
-- preparing only for product features instead of business criteria
-- missing stakeholder-specific objections
-- failing to align message across executives, operators, and evaluators
-- assuming the buying group has one shared objective
+- Prepping only for the questions the rep expects, rather than the questions the weakest pillars will actually generate — a confident rep on Metrics and Pain can still get blindsided on Paper Process.
+- Treating "I'll find out" as an adequate committee answer for a pillar that's been unknown for multiple review cycles — repeated "I'll find out" on the same pillar is itself a red flag reviewers will notice.
+- Running this the morning of the committee meeting instead of with enough lead time to actually close a gap (e.g., get the EB conversation done) before being asked about it live.
+- Scoring readiness only on pillar count without weighting Economic Buyer and Paper Process more heavily — these two disproportionately determine whether a deal that "sounds good" is actually going to close on time.
 
-## Outputs
+## Output schema
 
-- committee readiness assessment
-- likely stakeholder concerns
-- key proof points for each group
-- recommended meeting preparation
-- risk and next-step guidance
-
-## Example result
-
-### Committee readiness: moderate
-- The buyer group includes finance, operations, and IT stakeholders with different success criteria.
-- Current preparation is too product-focused and not specific enough for the economic and operational concerns.
-- Recommendation: prepare a business-case narrative, risk-mitigation plan, and decision-focused proof for each stakeholder group.
+```json
+{
+  "deal_id": "opp_5521",
+  "readiness_score_pct": 62.5,
+  "readiness_band": "prep needed",
+  "unanswered_questions": [
+    {"pillar": "economic_buyer", "committee_question": "Who signs, and have you spoken to them directly?", "current_answer_quality": "weak - named by champion only", "prep_action": "complete step 1-2 of the multi-threading plan before the review"},
+    {"pillar": "paper_process", "committee_question": "Has legal/procurement seen this?", "current_answer_quality": "none", "prep_action": "ask champion directly before the review; treat as highest priority"}
+  ]
+}
+```
 
 ## Recommended prompt
 
-> You are a senior enterprise sales strategist. Assess how prepared the team is for the buying committee in this deal. Explain the likely decision criteria by stakeholder, highlight the missing preparation points, and recommend the actions needed before the next committee conversation.
+> You are a deal desk coach preparing a rep for committee review. Given the MEDDPICC pillar scores/evidence below, generate the specific question a skeptical reviewer would ask for each pillar, and mark whether current evidence answers it (pillar score >= 2 with cited evidence = answerable). Compute Readiness Score = answerable pillars / 8 x 100 and assign a band. For every unanswered pillar, give the exact question and a specific prep action the rep can complete before the review — not a restatement of the gap. Weight Economic Buyer and Paper Process gaps as highest priority regardless of overall score. Return JSON matching the schema above.
 
-## Source basis
+## Grounded in
 
-This skill is informed by public enterprise sales enablement, buying-group mapping, and executive conversation preparation practices used in complex B2B sales motions.
+MEDDPICC-based deal-desk and forecast-review practice, reframed as a committee-question simulation so preparation targets the specific evidence gaps a reviewer will probe, not a generic confidence check.
 
-## References
-
-See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the pack's general reference list.

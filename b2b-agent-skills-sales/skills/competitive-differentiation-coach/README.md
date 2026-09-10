@@ -1,81 +1,79 @@
 # Competitive Differentiation Coach
 
-## Why this skill exists
+Build a differentiation response using a win/loss-evidence-weighted battlecard structure — every claim tagged with whether it's confirmed by actual win/loss outcomes or just an asserted strength — instead of a static feature-comparison table that goes stale and overstates weak claims.
 
-Most sales teams do not lose because they lack product knowledge. They lose because they cannot translate product value into buyer-specific differentiation.
+## When to use this
 
-This skill helps teams position their offer clearly against competition, avoid generic claims, and explain why the solution matters in a way that is specific to the customer context.
+- Reps default to feature comparison ("we have X, they don't") when the real differentiation that wins deals is usually not feature-level.
+- Battlecards exist but haven't been updated against recent win/loss data, so reps are citing differentiators that no longer hold or were never actually decisive.
+- A specific deal named a competitor and the rep needs a response tailored to *why deals against this competitor are actually won or lost*, not the generic battlecard.
 
-## Business objective
+## Methodology
 
-This skill helps the team answer:
+For each named competitor, classify every claimed differentiator by **evidence tier**, using actual win/loss outcomes, not marketing/product assertion:
 
-> How do we explain our differentiation in a way that feels credible, relevant, and difficult to dismiss?
+| Tier | Definition |
+|---|---|
+| **Tier 1 — Proven decisive** | Cited as the specific reason in 3+ independent win/loss interviews as why the deal was won or lost |
+| **Tier 2 — Supported** | Present in product/feature reality and mentioned in at least 1 win/loss interview, but not yet a repeated pattern |
+| **Tier 3 — Asserted only** | A claimed strength with no win/loss evidence either way — often true but unproven as a deciding factor |
 
-## Expert memory layer
-
-Experienced sales teams know that differentiation only matters when it connects to the buyer’s real constraints.
-
-Patterns that matter include:
-
-- competitors that win on familiarity rather than business value
-- weak differentiation because the story is too generic
-- claims that sound true but are not differentiated enough to be persuasive
-- sales conversations that focus on features instead of strategic advantage
-
-This skill helps turn those patterns into a clearer competitive narrative.
-
-## Inputs
-
-- product or service overview
-- competitor positioning and likely comparison points
-- customer context and buying criteria
-- common objections or sales conversations
-- where the team is losing or struggling to differentiate
+Lead differentiation conversations with Tier 1 claims. Tier 3 claims should not be presented with the same confidence as Tier 1 — if a rep needs a differentiator and only Tier 3 is available, the honest move is to say so internally and prioritize gathering evidence, not oversell the claim to the buyer.
 
 ## Decision logic
 
-A strong differentiation story should cover:
+1. Identify the named competitor.
+2. Pull all differentiators tagged for that competitor, ranked by evidence tier.
+3. Match differentiators to the buyer's own stated priorities from discovery (a Tier 1 differentiator the buyer doesn't care about is weaker in this deal than a Tier 2 differentiator that maps directly to their stated pain).
+4. Generate the response framed around the buyer's priority, using the highest-tier matching differentiator.
 
-1. what is different
-2. why it matters to this customer
-3. what customer problem it solves better
-4. how it reduces risk or improves outcomes
-5. what makes it defensible against alternatives
+## Inputs
 
-Good differentiation is specific, relevant, and grounded in business outcomes.
+| Field | Type | Example |
+|---|---|---|
+| `competitor` | string | `"Clari"` |
+| `differentiators` | list[{claim, evidence_tier, win_loss_citations}] | the pack's tagged battlecard data |
+| `buyer_stated_priorities` | list[string] | from discovery notes |
+
+## Worked example
+
+Competitor: Clari. Differentiators on file:
+- "Explainable AI scoring" — Tier 1 (cited in 5 of 8 recent win/loss interviews against Clari as the deciding factor: "reps didn't trust the black-box score").
+- "Lower price point" — Tier 2 (mentioned once, not a repeated pattern).
+- "Better UI" — Tier 3 (asserted internally, zero win/loss citations either way).
+
+Buyer's stated priority from discovery: "our reps ignored our last tool's recommendations."
+
+Match: Tier 1 differentiator ("explainable AI scoring") maps directly to the buyer's stated pain (rep trust/adoption). Recommended response leads with this, not price or UI: *"That's actually the exact pattern we've seen break other Clari rollouts — reps stop trusting a score they can't see the reasoning behind. Every score here comes with the specific factors driving it, which is what's driven adoption in [similar reference]."* Price and UI are held in reserve, not led with, since they're lower-tier and don't map to the stated priority.
 
 ## Common failure patterns
 
-- blanket claims without proof or specificity
-- talking about features instead of buyer impact
-- over-indexing on competitor names without context
-- failing to connect the differentiation to customer priorities
-- mirroring competitor messaging instead of building a sharper narrative
+- Leading with the differentiator the sales/marketing team is proudest of instead of the one with the strongest win/loss evidence for this specific competitor.
+- Presenting a Tier 3 (asserted-only) claim with the same confidence as a Tier 1 claim, which is discoverable by a buyer doing reference calls and damages credibility when it doesn't hold up.
+- Using a generic differentiator list instead of matching to the buyer's specific stated priority from discovery — the "best" differentiator on paper is often not the most persuasive one in a specific deal.
+- Never updating evidence tiers after new win/loss interviews, so the battlecard keeps citing an old Tier 1 claim that's actually decayed as the competitor closed the gap.
 
-## Outputs
+## Output schema
 
-- differentiation narrative
-- competitor comparison points
-- customer-specific value story
-- objection handling guidance
-- recommended positioning language
-
-## Example result
-
-### Differentiation message
-- Our platform reduces operational friction by automating handoff and tracking across teams.
-- This matters because the buyer is already losing time to fragmented workflows and manual coordination.
-- The product is stronger not because it has more features, but because it creates faster execution with less implementation burden.
+```json
+{
+  "competitor": "Clari",
+  "differentiators_ranked": [
+    {"claim": "explainable AI scoring", "evidence_tier": 1, "citations": 5, "matches_buyer_priority": true},
+    {"claim": "lower price point", "evidence_tier": 2, "citations": 1, "matches_buyer_priority": false}
+  ],
+  "recommended_lead_claim": "explainable AI scoring",
+  "response_framing": "...",
+  "held_in_reserve": ["lower price point", "better UI"]
+}
+```
 
 ## Recommended prompt
 
-> You are a senior commercial strategist and competitive coach. Review the competitive context and customer needs below and help the team articulate a differentiated value story that is specific, credible, and useful in a real sales conversation.
+> You are a competitive strategist. Given the named competitor, the tagged differentiators (with evidence tier and win/loss citation count), and the buyer's stated priorities from discovery, rank differentiators by evidence tier first, then by match to the buyer's stated priority. Recommend the single differentiator to lead with — favoring a Tier 1 or 2 claim that matches a stated buyer priority over a higher-tier claim that doesn't map to anything the buyer said they care about. Flag any Tier 3 (asserted-only) claim explicitly as unproven if it would otherwise be the only available response. Return JSON matching the schema above.
 
-## Source basis
+## Grounded in
 
-This skill is informed by public competitive positioning, value messaging, and enterprise sales communication practices used in strong B2B go-to-market teams.
+Win/loss-evidence-weighted battlecard practice in competitive sales enablement, built to prevent the common failure of leading with an internally-favored but evidentially weak differentiator instead of the claim actually shown to decide deals against a specific competitor.
 
-## References
-
-See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the pack's general reference list.

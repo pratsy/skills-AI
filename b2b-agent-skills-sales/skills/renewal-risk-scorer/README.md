@@ -1,82 +1,93 @@
 # Renewal Risk Scorer
 
-## Why this skill exists
+Score renewal risk from a customer health model that weights usage trend and engagement more heavily than support-ticket volume — because ticket volume is a weak and often backwards predictor of churn (engaged customers file more tickets), while usage decline is the strongest leading indicator across published SaaS churn research.
 
-Renewals are not only about contract date. They are about customer momentum, value realization, and operational risk.
+## When to use this
 
-This skill helps revenue teams identify which customer accounts are likely to churn, weaken, or require intervention before the renewal decision is made.
+- A renewal is 90+ days out and you want an early, evidence-based risk read instead of waiting for the customer to signal intent.
+- CS is triaging a large book of accounts and needs to know where to spend limited proactive-outreach time.
+- Leadership wants renewal risk reported with the same rigor as pipeline risk, not a subjective red/yellow/green gut call.
 
-## Business objective
+## Methodology
 
-This skill helps the team answer:
+Four weighted components, calibrated so the strongest churn predictors carry the most weight — usage trend and engagement depth are consistently the strongest leading indicators in published SaaS retention research, stronger than raw support volume or even NPS in isolation:
 
-> Which renewals are at risk, what is driving the risk, and what action should be taken before the renewal conversation becomes a churn conversation?
+```
+Renewal Risk Score (0-100, higher = more risk) =
+    0.35 x Usage Decline Score
+  + 0.25 x Engagement Breadth Score (inverse - low breadth = high risk)
+  + 0.20 x Stakeholder Continuity Score (inverse)
+  + 0.20 x Sentiment/Support Score
+```
 
-## Expert memory layer
+**Usage Decline Score** (0-100): based on trailing 90-day usage trend vs. the prior 90 days. `0` = flat or growing usage, `50` = 10-25% decline, `100` = >25% decline or usage dropped to near-zero.
 
-Experienced account teams know that renewal risk is a pattern, not a single signal.
+**Engagement Breadth Score** (0-100 risk, inverse of breadth): measures how many distinct users/seats are actively using the product, not just total usage volume — a single power-user carrying all usage is a concentration risk. `0` = broad adoption across the buying unit, `100` = single-user dependency.
 
-Patterns that matter include:
+**Stakeholder Continuity Score** (0-100 risk): `100` if the original champion or economic buyer has left the company or changed roles with no replacement relationship built, `0` if the original relationship is intact or a new one is already confirmed.
 
-- declining product or service engagement
-- customer dissatisfaction beginning to show in conversations
-- lack of executive alignment or value realization
-- accounts where usage is thin relative to intention or expansion potential
-- a weak business case for continuing without change
+**Sentiment/Support Score** (0-100 risk): weighted more toward *unresolved* escalations and explicit dissatisfaction statements than raw ticket count — a customer filing many tickets that get resolved quickly is a lower risk signal than one filing few tickets that stay open or contain explicit frustration.
 
-This skill captures those patterns in a practical risk analysis.
+## Risk bands
+
+```
+70-100  Critical — proactive executive-level outreach this week
+45-69   Elevated — CS outreach plan within 30 days, identify root cause
+20-44   Watch — monitor, no immediate action required
+0-19    Healthy
+```
 
 ## Inputs
 
-- customer health and usage data
-- account history and engagement patterns
-- renewal timing and contract value
-- customer sentiment and support history
-- stakeholder dynamics and value realization status
+| Field | Type | Example |
+|---|---|---|
+| `account_id` | string | |
+| `usage_trend_90d` | {current_period, prior_period} | |
+| `active_users` | {count, total_licensed_seats} | |
+| `champion_status` | enum | `intact \| departed_no_replacement \| departed_replaced` |
+| `support_signals` | {ticket_count, unresolved_count, explicit_dissatisfaction_flag} | |
 
-## Decision logic
+## Worked example
 
-A strong renewal risk assessment should evaluate:
+Account: usage down 30% over trailing 90 days vs. prior 90 days → Usage Decline Score 100. Active users: 2 of 15 licensed seats → severe concentration → Engagement Breadth Score 85. Champion departed 6 weeks ago, no replacement relationship built → Stakeholder Continuity Score 100. Support: 2 tickets, both resolved quickly, no explicit dissatisfaction → Sentiment/Support Score 15.
 
-1. customer value realization and product engagement
-2. stakeholder trust and executive relationship quality
-3. risk of business disruption or failure outcomes
-4. competitive or pricing pressure
-5. likelihood of expansion or contraction at renewal time
+```
+Renewal Risk = 0.35(100) + 0.25(85) + 0.20(100) + 0.20(15)
+             = 35 + 21.25 + 20 + 3
+             = 79.25 → Critical
+```
 
-The goal is to catch early warning signs before risk becomes churn.
+Despite a low, unremarkable support-ticket signal (which a ticket-volume-weighted model would read as "healthy"), the combination of steep usage decline, severe seat concentration, and an unreplaced champion departure correctly flags this as Critical — the champion departure in particular means there may be no one left internally to advocate for renewal at all.
 
 ## Common failure patterns
 
-- assuming renewal is safe because account size is high
-- reacting only near the renewal date
-- missing the relationship signs that precede risk
-- focusing on product usage while ignoring stakeholder health
-- failing to identify the difference between churn risk and expansion risk
+- Weighting support ticket volume heavily, which inverts the actual signal — engaged, healthy customers often generate more tickets (they're using the product enough to hit edge cases) while quietly disengaging customers generate few.
+- Missing champion/stakeholder departure because it's not captured anywhere systematic — this is one of the single strongest and most missed renewal risk signals and should be tracked explicitly, not inferred from silence.
+- Scoring usage from total volume instead of trend — a large account with flat-but-low usage looks different in trend terms than one with the same absolute usage actively declining.
+- Treating engagement breadth as equivalent to usage volume — one power user generating high total usage can mask that the rest of the buying unit has disengaged, which is itself a renewal risk even if the volume number looks fine.
 
-## Outputs
+## Output schema
 
-- renewal risk assessment
-- key risk factors
-- likely churn or reduction scenarios
-- recommended retention actions
-- escalation or account plan recommendations
-
-## Example result
-
-### Renewal risk: high
-- Product usage has been inconsistent with the commercial commitment.
-- The customer is still engaged, but stakeholder alignment is weak and value realization is uneven.
-- Recommendation: meet with the customer early, review success metrics, and address the value gap before renewal escalates into churn risk.
+```json
+{
+  "account_id": "acct_7734",
+  "usage_decline_score": 100,
+  "engagement_breadth_score": 85,
+  "stakeholder_continuity_score": 100,
+  "sentiment_support_score": 15,
+  "renewal_risk_score": 79.25,
+  "risk_band": "critical",
+  "primary_driver": "champion departed 6 weeks ago with no replacement relationship, compounding a 30% usage decline",
+  "recommended_action": "executive-level proactive outreach this week; prioritize rebuilding a relationship with the buying unit"
+}
+```
 
 ## Recommended prompt
 
-> You are a senior customer success and renewal strategist. Review the customer account data and identify renewal risk factors, likely causes of risk, and the most effective intervention strategy before the contract renewal decision is made.
+> You are a customer success analyst scoring renewal risk. Compute: Usage Decline Score (0/50/100 for flat-or-growing/10-25% decline/>25% decline in trailing 90-day usage vs. prior 90 days), Engagement Breadth Score (0-100 risk, inverse of the share of licensed seats actively used), Stakeholder Continuity Score (100 if champion/EB departed with no replacement, 0 if intact or replaced), and Sentiment/Support Score (weighted toward unresolved tickets and explicit dissatisfaction, not raw ticket count). Combine as 0.35 x usage + 0.25 x breadth + 0.20 x continuity + 0.20 x sentiment. Assign a risk band and state the primary driver in plain language. Return JSON matching the schema above.
 
-## Source basis
+## Grounded in
 
-This skill is informed by public customer success, retention risk, and renewal management practices used in B2B account management and SaaS revenue teams.
+A usage-trend and stakeholder-continuity weighted customer health scoring model, consistent with published SaaS retention research showing usage decline and engagement breadth as stronger leading churn indicators than raw support ticket volume, which alone is often a weak or inverted predictor.
 
-## References
-
-See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the pack's general reference list.

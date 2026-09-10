@@ -1,91 +1,77 @@
 # Discovery Question Generator
 
-## Why this skill exists
+Generate a discovery flow using the SPIN sequence (Situation → Problem → Implication → Need-payoff) — the framework built specifically to move a buyer from acknowledging a problem to feeling its cost, which is what creates urgency, rather than a flat list of open-ended questions.
 
-Weak discovery creates weak pipeline. Most sales conversations fail not because reps lack product skill, but because they ask shallow questions and never uncover the real buying problem.
+## When to use this
 
-This skill helps generate conversation flow that surfaces urgency, stakeholder dynamics, decision criteria, and business impact.
+- Discovery calls surface a problem but never build enough urgency for the buyer to prioritize solving it now.
+- Reps ask good rapport-building questions but the call doesn't progress toward a business case.
+- You're prepping for a first call with a specific persona and want questions sequenced, not just a topic list.
 
-## Business objective
+## Methodology
 
-This skill helps the team answer:
+SPIN's core insight: buyers don't act on problems, they act on the *implications* of problems once those implications are made explicit — a Situation or Problem question alone rarely creates urgency by itself.
 
-> What questions will uncover the real buying problem, the urgency behind it, and the decision structure likely to drive action?
+| Stage | Purpose | Example shape |
+|---|---|---|
+| **Situation** | Establish facts (use sparingly — over-asking Situation questions reads as an unprepared rep) | "How does your team currently track deal risk?" |
+| **Problem** | Surface a difficulty, dissatisfaction, or gap | "Where does that process break down?" |
+| **Implication** | Make the *cost* of the problem explicit — this is the stage most discovery calls skip | "When a deal risk gets missed, what happens to the forecast call?" |
+| **Need-payoff** | Get the buyer to state the value of solving it, in their own words | "If you could see that risk two weeks earlier, what would that change?" |
 
-## Expert memory layer
+## Sequencing rule
 
-Experienced sellers build memory around the signals that separate low-quality conversations from high-value qualification:
-
-- the trigger behind the problem
-- who is affected and why they care
-- how the issue shows up in operational performance
-- what success would look like if the problem were solved
-- who is involved in the decision and how it is governed
-
-This skill operationalizes those patterns into a practical discovery framework.
+Never ask more than 1-2 Situation questions before moving to Problem — Situation questions should use information already available from research (firmographic, job postings, public data) as a starting point, not rediscover it live. The call should reach at least one Implication question before the midpoint, because Implication is what converts a stated problem into a business case; a call that stays in Situation/Problem the whole time produces information but not urgency.
 
 ## Inputs
 
-- account or lead summary
-- buyer persona and role
-- challenge description and context
-- buying stage and urgency signals
-- industry or operational context
-- stakeholder or process information if available
+| Field | Type | Example |
+|---|---|---|
+| `persona` | string | `"VP Sales, mid-market SaaS"` |
+| `known_context` | list[string] | facts already known from research, to skip redundant Situation questions |
+| `hypothesis_problem` | string | the problem you believe this persona likely has, to focus the Problem/Implication questions |
+| `call_length_minutes` | int | used to calibrate how many questions per stage fit |
 
-## Decision logic
+## Worked example
 
-A high-quality discovery flow should determine:
+Persona: VP Sales, mid-market SaaS. Known context: company grew reps 40% YoY (from research — skip asking about headcount). Hypothesis: forecast accuracy is straining as the team scales.
 
-1. business pain and urgency
-2. operational or financial impact
-3. stakeholder involvement and buying influence
-4. current alternatives or internal constraints
-5. success criteria and timeline for action
+- **Situation** (1 question, using known context to seed it): "You've grown the team significantly this year — how has that changed the way you review pipeline?"
+- **Problem**: "Where do you feel the most uncertainty in your forecast today?"
+- **Implication** (the critical stage): "When a deal you forecasted as Commit slips, what's the ripple effect — board conversation, hiring plan, next quarter's number?"
+- **Implication** (deepen it): "How often has that happened in the last two quarters?"
+- **Need-payoff**: "If you had reliable visibility into deal risk two weeks before the forecast call, what would that let you do differently?"
 
-The goal is to move beyond surface-level questions and uncover a credible buying narrative.
+The two Implication questions do the real work — they convert "our forecast is sometimes off" into a quantified, felt cost (board conversations, hiring plan risk) before the rep says anything about the product.
 
 ## Common failure patterns
 
-- asking generic questions instead of buyer-specific ones
-- focusing on features before pain and business outcome
-- overlooking stakeholder complexity and decision roles
-- missing urgency or timing pressure
-- confusing activity with qualified buying intent
+- Asking 4-5 Situation questions before reaching Problem, which burns call time on facts often available from research and signals an unprepared rep.
+- Skipping Implication entirely and jumping from Problem straight to pitching the solution — this is the single most common discovery failure and the reason "good discovery calls" still produce low urgency.
+- Asking Implication questions but accepting a vague answer ("yeah it's annoying") without a follow-up that quantifies it (frequency, dollar impact, who else is affected).
+- Writing Need-payoff questions that describe the product's features instead of asking the buyer to state the value themselves — the buyer's own words carry more weight later in the deal than the rep's.
 
-## Outputs
+## Output schema
 
-- tailored discovery questions
-- prioritized conversation flow
-- stakeholder insight prompts
-- decision process and urgency cues
-- follow-up areas for qualification depth
-
-## Example result
-
-### Discovery focus: operational risk and buying urgency
-- What changed recently that made this issue more urgent?
-- Where in the process is the pain showing up most clearly?
-- Who is feeling the impact of this today?
-- What would success look like in the next 90 days?
-- How is the buying decision being shaped across teams and stakeholders?
+```json
+{
+  "persona": "VP Sales, mid-market SaaS",
+  "sequence": [
+    {"stage": "situation", "question": "...", "purpose": "seed context from known research, not rediscover it"},
+    {"stage": "problem", "question": "..."},
+    {"stage": "implication", "question": "...", "purpose": "quantify the cost - this is the critical stage"},
+    {"stage": "need_payoff", "question": "..."}
+  ],
+  "coaching_note": "ensure at least one implication question lands before the call midpoint"
+}
+```
 
 ## Recommended prompt
 
-> You are a senior B2B sales strategist. Generate a buyer-focused discovery question set for a conversation with this persona. The buyer is dealing with this challenge and likely sits in this stage of the buying process. Focus on urgency, business pain, stakeholder alignment, success criteria, and decision process. Keep the questions open-ended and commercially relevant.
+> You are a B2B sales strategist using the SPIN framework. Given the persona, known context, and hypothesis problem below, generate a discovery sequence: 1 Situation question that uses the known context (don't rediscover known facts), 1-2 Problem questions, 2 Implication questions that push for quantified cost/impact (not just acknowledgment), and 1 Need-payoff question that asks the buyer to state the value in their own words. Flag if the sequence risks front-loading too many Situation questions. Return JSON matching the schema above.
 
-## Source basis
+## Grounded in
 
-This skill is grounded in public sales qualification, discovery, and B2B buying-process frameworks used by strong sales organizations.
+SPIN Selling (Neil Rackham, based on research across 35,000+ sales calls), the foundational framework for B2B discovery sequencing — chosen because it explains *why* many discovery calls produce information without urgency (skipping the Implication stage) rather than just listing question categories.
 
-## References
-
-See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.
-
-## Why this is different from a generic prompt
-
-This is not just “generate questions.”
-
-It is a qualification engine that helps sales reps uncover the real business issue, the urgency behind it, and the buying structure that determines whether a deal has momentum or not.
-
-That is the expert memory that makes discovery useful in real revenue execution.
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the pack's general reference list.

@@ -35,39 +35,33 @@ Open-source AI playbooks for sales execution, qualification, pipeline strategy, 
 
 ## Standard skill format
 
-Every skill in this library follows the same operational structure:
+Every skill in this library follows the same operational structure — see [`skills/skill-template.md`](skills/skill-template.md):
 
-- purpose
-- inputs
-- outputs
-- prompt
-- example result
-- source basis
-- references
+- when to use it, in concrete situations
+- the named methodology it operationalizes (MEDDPICC, SPIN, the Challenger Sale's Mobilizer test, BATNA, the Pyramid Principle, and others — see below)
+- an explicit scoring model or decision rubric, not a narrative description
+- an input schema and a fully worked example with real numbers
+- an output JSON schema so the skill can be wired into a pipeline, not just pasted as a prompt
 
-Use `skills/skill-template.md` as the reference layout for all future additions.
+## Named frameworks used in this pack
 
-## Research basis
+Rather than one generic "informed by industry practice" claim per skill, each skill names the specific method it's built on:
 
-This repo is informed by public B2B sales enablement, qualification, forecasting, and pipeline management resources used by modern revenue teams.
+- **MEDDPICC** — deal qualification and risk scoring (`deal-risk-assessor`, `forecast-confidence-model`, `deal-committee-readiness-coach`, `stakeholder-map-builder`, `executive-sponsor-identifier`)
+- **SPIN Selling** (Neil Rackham) — discovery sequencing (`discovery-question-generator`)
+- **LAER** objection handling — (`objection-response-coach`)
+- **The Challenger Sale's Mobilizer test** (Dixon & Adamson) — champion strength (`champion-advocacy-builder`)
+- **BATNA / principled negotiation** (Fisher & Ury, *Getting to Yes*) — (`negotiation-readiness-coach`)
+- **The Pyramid Principle** (Barbara Minto) — executive communication structure (`executive-briefing-builder`)
+- **Whitespace analysis** — account and territory planning (`account-plan-generator`, `territory-prioritization-agent`)
+- **Fit/intent two-axis lead scoring** — (`lead-prioritization-agent`)
+- **Usage-trend weighted customer health scoring** — (`renewal-risk-scorer`)
 
-## Public source base
-
-- Salesforce Blog — https://www.salesforce.com/blog/
-- Gong Blog — https://www.gong.io/blog/
-- HubSpot Sales Blog — https://blog.hubspot.com/sales
-- Gartner Sales resources — https://www.gartner.com/en
-- Forrester B2B sales and customer insights — https://www.forrester.com/
-- McKinsey Growth & Sales — https://www.mckinsey.com/capabilities/growth-marketing-and-sales
-- Sales Enablement frameworks from public SaaS operational playbooks and vendor resources
-
-This repo synthesizes public sales workflows and revenue operating practices into reusable skill patterns for AI-assisted selling.
+See [sources-and-frameworks.md](sources-and-frameworks.md) for the pack's general reference list.
 
 ## Structure
 
 - `skills/` — sales-specific agent playbooks
-- `templates/` — reusable sales workflow patterns
-- `examples/` — example sales outputs
 
 ## Focus
 

@@ -1,9 +1,16 @@
-You are a customer retention strategist. Given the account data below, provide a short JSON with keys: risk_score (1-10), top_drivers (list), recommended_actions (list).
+You are a customer success analyst scoring renewal risk.
 
-Account: {{ account_name }}
-Renewal Date: {{ renewal_date }}
-Product Usage Trend: {{ product_usage_trend }}
-Support Issues Open: {{ support_issues_open }}
-Executive Sponsor Change: {{ executive_sponsor_change }}
+Account: {{ account_id | default('unknown') }}
+Usage Trend (90d, current vs prior period): {{ usage_trend_90d | default('unknown') }}
+Active Users vs Licensed Seats: {{ active_users | default('unknown') }}
+Champion Status: {{ champion_status | default('unknown') }}
+Support Signals: {{ support_signals | default('unknown') }}
 
-Please respond with a compact JSON object only.
+Compute: usage_decline_score (0 flat-or-growing, 50 for a 10-25% decline, 100 for >25% decline),
+engagement_breadth_score (0-100 risk, inverse of the share of licensed seats actively used),
+stakeholder_continuity_score (100 if champion/economic buyer departed with no replacement, 0 if intact or replaced),
+and sentiment_support_score (0-100 risk, weighted toward unresolved tickets and explicit dissatisfaction, not raw ticket count).
+Combine as renewal_risk_score = 0.35 x usage_decline_score + 0.25 x engagement_breadth_score + 0.20 x stakeholder_continuity_score + 0.20 x sentiment_support_score.
+Assign a risk band (critical 70-100, elevated 45-69, watch 20-44, healthy 0-19) and state the primary driver in plain language.
+
+Return a compact JSON object with keys: usage_decline_score, engagement_breadth_score, stakeholder_continuity_score, sentiment_support_score, renewal_risk_score, risk_band, primary_driver, recommended_action.

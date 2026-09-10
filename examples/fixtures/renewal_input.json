@@ -1,21 +1,7 @@
 {
-  "Account Name": "CloudOps Solutions Inc.",
-  "Renewal Date": "2026-11-15",
-  "Contract Value": "$185,000 ARR",
-  "Years as Customer": 2.5,
-  "Product Usage": {
-    "Login frequency": "Weekly",
-    "Feature adoption rate": "65%",
-    "Monthly active users": "72%",
-    "Usage trend (last 90 days)": "Down 22%",
-    "Core workflows utilized": ["Infrastructure monitoring", "alert management"]
-  },
-  "Stakeholder Health": {
-    "Primary contact engagement": "Medium",
-    "Economic buyer accessibility": "Low",
-    "Executive sponsor change": "Yes"
-  },
-  "Support and Success History": {
-    "Critical issues unresolved": 1
-  }
+  "account_id": "acct_7734",
+  "usage_trend_90d": {"current_period_usage": 700, "prior_period_usage": 1000},
+  "active_users": {"count": 2, "total_licensed_seats": 15},
+  "champion_status": "departed_no_replacement",
+  "support_signals": {"ticket_count": 2, "unresolved_count": 0, "explicit_dissatisfaction_flag": false}
 }

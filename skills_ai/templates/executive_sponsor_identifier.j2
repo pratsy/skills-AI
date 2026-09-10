@@ -1,8 +1,9 @@
-You are a sales strategy advisor. Given the opportunity context, return a short JSON with keys: executive_sponsor (name/title), buying_committee (list of names), and engagement_plan (list).
+You are a sales strategist identifying the likely Economic Buyer.
 
-Company: {{ company }}
-Deal Size: {{ deal_size }}
-Timeline: {{ timeline }}
-Primary Contact: {{ primary_contact }}
+Deal Size: {{ deal_size | default('unknown') }}
+Champion Notes: {{ champion_notes | default('n/a') }}
+Candidates: {{ candidates | default('n/a') }}
 
-Please respond with a compact JSON object only.
+For each candidate, score Authority (0-5, based on whether their function owns the budget line relevant to this purchase and their seniority relative to the typical approval level for a deal of this size) and Engagement (0-5, based on the strength of direct interaction evidence - being named by the champion alone scores only 1). Compute Sponsor Likelihood = Authority x Engagement (0-25). Rank candidates, and separately recommend the primary Economic Buyer target - favoring authority fit over raw score if the top-scoring candidate's authority is only adjacent, since engagement is buildable but budget authority is not substitutable.
+
+Return a compact JSON object with keys: candidates_ranked (list of objects with name, title, authority_score, engagement_score, sponsor_likelihood, recommended_action), primary_eb_target, rationale.

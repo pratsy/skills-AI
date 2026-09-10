@@ -1,81 +1,80 @@
 # Executive Sponsor Identifier
 
-## Why this skill exists
+Identify the most likely Economic Buyer (MEDDPICC) from an org chart and engagement signals, ranked by budget authority and engagement likelihood — instead of guessing from job title alone.
 
-Deals stall when there is no real executive sponsorship behind the initiative.
+## When to use this
 
-This skill helps identify whether the account has a credible sponsor who can align stakeholders, remove friction, and create urgency for a decision.
+- The champion won't or can't name who actually approves the budget.
+- Multiple senior contacts are engaged and it's unclear which one is the real decision-maker vs. an interested observer.
+- You need a specific person and angle to ask your champion to broker an introduction to, not just "someone senior."
 
-## Business objective
+## Methodology
 
-This skill helps the team answer:
+Two independent signals, because title alone is a weak predictor of who actually controls budget in flat or matrixed org structures:
 
-> Is there a real executive sponsor in this account, and what role should they play in moving the deal forward?
+- **Authority signal**: org position relative to the budget line this purchase would come from (does their function typically own this budget, and are they senior enough within it — VP+ for most mid-market SaaS deals, director-level in smaller orgs).
+- **Engagement signal**: any direct or indirect interaction — attended a call, replied to an email, was referenced by the champion as someone who "needs to see this."
 
-## Expert memory layer
+A person can rank high on authority and never surface as an actual approver (delegated authority), so both signals are needed, and the **gap** between them is itself informative.
 
-Strong enterprise teams know that an executive sponsor is not simply a high-level contact.
+## Scoring model
 
-The real patterns are:
+```
+Authority Score (0-5): 0=no budget relationship to this purchase, 1-2=adjacent function, 3-4=owns the relevant budget line but below typical approval seniority, 5=owns the budget line at typical approval seniority for this deal size
 
-- who genuinely owns the business outcome
-- who has authority to remove internal friction
-- who is likely to accelerate decision-making
-- who is visible enough to create commitment across stakeholders
+Engagement Score (0-5): 0=no signal at all, 1=named by champion only, 2=named + one indirect signal (e.g. cc'd on email), 3=attended one call, 4=directly asked a substantive question on a call, 5=proactively engaged (scheduled time, asked for follow-up)
 
-This skill brings those patterns into a structured sponsor assessment.
+Sponsor Likelihood = Authority Score x Engagement Score (0-25)
+```
+
+Rank all candidates by Sponsor Likelihood. A candidate with Authority 5 / Engagement 0 is your target to *pursue*; a candidate with Authority 2 / Engagement 5 is enthusiastic but may not be the actual approver — useful as a secondary champion, not the EB ask.
 
 ## Inputs
 
-- account context and buying group details
-- stakeholder roles and influence patterns
-- deal stage and buying process maturity
-- executive conversations or sponsor signals
-- internal stakeholder feedback and value themes
+| Field | Type | Example |
+|---|---|---|
+| `candidates` | list[{name, title, function, seniority, engagement_evidence}] | every senior contact identified so far |
+| `deal_size` | number | used to calibrate typical approval seniority |
+| `champion_notes` | string | anything the champion has said about who approves |
 
-## Decision logic
+## Worked example
 
-A strong sponsor assessment weighs:
+Deal size: $180K (mid-market — typical approval seniority: VP or above in Sales Ops/RevOps).
 
-1. authority and decision power
-2. direct business impact or accountability
-3. willingness to advocate internally
-4. ability to remove blockers or align teams
-5. strategic alignment with the initiative
+| Candidate | Title | Authority | Engagement | Score |
+|---|---|---|---|---|
+| J. Alvarez | VP Sales Ops | 5 (owns budget, right seniority) | 1 (named by champion only) | 5 |
+| M. Torres | Director IT | 3 (adjacent, procurement-adjacent, not deal owner) | 4 (asked technical questions on a call) | 12 |
+| R. Kim | CRO | 5 (owns budget at top seniority) | 0 (no signal at all) | 0 |
 
-Without meaningful sponsorship, even strong commercial interest can stall.
+Ranking by score: Torres (12) is the most *engaged* senior contact but Authority is only adjacent — good secondary influencer, not the EB target. Alvarez (5) has the right authority profile but low engagement — **this is the primary target for an introduction**, not Torres, despite Torres's higher raw score, because Authority is the harder constraint to substitute for (you can build engagement; you can't make someone the budget owner). Kim, despite perfect authority, has zero engagement signal — worth a targeted move (e.g., exec-to-exec outreach) but not yet actionable through the current deal team.
 
 ## Common failure patterns
 
-- mistaking a polite contact for a real sponsor
-- assuming senior title equals decision influence
-- ignoring the need for business-case alignment at the executive level
-- failing to identify the relationship between sponsor and champion
-- overlooking missing executive alignment in strategic deals
+- Ranking purely by the multiplied score without checking which factor is low — a high-engagement, low-authority contact and a high-authority, low-engagement contact need completely different next actions, not the same "keep engaging" plan.
+- Assuming CRO/C-level title always means Economic Buyer for this specific purchase — for a $180K sales-ops tool, a VP Sales Ops may hold real approval authority while the CRO delegates entirely.
+- Treating "named by the champion" as engagement-equivalent to a direct interaction — champion nomination is a weak signal (score 1) precisely because champions sometimes over-claim influence of people they want you to think matter.
+- Stopping the search after finding one plausible EB candidate instead of ranking all candidates — the second-ranked candidate is often the better near-term target if the top one has zero engagement.
 
-## Outputs
+## Output schema
 
-- executive sponsor assessment
-- sponsor quality and relevance rating
-- likely sponsor gaps or risks
-- recommended engagement strategy
-- action to strengthen sponsor support
-
-## Example result
-
-### Sponsor quality: moderate
-- A functional leader is engaged and supportive, but there is no clear executive sponsor aligned with the business case.
-- Buying momentum may stall during internal alignment.
-- Recommendation: identify a senior sponsor with direct accountability for cost or operational impact, then align decision criteria around that outcome.
+```json
+{
+  "candidates_ranked": [
+    {"name": "J. Alvarez", "title": "VP Sales Ops", "authority_score": 5, "engagement_score": 1, "sponsor_likelihood": 5, "recommended_action": "request champion-brokered introduction"},
+    {"name": "M. Torres", "title": "Director IT", "authority_score": 3, "engagement_score": 4, "sponsor_likelihood": 12, "recommended_action": "engage as influencer, not primary EB target"}
+  ],
+  "primary_eb_target": "J. Alvarez",
+  "rationale": "correct authority profile for deal size despite low current engagement; engagement is buildable, budget authority is not"
+}
+```
 
 ## Recommended prompt
 
-> You are a senior enterprise sales strategist. Review the account and stakeholder context and determine whether there is a credible executive sponsor, how strong that sponsorship is, and what actions are needed to strengthen it before the deal stalls.
+> You are a sales strategist identifying the likely Economic Buyer. For each candidate, score Authority (0-5, based on whether their function owns the relevant budget line and their seniority relative to typical approval level for this deal size) and Engagement (0-5, based on the strength of direct interaction evidence, not just being named by the champion). Compute Sponsor Likelihood = Authority x Engagement. Rank candidates, and separately call out the recommended primary EB target — favoring authority fit over raw score if the top-scoring candidate's authority is only adjacent, since engagement is buildable but budget authority is not substitutable. Return JSON matching the schema above.
 
-## Source basis
+## Grounded in
 
-This skill is informed by public enterprise sales, sponsor mapping, and multi-stakeholder buying process practices used in complex B2B motions.
+The Economic Buyer identification practice within MEDDPICC-based enterprise sales qualification, scored on independent authority and engagement axes so a highly engaged but non-budget-owning contact isn't mistaken for the actual approver.
 
-## References
-
-See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the pack's general reference list.

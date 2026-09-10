@@ -1,142 +1,84 @@
 # Lead Prioritization Agent
 
-## Why this skill exists
+Score leads on independent fit and intent axes (not one blended score) so reps can distinguish "great-fit, not ready yet" from "ready now, mediocre fit" — the two most commonly confused lead types in flat lead-scoring models.
 
-Most sales teams do not have a prioritization problem. They have a focus problem.
+## When to use this
 
-They are doing too much at once, chasing weak-fit accounts, and treating activity as a substitute for buying signal. This skill helps reduce that noise.
+- A single blended lead score sends reps chasing high-scoring leads that are actually just high-fit-but-cold, wasting outreach on people not currently in a buying window.
+- Reps and marketing disagree on what "good lead" means because the score doesn't distinguish why a lead scored high.
+- You need to route leads differently by type (fast-follow vs. nurture vs. deprioritize) rather than a single ranked list.
 
-It is designed to rank accounts by the combination of:
+## Methodology
 
-- fit with the target buyer profile
-- urgency and buying signal strength
-- commercial value and strategic importance
-- likelihood of conversion in the current motion
-- risk of wasting time on low-quality opportunities
+Two independent axes, each 0–100, deliberately kept separate rather than blended into one number, because the right action differs completely depending on which axis is driving the score:
 
-This is not a generic lead score. It is a practical decision aid for sales teams that need to decide where attention should go today.
+- **Fit**: how well the lead's firmographic/role profile matches the ICP (see [`icp-refinement-agent`](../../b2b-agent-skills-marketing/skills/icp-refinement-agent/README.md) in the marketing pack for how to derive fit weights from evidence, not assumption).
+- **Intent**: how much active buying behavior this specific lead is showing right now (recency/frequency/depth of engagement, similar to the RFM approach in [`audience-segmentation-optimizer`](../../b2b-agent-skills-marketing/skills/audience-segmentation-optimizer/README.md), plus any explicit high-intent action like a demo/pricing request).
 
-## Expert memory layer
+## Scoring model
 
-A strong prioritization model should learn from the patterns that matter in real sales execution:
+```
+Fit Score (0-100) = weighted sum of ICP-attribute matches (industry, size, role seniority, tech stack), using lift-derived weights where available
 
-- which accounts consistently convert when they show early buying urgency
-- which segments look promising but stall because the buying process is too complex
-- which signals indicate real intent versus noise
-- which accounts are attractive on paper but weak in execution reality
+Intent Score (0-100) =
+    40 x recency_points (40 if action in last 3d, 25 if last 14d, 10 if last 30d, 0 otherwise)
+  + 35 x explicit_high_intent_action (35 if requested demo/pricing/trial, 0 otherwise)
+  + 25 x engagement_depth (capped 25, per-touch weight similar to RFM depth scoring)
+```
 
-This skill encodes those patterns into a simpler, more useful output: a ranked list, clear rationale, and a recommended next action.
+### 2x2 routing (not a single rank)
 
-## Business objective
-
-This skill helps a sales team answer a very practical question:
-
-> Which accounts deserve real attention this week, and which should be deprioritized or nurtured?
+| | High Intent (≥60) | Low Intent (<60) |
+|---|---|---|
+| **High Fit (≥60)** | **Route to rep now** — best-fit, active buying signal | **Marketing nurture, fit-matched content** — good account, not yet active; don't burn rep time |
+| **Low Fit (<60)** | **Light-touch rep follow-up** — active signal but fit is uncertain; verify before investing heavily | **Deprioritize / suppress** — low value even if this lead is easy to reach |
 
 ## Inputs
 
-- CRM records and opportunity context
-- company firmographics and segment fit
-- buyer engagement and intent signals
-- past conversion or win patterns
-- stage progression and deal momentum
-- account-level strategic value
+| Field | Type | Example |
+|---|---|---|
+| `lead_id` | string | |
+| `icp_attributes` | object | industry, size, role, tech stack |
+| `icp_weights` | object | attribute weights, ideally lift-derived |
+| `engagement_events` | list[{date, type, weight}] | |
+| `explicit_high_intent_action` | bool | requested demo/pricing/trial |
 
-## What good output looks like
+## Worked example
 
-The output should not just say “high, medium, low.” It should explain:
+Lead: Director of RevOps at a 400-person FinTech company. Fit Score (weighted against ICP attributes): 82. Engagement: visited pricing page 2 days ago, requested a demo.
 
-- why the account matters now
-- which buying signals are strongest
-- what risk or friction is likely
-- what action should happen next
-
-## Decision logic
-
-Use the following logic when ranking accounts:
-
-1. Fit: Does this account match the target profile?
-2. Urgency: Is the buyer showing actual movement or just passive interest?
-3. Value: Is this deal strategically or commercially meaningful?
-4. Execution risk: Is this account likely to stall, delay, or require heavy internal effort?
-5. Conversion quality: Is this opportunity likely to convert with the current motion?
-
-Accounts with strong fit, clear urgency, and manageable execution risk should rise to the top.
+```
+Intent Score = 40(recency=3d→40pts scaled) + 35(explicit action=true) + 25(depth, pricing page=high) 
+             ≈ 88
+```
+Fit 82, Intent 88 → both ≥60 → **Route to rep now.** Contrast with a lead scoring Fit 85, Intent 15 (great firmographic match, zero recent engagement) — same fit tier, completely different action: nurture, not a rep call, because there's no current buying signal to act on.
 
 ## Common failure patterns
 
-This skill should explicitly guard against weak reasoning such as:
+- Blending fit and intent into one number, which makes a high-fit-zero-intent lead and a low-fit-high-intent lead look identical on a sorted list despite needing opposite treatment.
+- Scoring intent from marketing-email engagement alone (opens/clicks) without weighting explicit high-intent actions (demo/pricing requests) much more heavily — these are qualitatively different signals.
+- Using static ICP weights that were never validated against actual win data — see icp-refinement-agent for deriving weights from evidence instead of assumption.
+- Not re-scoring intent as it decays — a lead that was High Intent two weeks ago with no follow-up engagement should drop out of the "route to rep now" quadrant, not stay there indefinitely.
 
-- over-prioritizing large logos with poor fit
-- treating high activity as equivalent to buying intent
-- ignoring stakeholder complexity and multi-threading needs
-- prioritizing account size over conversion realism
-- using static scorecards without business context
+## Output schema
 
-## Outputs
-
-A useful output should include:
-
-- ranked account list
-- score or priority band
-- explanation of fit and urgency
-- likely conversion quality
-- risk flags
-- next-best action for the rep or manager
-
-## Example result
-
-### Priority 1: Account A
-- Fit: very strong
-- Urgency: high
-- Buying signal: active stakeholder engagement and positive buying motion
-- Value: strategic and commercially meaningful
-- Risk: low-to-medium due to evaluation complexity
-- Recommendation: book executive review and push multi-threading plan
-
-### Priority 2: Account B
-- Fit: moderate
-- Urgency: medium
-- Buying signal: consistent but not urgent
-- Value: medium
-- Risk: moderate because internal alignment remains unclear
-- Recommendation: nurture with targeted next-step sequence and continue qualification
-
-### Priority 3: Account C
-- Fit: weak
-- Urgency: low
-- Value: low
-- Risk: strong mismatch with current ICP
-- Recommendation: deprioritize or move to long-tail nurturing
+```json
+{
+  "lead_id": "lead_9182",
+  "fit_score": 82,
+  "intent_score": 88,
+  "quadrant": "high fit / high intent",
+  "routing": "route to rep now",
+  "rationale": "strong ICP match and an explicit demo request within the last 3 days"
+}
+```
 
 ## Recommended prompt
 
-Use a prompt like this:
+> You are a lead scoring analyst. Compute Fit Score (0-100, weighted match against the ICP attributes/weights given) and Intent Score (0-100 = recency points + 35 if an explicit high-intent action occurred + engagement depth, capped) independently — do not blend them into one number. Assign the lead to one of four quadrants (high fit/high intent, high fit/low intent, low fit/high intent, low fit/low intent) using a 60/60 threshold, and state the routing action for that quadrant. Return JSON matching the schema above.
 
-> You are a senior B2B sales strategist. Review the accounts below and rank them by commercial value, fit, urgency, and likely conversion quality. Focus on where sales attention should go this week. For each account, explain the decision using real sales logic, call out early risk signals, and recommend the next best action for the rep or team.
+## Grounded in
 
-## Source basis
+A fit/intent two-axis lead scoring model, standard in B2B predictive lead scoring, kept deliberately unblended so routing logic can differ by quadrant instead of collapsing distinct lead types into one rank-ordered list.
 
-This skill is grounded in public B2B sales and revenue practices, including:
-
-- sales qualification logic familiar in MEDDIC and related enterprise buying frameworks
-- ICP and segment fit practices used in sales planning and territory design
-- deal-quality thinking from public revenue operations and sales enablement guidance
-- prioritization models used in account planning and enterprise pipeline reviews
-
-## References
-
-See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.
-
-## Why this is different from a generic prompt
-
-This is not just a generic “rank these leads” prompt.
-
-It is built to reflect how experienced sales teams think:
-
-- not all activity is buying intent
-- not every large account deserves equal attention
-- not every weak-fit company is worth chasing
-- the best output combines fit, urgency, and execution reality
-
-That is the expert memory that makes this skill useful.
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the pack's general reference list.
