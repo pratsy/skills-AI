@@ -24,3 +24,17 @@ def test_run_executive_sponsor_identifier():
     res = run_skill("executive_sponsor_identifier", "tests/_tmp_input.json", provider=MockProvider())
     assert res["skill"] == "executive-sponsor-identifier"
     assert "result" in res or "raw" in res
+
+
+def test_run_marketing_skills():
+    # brand positioning
+    res1 = run_skill("brand_positioning_synthesizer", "examples/fixtures/brand_positioning_input.json", provider=MockProvider())
+    assert res1["skill"] == "brand-positioning-synthesizer"
+
+    # audience segmentation
+    res2 = run_skill("audience_segmentation_optimizer", "examples/fixtures/audience_segmentation_input.json", provider=MockProvider())
+    assert res2["skill"] == "audience-segmentation-optimizer"
+
+    # nurture sequence
+    res3 = run_skill("nurture_sequence_architect", "examples/fixtures/nurture_sequence_input.json", provider=MockProvider())
+    assert res3["skill"] == "nurture-sequence-architect"

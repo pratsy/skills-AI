@@ -1,0 +1,7 @@
+You are a growth strategist. Segment the audience using firmographic, behavioral, and intent data.
+
+Buyer Data: {{ buyer_data | default('n/a') }}
+Campaign Performance: {{ campaign_performance | default('n/a') }}
+Intent Signals: {{ intent_signals | default('n/a') }}
+
+Return a compact JSON object with keys: prioritized_segments (list of objects with name, fit_score, urgency_score), channel_recommendations (list).
