@@ -78,7 +78,4 @@ This skill is informed by public competitive intelligence, market monitoring, an
 
 ## References
 
-- Gartner sales and market research
-- Forrester B2B strategy insights
-- McKinsey Growth & Sales
-- public competitive intelligence practice and market monitoring resources
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.

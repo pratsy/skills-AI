@@ -78,9 +78,4 @@ This skill is informed by public lifecycle marketing, email strategy, and custom
 
 ## References
 
-- HubSpot Blog
-- Demandbase Blog
-- 6sense Blog
-- Gartner marketing research
-- Forrester B2B buyer research
-- McKinsey Growth & Sales
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.

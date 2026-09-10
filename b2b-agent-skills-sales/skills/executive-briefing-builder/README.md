@@ -78,9 +78,4 @@ This skill is informed by public executive communication, strategic account plan
 
 ## References
 
-- Salesforce Blog
-- Gong Blog
-- HubSpot Sales Blog
-- Gartner sales and customer strategy research
-- Forrester B2B sales insights
-- McKinsey Growth & Sales
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.

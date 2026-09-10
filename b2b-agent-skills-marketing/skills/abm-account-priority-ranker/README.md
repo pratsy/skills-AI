@@ -82,9 +82,4 @@ This skill is informed by public ABM, account prioritization, and enterprise go-
 
 ## References
 
-- HubSpot Blog
-- Demandbase Blog
-- 6sense Blog
-- Bombora Insights
-- Gartner marketing and sales research
-- Forrester B2B buyer insights
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.

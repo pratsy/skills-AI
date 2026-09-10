@@ -75,11 +75,7 @@ This skill is informed by public market intelligence, category analysis, custome
 
 ## References
 
-- McKinsey Growth & Sales
-- Gartner market research
-- Forrester category insight resources
-- Demandbase and Bombora market intelligence content
-- public SaaS and growth trend research
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.
 
 ## Why this is different from a generic prompt
 

@@ -25,6 +25,10 @@ Open-source AI playbooks for B2B marketing strategy, messaging, campaign optimiz
 - content-gap-analysis-agent
 - brand-perception-monitor
 - customer-journey-friction-audit
+- persona-insight-extractor
+- landing-page-copy-optimizer
+- lifecycle-email-optimizer
+- ad-copy-variant-generator
 
 ## Research basis
 

@@ -79,9 +79,4 @@ This skill is informed by public commercial strategy, pricing discipline, ROI fr
 
 ## References
 
-- Salesforce Blog
-- Gong Blog
-- HubSpot Sales Blog
-- Gartner sales and pricing research
-- Forrester B2B commercial strategy insights
-- McKinsey Growth & Sales
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.

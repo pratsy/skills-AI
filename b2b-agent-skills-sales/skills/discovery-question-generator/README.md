@@ -80,11 +80,7 @@ This skill is grounded in public sales qualification, discovery, and B2B buying-
 
 ## References
 
-- Gartner sales and buying-process research
-- Forrester B2B sales insights
-- Salesforce sales enablement resources
-- Gong and sales qualification best practices
-- standard enterprise discovery and MEDDIC-style qualification frameworks
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.
 
 ## Why this is different from a generic prompt
 

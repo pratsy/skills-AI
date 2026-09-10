@@ -94,12 +94,7 @@ This skill is grounded in public market intelligence, category analysis, competi
 
 ## References
 
-- McKinsey: market and growth strategy resources
-- Gartner and Forrester: market intelligence and strategic planning research
-- Demandbase Blog
-- Bombora Insights
-- 6sense Blog
-- public SaaS competitive intelligence and GTM strategy resources
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.
 
 ## Why this is different from a generic prompt
 

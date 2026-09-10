@@ -106,13 +106,7 @@ This skill is informed by public B2B marketing, lifecycle strategy, and buyer-jo
 
 ## References
 
-- HubSpot Blog
-- Demandbase Blog
-- 6sense Blog
-- Bombora Insights
-- McKinsey Growth & Sales
-- Gartner marketing resources
-- Forrester research
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.
 
 ## Why this is different from a generic prompt
 

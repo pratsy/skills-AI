@@ -15,7 +15,7 @@ Open-source AI playbooks for strategic go-to-market intelligence, competitive aw
 
 - competitor-monitor
 - win-loss-theme-clusterer
-- account-intelligence-curator
+- market-sizing-modeler
 - market-trend-signal-reporter
 - strategic-account-priority-ranker
 - account-priority-matrix-builder

@@ -78,10 +78,7 @@ This skill is grounded in standard market-sizing practice, strategic planning, a
 
 ## References
 
-- McKinsey growth and strategy resources
-- Bain market opportunity analysis frameworks
-- Gartner strategic planning research
-- public SaaS market sizing and Go-to-Market planning resources
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.
 
 ## Why this is different from a generic prompt
 

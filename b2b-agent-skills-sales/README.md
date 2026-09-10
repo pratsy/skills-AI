@@ -26,6 +26,12 @@ Open-source AI playbooks for sales execution, qualification, pipeline strategy, 
 - multi-threading-plan-builder
 - champion-advocacy-builder
 - deal-committee-readiness-coach
+- account-plan-generator
+- negotiation-readiness-coach
+- pricing-justification-builder
+- stakeholder-map-builder
+- territory-prioritization-agent
+- executive-briefing-builder
 
 ## Standard skill format
 

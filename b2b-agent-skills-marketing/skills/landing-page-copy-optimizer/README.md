@@ -78,9 +78,4 @@ This skill is informed by public conversion optimization, landing-page testing, 
 
 ## References
 
-- HubSpot Blog
-- Demandbase Blog
-- 6sense Blog
-- Gartner marketing research
-- Forrester B2B buyer insights
-- McKinsey Growth & Sales
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.

@@ -17,9 +17,7 @@ Open-source AI playbooks for revenue operations, pipeline health, forecasting co
 - forecast-bias-detector
 - crm-data-cleaner
 - sales-handoff-quality-auditor
-- revenue-attribution-reviewer
-- pipeline-health-audit-agent
-- forecast-bias-detector
+- attribution-model-reviewer
 
 ## Research basis
 

@@ -76,9 +76,4 @@ This skill is informed by public campaign optimization, performance marketing, a
 
 ## References
 
-- HubSpot Blog
-- Demandbase Blog
-- 6sense Blog
-- Gartner marketing research
-- Forrester B2B buyer research
-- McKinsey Growth & Sales
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.

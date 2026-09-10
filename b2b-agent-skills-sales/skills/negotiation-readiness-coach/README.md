@@ -79,9 +79,4 @@ This skill is informed by public commercial negotiation, enterprise buying behav
 
 ## References
 
-- Salesforce Blog
-- Gong Blog
-- HubSpot Sales Blog
-- Gartner sales and commercial strategy research
-- Forrester B2B sales insights
-- McKinsey Growth & Sales
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.

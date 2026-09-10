@@ -80,9 +80,4 @@ This skill is grounded in public revenue operations, sales forecasting, and pipe
 
 ## References
 
-- Salesforce Blog
-- Gong Blog
-- HubSpot Sales Blog
-- Gartner sales and RevOps research
-- Forrester B2B sales research
-- McKinsey Growth & Sales
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.

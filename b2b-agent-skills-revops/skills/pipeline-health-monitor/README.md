@@ -97,12 +97,7 @@ This skill is informed by public pipeline quality, forecasting, and revenue oper
 
 ## References
 
-- Salesforce Blog
-- Gong Blog
-- HubSpot Sales Blog
-- Gartner sales and RevOps resources
-- Forrester B2B sales research
-- McKinsey Growth & Sales
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.
 
 ## Why this is different from a generic prompt
 

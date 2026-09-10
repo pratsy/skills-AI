@@ -80,9 +80,4 @@ This skill is informed by public deal review, enterprise sales, and B2B risk-tra
 
 ## References
 
-- Salesforce Blog
-- Gong Blog
-- HubSpot Sales Blog
-- Gartner sales and revenue research
-- Forrester B2B sales research
-- McKinsey Growth & Sales
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.

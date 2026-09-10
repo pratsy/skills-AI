@@ -76,10 +76,7 @@ This skill is informed by competitive intelligence practice, market monitoring, 
 
 ## References
 
-- Gartner competitive strategy and market intelligence resources
-- Forrester B2B strategy research
-- McKinsey Growth & Sales
-- public SaaS competitive analysis and GTM strategy resources
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.
 
 ## Why this is different from a generic prompt
 

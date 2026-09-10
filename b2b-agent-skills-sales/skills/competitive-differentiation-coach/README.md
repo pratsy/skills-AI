@@ -78,8 +78,4 @@ This skill is informed by public competitive positioning, value messaging, and e
 
 ## References
 
-- Salesforce Blog
-- HubSpot Sales Blog
-- Gartner sales and marketing research
-- Forrester B2B strategy insights
-- McKinsey Growth & Sales
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.

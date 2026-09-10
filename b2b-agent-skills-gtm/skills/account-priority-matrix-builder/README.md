@@ -79,8 +79,4 @@ This skill is informed by public account prioritization, GTM planning, and strat
 
 ## References
 
-- Salesforce Blog
-- HubSpot Sales Blog
-- Gartner sales and GTM research
-- Forrester B2B strategy insights
-- McKinsey Growth & Sales
+See [sources-and-frameworks.md](../../sources-and-frameworks.md) for the full source list used across this skill pack.
