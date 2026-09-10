@@ -13,10 +13,6 @@ profile-readme-template.md
 .DS_Store
 **/.DS_Store
 
-# Notebooks and benchmarks (development only)
-notebooks/
-benchmarks/
-
 # Python cache and environment
 __pycache__/
 *.pyc

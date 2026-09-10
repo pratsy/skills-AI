@@ -23,9 +23,9 @@ Sales leaders, marketing and lifecycle teams, RevOps and forecasting teams, GTM 
 Supporting folders:
 
 - [`skills_ai/`](skills_ai/) — a small Python SDK that runs a subset of skills programmatically (template rendering, provider abstraction, output evaluation). Most skills in this repo are designed to be used as prompts directly; `skills_ai` currently wires up five of them end-to-end as a reference implementation for anyone who wants to run skills in code rather than copy-paste them. See [`skills_ai/README.md`](skills_ai/README.md).
-- [`docs/`](docs/) — quick start, prompt packs, and business use cases in plain English
+- [`docs/prompt-packs.md`](docs/prompt-packs.md) — copy-paste prompts by role, as a faster on-ramp than reading a full skill README
 - [`examples/`](examples/) — sample input fixtures and a webhook app example
-- [`memory/`](memory/) — the schema and checklist used to keep skills specific instead of generic
+- [`memory/`](memory/) — the checklist used to keep skills specific and evidence-grounded instead of generic
 - [`benchmarks/`](benchmarks/) — a small evaluation dataset and rubric for scoring skill output quality
 
 ## Quick start
@@ -36,7 +36,7 @@ Supporting folders:
 4. Paste the prompt into your AI tool of choice along with your own data, or run it through `skills_ai` if it's one of the five wired-up skills.
 5. Turn the output into a decision — who owns the action, and what happens next.
 
-For role-specific prompts you can copy-paste immediately, see [`docs/prompt-packs.md`](docs/prompt-packs.md) and [`docs/business-use-cases.md`](docs/business-use-cases.md).
+For role-specific prompts you can copy-paste immediately, see [`docs/prompt-packs.md`](docs/prompt-packs.md).
 
 ## Every skill follows the same structure
 

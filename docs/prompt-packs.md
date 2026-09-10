@@ -48,20 +48,11 @@ These are ready-to-use prompt patterns for non-technical people. They are writte
 
 > Summarize the recent sales, marketing, and customer data below. Identify the top issues affecting growth, the highest-value opportunities, and the actions that should be prioritized in the next 30 days to improve momentum.
 
-## Why these prompts work
+## How to use these
 
-These prompts are useful because they:
-- start with a real business problem
-- use plain language instead of technical jargon
-- force the model to explain reasoning
-- create output that can be used immediately in a business workflow
-
-## Recommended usage flow
-
-1. Pick the prompt that matches the current problem.
+1. Pick the prompt that matches your current problem.
 2. Add the relevant business context or data.
-3. Run the output through the skill or use the idea in your workflow.
-4. Review the result with the team.
-5. Turn the output into a short action plan.
+3. Run it through your AI tool of choice, or through `skills_ai` if it's one of the five skills wired into the SDK (see the root [README](../README.md)).
+4. Review the result with your team before acting on it — these prompts are a starting point, not a substitute for judgment on a specific deal or account.
 
-The goal is not to replace human judgment. The goal is to reduce delay and improve clarity.
+For the fuller, formula-driven version of any of these (explicit scoring model, worked example, output schema), go to the matching skill's README in the relevant pack — these quick prompts are a faster on-ramp, not a replacement for it.
