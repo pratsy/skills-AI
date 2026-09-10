@@ -270,6 +270,30 @@ Use it to:
 
 This is not a generic AI playground. It is a business-use library built for the people running GTM work every day.
 
+## Role-based workflow map
+
+Use the right skill for the right operational question.
+
+- Sales leader: account prioritization, deal risk, multi-threading, committee readiness
+- Marketing leader: content gap analysis, brand perception, journey friction, messaging clarity
+- RevOps leader: pipeline health, forecast bias, handoff quality, operational risk review
+- GTM operator: market shift monitoring, competitor signal clustering, strategic account planning
+- Founder: strategic prioritization, executive summary, cross-functional GTM alignment
+
+## Prompt packs
+
+This repo includes plain-English prompt patterns for common business scenarios.
+
+- `docs/prompt-packs.md` — role-specific business prompts
+- `docs/business-use-cases.md` — practical examples by function
+- `docs/skill-usage.md` — technical setup and execution guide
+
+## Why this works for real users
+
+People do not buy a repo because it has code. They buy a repo because it helps them solve a business problem.
+
+This library is designed to turn operational GTM questions into structured, decision-friendly outputs that teams can actually use in meetings, planning, reviews, and daily execution.
+
 ## Use cases by role
 
 ### Sales leader
